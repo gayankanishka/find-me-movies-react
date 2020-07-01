@@ -11,7 +11,7 @@ const UpcomingMovies = () => {
 
   return (
     <>
-      <h2>Top Rated Movies</h2>
+      <h2>Upcoming Movies</h2>
       <MovieList movies={movies} />
     </>
   );
