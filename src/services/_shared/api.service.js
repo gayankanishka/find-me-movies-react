@@ -13,8 +13,7 @@ export const apiService = {
   get,
 };
 
-async function get(endpoint, params) {
+function get(endpoint, params) {
   const url = createUrl(endpoint, params);
-  const res = await httpClient.get(url);
-  return res.data;
+  return httpClient.get(url).then((res) => res.data);
 }

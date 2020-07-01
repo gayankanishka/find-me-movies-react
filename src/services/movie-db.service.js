@@ -4,6 +4,6 @@ export const movieService = {
   getTrendingMovies,
 };
 
-async function getTrendingMovies() {
-  return await apiService.get("movie/popular");
+function getTrendingMovies() {
+  return apiService.get("movie/popular").then((res) => res.results);
 }
