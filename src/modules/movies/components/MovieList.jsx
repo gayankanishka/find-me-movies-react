@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import GridList from "@material-ui/core/GridList";
 import MovieCard from "./MovieCard";
-import { movieService } from "../../../services/movie-db.service";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,20 +16,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MovieList = () => {
+const MovieList = ({ movies }) => {
   const classes = useStyles();
-  const [movies, setMovies] = useState();
-
-  useEffect(() => {
-    movieService.getTrendingMovies().then((data) => setMovies(data));
-  }, []);
 
   return (
     <>
-      <h2>Trending Movies</h2>
       <div className={classes.root}>
-        <GridList className={classes.gridList} cols={2.5}>
-          <MovieCard />
+        <GridList className={classes.gridList} cols={3}>
+          {(movies || []).map((data) => {
+            return <MovieCard key={data.id} movie={data} />;
+          })}
         </GridList>
       </div>
     </>
