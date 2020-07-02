@@ -1,6 +1,8 @@
 {
   "name": "find-me-movies",
   "version": "0.1.0",
+  "author": "Gayan K",
+  "description": "Movie finder ReactJS application integrated with `The Movie DB API`.",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.0",
