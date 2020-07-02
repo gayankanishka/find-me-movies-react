@@ -1,4 +1,7 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app)
+
+![CI/CD](https://github.com/gayankanishka/find-me-movies/workflows/build/badge.svg)
+![License](https://img.shields.io/github/license/gayankanishka/find-me-movies)
 
 ## Available Scripts
 
