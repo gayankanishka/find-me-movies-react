@@ -1,19 +1,32 @@
 import React from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Layout from "./components/Layout";
-import PopularMovies from "./modules/movies/components/PopularMovies";
-import TopRatedMovies from "./modules/movies/components/TopRatedMovies";
-import UpcomingMovies from "./modules/movies/components/UpcomingMovies";
+import { routes } from "./routeConfig";
 
-function App() {
+const App = () => {
+  function RouteWithSubRoutes(route) {
+    return (
+      <Route
+        path={route.path}
+        render={(props) => (
+          // HINT: pass the sub-routes down to keep nesting
+          <route.component {...props} routes={route.routes} />
+        )}
+      />
+    );
+  }
+
   return (
-    <div>
-      <Layout title="Home">
-        <PopularMovies />
-        <TopRatedMovies />
-        <UpcomingMovies />
+    <Router>
+      <Layout>
+        <Switch>
+          {routes.map((route, i) => (
+            <RouteWithSubRoutes key={i} {...route} />
+          ))}
+        </Switch>
       </Layout>
-    </div>
+    </Router>
   );
-}
+};
 
 export default App;
