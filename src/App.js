@@ -1,7 +1,8 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Router, Switch, Route } from "react-router-dom";
 import Layout from "./components/Layout";
 import { routes } from "./routeConfig";
+import history from './utils/history.utils'
 
 const App = () => {
   function RouteWithSubRoutes(route) {
@@ -17,7 +18,7 @@ const App = () => {
   }
 
   return (
-    <Router>
+    <Router history={history}>
       <Layout>
         <Switch>
           {routes.map((route, i) => (
