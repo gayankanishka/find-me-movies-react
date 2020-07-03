@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { movieService } from '../../../services/movie-db.service';
+import movieService from '../../../services/movie-db.service';
 
 const MovieDetails = () => {
   const [movie, setMovie] = useState();
-  const id = useParams();
+  const { id } = useParams();
 
   useEffect(() => {
     movieService.getMovieById(id).then((data) => setMovie(data));

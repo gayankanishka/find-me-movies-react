@@ -2,7 +2,7 @@ import Home from './Home';
 import MovieDetails from './modules/movies/components/MovieDetails';
 import PageNotFound from './PageNotFound';
 
-export const routes = [
+const routes = [
   {
     path: '/',
     exact: true,
@@ -19,3 +19,5 @@ export const routes = [
     component: PageNotFound
   }
 ];
+
+export default routes;

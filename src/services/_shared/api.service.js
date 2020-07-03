@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { createUrl } from '../../utils/url.utils';
-import { config } from '../../config';
+import createUrl from '../../utils/url.utils';
+import config from '../../config';
 
 const httpClient = axios.create({
   baseURL: config.tmdbApi.baseUrl,
@@ -10,11 +10,13 @@ const httpClient = axios.create({
   }
 });
 
-export const apiService = {
-  get
-};
-
 function get(endpoint, params) {
   const url = createUrl(endpoint, params);
   return httpClient.get(url).then((res) => res.data);
 }
+
+const apiService = {
+  get
+};
+
+export default apiService;
