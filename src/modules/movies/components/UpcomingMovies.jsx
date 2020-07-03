@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { movieService } from "../../../services/movie-db.service";
-import MovieList from "./MovieList";
+import React, { useState, useEffect } from 'react';
+import { movieService } from '../../../services/movie-db.service';
+import MovieList from './MovieList';
 
 const UpcomingMovies = () => {
   const [movies, setMovies] = useState();

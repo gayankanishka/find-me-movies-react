@@ -1,7 +1,7 @@
-import history from "../utils/history.utils";
+import history from '../utils/history.utils';
 
 export const navigationService = {
-  goToMovieDetails,
+  goToMovieDetails
 };
 
 function goToMovieDetails(movieId) {

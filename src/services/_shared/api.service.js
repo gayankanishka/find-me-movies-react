@@ -1,17 +1,17 @@
-import axios from "axios";
-import { createUrl } from "../../utils/url.utils";
-import { config } from "../../config";
+import axios from 'axios';
+import { createUrl } from '../../utils/url.utils';
+import { config } from '../../config';
 
 const httpClient = axios.create({
   baseURL: config.tmdbApi.baseUrl,
   headers: {
     Authorization: `Bearer ${config.tmdbApi.apiKey}`,
-    "Content-Type": "application/json;charset=utf-8",
-  },
+    'Content-Type': 'application/json;charset=utf-8'
+  }
 });
 
 export const apiService = {
-  get,
+  get
 };
 
 function get(endpoint, params) {

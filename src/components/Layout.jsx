@@ -1,7 +1,7 @@
-import React from "react";
-import Header from "./Header";
-import Footer from "./Footer";
-import Container from "@material-ui/core/Container";
+import React from 'react';
+import Container from '@material-ui/core/Container';
+import Header from './Header';
+import Footer from './Footer';
 
 const Layout = ({ children }) => {
   return (

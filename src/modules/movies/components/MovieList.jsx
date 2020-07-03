@@ -1,19 +1,19 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import GridList from "@material-ui/core/GridList";
-import MovieCard from "./MovieCard";
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import GridList from '@material-ui/core/GridList';
+import MovieCard from './MovieCard';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "space-around",
-    overflow: "hidden",
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    overflow: 'hidden'
   },
   gridList: {
-    flexWrap: "nowrap",
-    transform: "translateZ(0)",
-  },
+    flexWrap: 'nowrap',
+    transform: 'translateZ(0)'
+  }
 }));
 
 const MovieList = ({ movies }) => {

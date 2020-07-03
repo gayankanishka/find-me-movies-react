@@ -1,8 +1,8 @@
-import React from "react";
-import { Router, Switch, Route } from "react-router-dom";
-import Layout from "./components/Layout";
-import { routes } from "./routeConfig";
-import history from './utils/history.utils'
+import React from 'react';
+import { Router, Switch, Route } from 'react-router-dom';
+import Layout from './components/Layout';
+import { routes } from './routeConfig';
+import history from './utils/history.utils';
 
 const App = () => {
   function RouteWithSubRoutes(route) {

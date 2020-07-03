@@ -1,17 +1,17 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardMedia from "@material-ui/core/CardMedia";
-import { navigationService } from "../../../services/navigation.service";
-import { config } from "../../../config";
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardMedia from '@material-ui/core/CardMedia';
+import { navigationService } from '../../../services/navigation.service';
+import { config } from '../../../config';
 
 const useStyles = makeStyles({
   root: {
     minWidth: 150,
     maxHeight: 250,
-    margin: 8,
-  },
+    margin: 8
+  }
 });
 
 const MovieCard = ({ movie }) => {

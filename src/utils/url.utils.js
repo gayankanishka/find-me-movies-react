@@ -1,4 +1,4 @@
-import qs from "qs";
+import qs from 'qs';
 
 export function createUrl(endpoint, queryParams) {
   const params = { ...(queryParams || {}) };

@@ -1,21 +1,21 @@
-import Home from "./Home";
-import MovieDetails from "./modules/movies/components/MovieDetails";
-import PageNotFound from "./PageNotFound";
+import Home from './Home';
+import MovieDetails from './modules/movies/components/MovieDetails';
+import PageNotFound from './PageNotFound';
 
 export const routes = [
   {
-    path: "/",
+    path: '/',
     exact: true,
-    component: Home,
+    component: Home
   },
   {
-    path: "/movie-details/:id",
+    path: '/movie-details/:id',
     exact: true,
-    component: MovieDetails,
+    component: MovieDetails
   },
   {
-    path: "*",
+    path: '*',
     exact: true,
-    component: PageNotFound,
-  },
+    component: PageNotFound
+  }
 ];
