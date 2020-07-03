@@ -1,10 +1,11 @@
 import axios from "axios";
 import { createUrl } from "../../utils/url.utils";
+import { config } from "../../config";
 
 const httpClient = axios.create({
-  baseURL: process.env.REACT_APP_TMDB_BASE_URL,
+  baseURL: config.tmdbApi.baseUrl,
   headers: {
-    Authorization: process.env.REACT_APP_TMDB_API_KEY,
+    Authorization: config.tmdbApi.apiKey,
     "Content-Type": "application/json;charset=utf-8",
   },
 });
