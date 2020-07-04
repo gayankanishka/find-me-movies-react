@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import { Card } from '@material-ui/core';
+import { Card, Typography } from '@material-ui/core';
+import Rating from '@material-ui/lab/Rating';
 import movieService from '../../../services/movie-db.service';
 import config from '../../../config';
 import Loader from '../../../components/Loader';
@@ -24,6 +25,11 @@ const useStyles = makeStyles((theme) => ({
   },
   imageWrapper: {
     maxWidth: 300
+  },
+  titleWrapper: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center'
   }
 }));
 
@@ -31,6 +37,9 @@ const MovieDetails = () => {
   const classes = useStyles();
   const [movie, setMovie] = useState();
   const { id } = useParams();
+
+  console.log(movie);
+  // convert native html elements to material elements
 
   useEffect(() => {
     movieService.getMovieById(id).then((data) => setMovie(data));
@@ -52,9 +61,41 @@ const MovieDetails = () => {
         </Card>
       </div>
       <div className={classes.contentWrapper}>
-        <h1>{movie.title}</h1>
-        <h1>{movie.release_date}</h1>
-        <p>{movie.overview}</p>
+        <div className={classes.titleWrapper}>
+          <Typography variant="h4">{movie.title}</Typography>
+          <Typography variant="h4">
+            &nbsp;(
+            {movie.release_date.split('-')[0]}
+            )&nbsp;
+          </Typography>
+        </div>
+        <div className={classes.titleWrapper}>
+          <Typography variant="h6">Genres: </Typography>
+          {movie.genres.map((genre, index) => {
+            return (
+              <Typography variant="overline" component="h3" key={genre.id}>
+                &nbsp;
+                {genre.name}
+                {index === movie.genres.length - 1 ? '' : ', '}
+              </Typography>
+            );
+          })}
+        </div>
+        <div className={classes.titleWrapper}>
+          <Typography variant="h6" display="block">
+            Rating:&nbsp;
+          </Typography>
+          <Rating
+            name="disabled"
+            value={movie.vote_average}
+            max={10}
+            precision={0.5}
+            disabled
+          />
+        </div>
+        <Typography variant="body1" paragraph>
+          {movie.overview}
+        </Typography>
       </div>
     </div>
   );
