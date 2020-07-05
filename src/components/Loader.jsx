@@ -1,21 +1,11 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { CircularProgress } from '@material-ui/core';
+import { CircularProgress, Backdrop } from '@material-ui/core';
 
-const useStyles = makeStyles(() => ({
-  root: {
-    position: 'fixed',
-    display: 'flex',
-    width: '100%',
-    height: '100%',
-    top: '0',
-    left: '0',
-    right: '0',
-    bottom: '0',
-    backgroundColor: 'rgba(0,0,0,0.5)',
-    zIndex: '2',
-    alignItems: 'center',
-    justifyContent: 'center'
+const useStyles = makeStyles((theme) => ({
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: '#fff'
   }
 }));
 
@@ -23,9 +13,9 @@ const Loader = () => {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <Backdrop className={classes.backdrop} open>
       <CircularProgress size={50} thickness={5} />
-    </div>
+    </Backdrop>
   );
 };
 
