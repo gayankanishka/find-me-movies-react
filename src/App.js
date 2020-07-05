@@ -1,5 +1,6 @@
 import React from 'react';
 import { Router, Switch, Route } from 'react-router-dom';
+import { CssBaseline } from '@material-ui/core';
 import Layout from './components/Layout';
 import routes from './routeConfig';
 import history from './utils/history.utils';
@@ -20,6 +21,7 @@ const App = () => {
 
   return (
     <Router history={history}>
+      <CssBaseline />
       <Layout>
         <Switch>
           {routes.map((route) => (

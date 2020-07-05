@@ -22,7 +22,7 @@ const MovieList = ({ movies }) => {
   return (
     <>
       <div className={classes.root}>
-        <GridList className={classes.gridList} cols={3}>
+        <GridList className={classes.gridList} cols={2.5}>
           {(movies || []).map((data) => {
             return <MovieCard key={data.id} movie={data} />;
           })}

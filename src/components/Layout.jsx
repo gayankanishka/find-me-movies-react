@@ -8,7 +8,7 @@ const Layout = ({ children }) => {
   return (
     <>
       <Header />
-      <Container>{children}</Container>
+      <Container maxWidth="xl">{children}</Container>
       <Footer />
     </>
   );
