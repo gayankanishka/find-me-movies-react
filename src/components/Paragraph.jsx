@@ -2,18 +2,18 @@ import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
 import PropTypes from 'prop-types';
 
-const MovieDescription = ({ description }) => {
+const Paragraph = ({ body }) => {
   return (
     <Grid item>
       <Typography variant="body1" paragraph>
-        {description}
+        {body}
       </Typography>
     </Grid>
   );
 };
 
-MovieDescription.propTypes = {
-  description: PropTypes.string.isRequired
+Paragraph.propTypes = {
+  body: PropTypes.string.isRequired
 };
 
-export default MovieDescription;
+export default Paragraph;
