@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
+import PropTypes from 'prop-types';
 import MovieCard from './MovieCard';
 
 const useStyles = makeStyles(() => ({
@@ -30,6 +31,14 @@ const MovieList = ({ movies }) => {
       </div>
     </>
   );
+};
+
+MovieList.propTypes = {
+  movies: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired
+    })
+  ).isRequired
 };
 
 export default MovieList;
