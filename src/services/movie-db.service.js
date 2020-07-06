@@ -16,11 +16,18 @@ function getUpcomingMovies() {
   return apiService.get('/movie/upcoming').then((res) => res.results);
 }
 
+function getRecommendedMovies(id) {
+  return apiService
+    .get(`movie/${id}/recommendations`)
+    .then((res) => res.results);
+}
+
 const movieService = {
   getMovieById,
   getPopularMovies,
   getTopRatedMovies,
-  getUpcomingMovies
+  getUpcomingMovies,
+  getRecommendedMovies
 };
 
 export default movieService;
