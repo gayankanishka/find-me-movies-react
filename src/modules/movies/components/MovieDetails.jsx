@@ -10,13 +10,18 @@ import MovieGenres from './MovieGenres';
 import MovieTitle from './MovieTitle';
 import InlineDescriptor from '../../../components/InlineDescriptor';
 import Paragraph from '../../../components/Paragraph';
+import config from '../../../config';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
+    alignItems: 'center'
   },
   contentWrapper: {
-    padding: theme.spacing(2)
+    backgroundColor: 'rgba(255, 255, 255, 0.6)',
+    backdropFilter: 'blur(5px)',
+    padding: theme.spacing(2),
+    margin: '1rem'
   }
 }));
 
@@ -32,6 +37,10 @@ const MovieDetails = () => {
   if (movie === undefined) {
     return <Loader />;
   }
+
+  document.body.style.backgroundImage = `url(
+    ${config.tmdbApi.backdropBaseUrl}${movie.backdrop_path}
+  )`;
 
   return (
     <Grid container direction="row" className={classes.root}>
