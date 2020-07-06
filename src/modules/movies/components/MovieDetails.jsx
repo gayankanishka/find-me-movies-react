@@ -11,6 +11,7 @@ import MovieTitle from './MovieTitle';
 import InlineDescriptor from '../../../components/InlineDescriptor';
 import Paragraph from '../../../components/Paragraph';
 import config from '../../../config';
+import RecommendedMovies from './RecommendedMovies';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,6 +56,9 @@ const MovieDetails = () => {
           description={movie.release_date}
         />
         <Paragraph body={movie.overview} />
+      </Grid>
+      <Grid item xs={12}>
+        <RecommendedMovies id={id} />
       </Grid>
     </Grid>
   );
