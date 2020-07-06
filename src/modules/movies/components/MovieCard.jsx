@@ -26,7 +26,7 @@ const MovieCard = ({ movie }) => {
         <CardMedia
           component="img"
           alt="Movie poster"
-          image={config.tmdbApi.imageBaseUrl + movie.poster_path}
+          image={config.tmdbApi.posterBaseUrl + movie.poster_path}
           title={movie.title}
         />
       </CardActionArea>

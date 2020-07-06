@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
 
 const MoviePoster = ({ path }) => {
   const classes = useStyles();
-  const imageSrc = `${config.tmdbApi.imageBaseUrl}${path}`;
+  const imageSrc = `${config.tmdbApi.posterBaseUrl}${path}`;
 
   return (
     <Grid item xs={12} sm={6} className={classes.cardWrapper}>
