@@ -19,7 +19,7 @@ const MovieCard = ({ movie }) => {
   const classes = useStyles();
 
   return (
-    <Card className={classes.root}>
+    <Card className={classes.root} elevation={3}>
       <CardActionArea
         onClick={() => navigationService.goToMovieDetails(movie.id)}
       >
