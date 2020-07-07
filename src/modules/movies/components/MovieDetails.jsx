@@ -39,7 +39,7 @@ const MovieDetails = () => {
     return <Loader />;
   }
 
-  document.body.style.backgroundImage = `url(
+  document.getElementById('root').style.backgroundImage = `url(
     ${config.tmdbApi.backdropBaseUrl}${movie.backdrop_path}
   )`;
 
