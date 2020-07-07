@@ -22,12 +22,20 @@ function getRecommendedMovies(id) {
     .then((res) => res.results);
 }
 
+function discoverMovies() {
+  const params = {
+    primary_release_year: new Date().getFullYear() - 2
+  };
+  return apiService.get('/discover/movie', params).then((res) => res.results);
+}
+
 const movieService = {
   getMovieById,
   getPopularMovies,
   getTopRatedMovies,
   getUpcomingMovies,
-  getRecommendedMovies
+  getRecommendedMovies,
+  discoverMovies
 };
 
 export default movieService;
