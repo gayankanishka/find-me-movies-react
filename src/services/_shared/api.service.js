@@ -1,5 +1,5 @@
 import axios from 'axios';
-import createUrl from '../../utils/url.utils';
+import stringUtils from '../../utils/string.utils';
 import config from '../../config';
 
 const httpClient = axios.create({
@@ -11,7 +11,7 @@ const httpClient = axios.create({
 });
 
 function get(endpoint, params) {
-  const url = createUrl(endpoint, params);
+  const url = stringUtils.createUrl(endpoint, params);
   return httpClient.get(url).then((res) => res.data);
 }
 
