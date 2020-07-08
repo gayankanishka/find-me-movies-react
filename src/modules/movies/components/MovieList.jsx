@@ -9,7 +9,8 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
-    overflow: 'hidden'
+    overflow: 'hidden',
+    width: '100%'
   },
   gridList: {
     flexWrap: 'nowrap',
