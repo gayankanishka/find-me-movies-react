@@ -24,7 +24,7 @@ function getRecommendedMovies(id) {
 
 function discoverMovies() {
   const params = {
-    primary_release_year: new Date().getFullYear() - 2
+    primary_release_year: new Date().getFullYear()
   };
   return apiService.get('/discover/movie', params).then((res) => res.results);
 }
