@@ -2,16 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
-import movieService from '../../../services/movie-db.service';
-import Loader from '../../../components/Loader';
-import MoviePoster from './MoviePoster';
-import MovieRating from './MovieRating';
-import MovieGenres from './MovieGenres';
-import MovieTitle from './MovieTitle';
-import InlineDescriptor from '../../../components/InlineDescriptor';
-import Paragraph from '../../../components/Paragraph';
-import config from '../../../config';
-import RecommendedMovies from './RecommendedMovies';
+import movieService from '../services/movie-db.service';
+import Loader from '../components/Loader';
+import MoviePoster from '../modules/movies/components/MoviePoster';
+import MovieRating from '../modules/movies/components/MovieRating';
+import MovieGenres from '../modules/movies/components/MovieGenres';
+import MovieTitle from '../modules/movies/components/MovieTitle';
+import InlineDescriptor from '../components/InlineDescriptor';
+import Paragraph from '../components/Paragraph';
+import config from '../config';
+import RecommendedMovies from '../modules/movies/components/RecommendedMovies';
 
 const useStyles = makeStyles((theme) => ({
   root: {

@@ -1,6 +1,6 @@
-import Home from './Home';
-import MovieDetails from './modules/movies/components/MovieDetails';
-import PageNotFound from './PageNotFound';
+import Home from './pages/Home';
+import MovieDetails from './pages/MovieDetails';
+import PageNotFound from './pages/PageNotFound';
 
 const routes = [
   {
