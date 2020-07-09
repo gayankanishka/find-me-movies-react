@@ -8,7 +8,7 @@ function createUrl(endpoint, queryParams) {
 
 function getDateString(date) {
   if (date) {
-    return new Date(date).toDateString().split(' ').slice(1).join(' ');
+    return new Date(date).toDateString().split(' ').slice(1).join(' - ');
   }
 
   return '';
