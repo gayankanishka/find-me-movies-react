@@ -9,16 +9,17 @@ import navigationService from '../../../services/navigation.service';
 import config from '../../../config';
 import stringUtils from '../../../utils/string.utils';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     margin: 10,
     flex: 1
   },
   image: {
     minWidth: 170,
-    maxHeight: 300
+    maxHeight: 300,
+    margin: theme.spacing(0, 0, 2, 0)
   }
-});
+}));
 
 const MovieCard = ({ movie }) => {
   const classes = useStyles();
@@ -39,7 +40,7 @@ const MovieCard = ({ movie }) => {
           <Typography variant="subtitle1" align="center">
             <strong>{movie.title}</strong>
           </Typography>
-          <Typography variant="subtitle2" align="center" fontStyle="italic">
+          <Typography variant="body2" align="center" fontStyle="italic">
             {stringUtils.getDateString(movie.release_date)}
           </Typography>
         </CardActionArea>
