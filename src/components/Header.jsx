@@ -82,6 +82,9 @@ const useStyles = makeStyles((theme) => ({
         width: '20ch'
       }
     }
+  },
+  appBar: {
+    backgroundColor: '#000'
   }
 }));
 
@@ -91,7 +94,7 @@ const Header = (props) => {
   return (
     <div className={classes.root}>
       <HideOnScroll {...props}>
-        <AppBar>
+        <AppBar className={classes.appBar}>
           <Toolbar>
             <IconButton
               edge="start"
