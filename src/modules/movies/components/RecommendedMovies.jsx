@@ -28,7 +28,7 @@ const RecommendedMovies = ({ id }) => {
 
   return (
     <Paper elevation={3} className={classes.root}>
-      <Typography variant="h6">Recommended Movies</Typography>
+      <Typography variant="h6">Recommendations</Typography>
       <MovieList movies={movies} />
     </Paper>
   );
