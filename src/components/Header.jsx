@@ -11,21 +11,18 @@ import IconButton from '@material-ui/core/IconButton';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import Slide from '@material-ui/core/Slide';
 import PropTypes from 'prop-types';
-
-const HideOnScroll = (props) => {
-  const { children } = props;
-  const trigger = useScrollTrigger();
-
-  return (
-    <Slide appear={false} direction="down" in={!trigger}>
-      {children}
-    </Slide>
-  );
-};
-
-HideOnScroll.propTypes = {
-  children: PropTypes.element.isRequired
-};
+import {
+  SwipeableDrawer,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText
+} from '@material-ui/core';
+import HomeIcon from '@material-ui/icons/Home';
+import TrendingUpIcon from '@material-ui/icons/TrendingUp';
+import WhatshotIcon from '@material-ui/icons/Whatshot';
+import TheatersIcon from '@material-ui/icons/Theaters';
+import ScheduleIcon from '@material-ui/icons/Schedule';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -85,11 +82,88 @@ const useStyles = makeStyles((theme) => ({
   },
   appBar: {
     backgroundColor: '#000'
+  },
+  list: {
+    width: 250
   }
 }));
 
+const HideOnScroll = (props) => {
+  const { children } = props;
+  const trigger = useScrollTrigger();
+
+  return (
+    <Slide appear={false} direction="down" in={!trigger}>
+      {children}
+    </Slide>
+  );
+};
+
+HideOnScroll.propTypes = {
+  children: PropTypes.element.isRequired
+};
+
+// TODO: Refactor side drawer stuff
 const Header = (props) => {
   const classes = useStyles();
+  const [state, setState] = React.useState({
+    left: false
+  });
+  const anchor = 'left';
+
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (
+      event &&
+      event.type === 'keydown' &&
+      (event.key === 'Tab' || event.key === 'Shift')
+    ) {
+      return;
+    }
+
+    setState({ ...state, [anchor]: open });
+  };
+
+  const list = () => (
+    <div
+      role="presentation"
+      onClick={toggleDrawer(anchor, false)}
+      onKeyDown={toggleDrawer(anchor, false)}
+      className={classes.list}
+    >
+      <List>
+        <ListItem button>
+          <ListItemIcon>
+            <HomeIcon />
+          </ListItemIcon>
+          <ListItemText primary="Home" />
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon>
+            <TrendingUpIcon />
+          </ListItemIcon>
+          <ListItemText primary="Popular Movies" />
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon>
+            <WhatshotIcon />
+          </ListItemIcon>
+          <ListItemText primary="Top Rated Movies" />
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon>
+            <TheatersIcon />
+          </ListItemIcon>
+          <ListItemText primary="On Theaters" />
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon>
+            <ScheduleIcon />
+          </ListItemIcon>
+          <ListItemText primary="Upcoming Movies" />
+        </ListItem>
+      </List>
+    </div>
+  );
 
   return (
     <div className={classes.root}>
@@ -101,6 +175,7 @@ const Header = (props) => {
               className={classes.menuButton}
               color="inherit"
               aria-label="open drawer"
+              onClick={toggleDrawer(anchor, true)}
             >
               <MenuIcon />
             </IconButton>
@@ -125,6 +200,14 @@ const Header = (props) => {
           </Toolbar>
         </AppBar>
       </HideOnScroll>
+      <SwipeableDrawer
+        anchor={anchor}
+        open={state[anchor]}
+        onClose={toggleDrawer(anchor, false)}
+        onOpen={toggleDrawer(anchor, true)}
+      >
+        {list()}
+      </SwipeableDrawer>
     </div>
   );
 };
