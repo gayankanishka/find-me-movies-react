@@ -1,9 +1,22 @@
 import React from 'react';
 import { Router, Switch, Route } from 'react-router-dom';
-import { CssBaseline } from '@material-ui/core';
+import {
+  MuiThemeProvider,
+  createMuiTheme,
+  CssBaseline
+} from '@material-ui/core';
 import Layout from './components/Layout';
 import routes from './routeConfig';
 import history from './utils/history.utils';
+
+const theme = createMuiTheme({
+  palette: {
+    type: 'dark',
+    background: {
+      default: '#181818'
+    }
+  }
+});
 
 const App = () => {
   function RouteWithSubRoutes(route) {
@@ -21,14 +34,16 @@ const App = () => {
 
   return (
     <Router history={history}>
-      <CssBaseline />
-      <Layout>
-        <Switch>
-          {routes.map((route) => (
-            <RouteWithSubRoutes key={route.path} {...route} />
-          ))}
-        </Switch>
-      </Layout>
+      <MuiThemeProvider theme={theme}>
+        <CssBaseline />
+        <Layout style={{ background: '#181818' }}>
+          <Switch>
+            {routes.map((route) => (
+              <RouteWithSubRoutes key={route.path} {...route} />
+            ))}
+          </Switch>
+        </Layout>
+      </MuiThemeProvider>
     </Router>
   );
 };
