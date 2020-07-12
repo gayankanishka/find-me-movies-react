@@ -29,13 +29,18 @@ function discoverMovies() {
   return apiService.get('/discover/movie', params).then((res) => res.results);
 }
 
+function getNowPlayingMovies() {
+  return apiService.get('/movie/now_playing').then((res) => res);
+}
+
 const movieService = {
   getMovieById,
   getPopularMovies,
   getTopRatedMovies,
   getUpcomingMovies,
   getRecommendedMovies,
-  discoverMovies
+  discoverMovies,
+  getNowPlayingMovies
 };
 
 export default movieService;
