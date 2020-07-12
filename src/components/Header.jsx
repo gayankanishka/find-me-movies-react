@@ -23,6 +23,7 @@ import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import WhatshotIcon from '@material-ui/icons/Whatshot';
 import TheatersIcon from '@material-ui/icons/Theaters';
 import ScheduleIcon from '@material-ui/icons/Schedule';
+import navigationService from '../services/navigation.service';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -135,31 +136,46 @@ const Header = (props) => {
           <ListItemIcon>
             <HomeIcon />
           </ListItemIcon>
-          <ListItemText primary="Home" />
+          <ListItemText
+            primary="Home"
+            onClick={() => navigationService.goToHome()}
+          />
         </ListItem>
         <ListItem button>
           <ListItemIcon>
             <TrendingUpIcon />
           </ListItemIcon>
-          <ListItemText primary="Popular Movies" />
+          <ListItemText
+            primary="Popular Movies"
+            onClick={() => navigationService.goToPopularMovies()}
+          />
         </ListItem>
         <ListItem button>
           <ListItemIcon>
             <WhatshotIcon />
           </ListItemIcon>
-          <ListItemText primary="Top Rated Movies" />
+          <ListItemText
+            primary="Top Rated Movies"
+            onClick={() => navigationService.goToTopMovies()}
+          />
         </ListItem>
         <ListItem button>
           <ListItemIcon>
             <TheatersIcon />
           </ListItemIcon>
-          <ListItemText primary="On Theaters" />
+          <ListItemText
+            primary="On Theaters"
+            onClick={() => navigationService.goToOnTheaters()}
+          />
         </ListItem>
         <ListItem button>
           <ListItemIcon>
             <ScheduleIcon />
           </ListItemIcon>
-          <ListItemText primary="Upcoming Movies" />
+          <ListItemText
+            primary="Upcoming Movies"
+            onClick={() => navigationService.goToUpcomingMovies()}
+          />
         </ListItem>
       </List>
     </div>
