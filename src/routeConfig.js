@@ -1,6 +1,7 @@
 import Home from './pages/Home';
 import MovieDetails from './pages/MovieDetails';
 import PageNotFound from './pages/PageNotFound';
+import OnTheaters from './pages/OnTheaters';
 
 const routes = [
   {
@@ -12,6 +13,11 @@ const routes = [
     path: '/movie-details/:id',
     exact: true,
     component: MovieDetails
+  },
+  {
+    path: '/on-theaters',
+    exact: true,
+    component: OnTheaters
   },
   {
     path: '*',
