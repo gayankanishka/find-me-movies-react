@@ -29,8 +29,11 @@ function discoverMovies() {
   return apiService.get('/discover/movie', params).then((res) => res.results);
 }
 
-function getNowPlayingMovies() {
-  return apiService.get('/movie/now_playing').then((res) => res);
+function getNowPlayingMovies(pageNumber) {
+  const params = {
+    page: pageNumber
+  };
+  return apiService.get('/movie/now_playing', params).then((res) => res);
 }
 
 const movieService = {
