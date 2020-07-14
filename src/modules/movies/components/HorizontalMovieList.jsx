@@ -18,7 +18,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const MovieList = ({ movies }) => {
+const HorizontalMovieList = ({ movies }) => {
   const classes = useStyles();
 
   return (
@@ -34,7 +34,7 @@ const MovieList = ({ movies }) => {
   );
 };
 
-MovieList.propTypes = {
+HorizontalMovieList.propTypes = {
   movies: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired
@@ -42,4 +42,4 @@ MovieList.propTypes = {
   ).isRequired
 };
 
-export default MovieList;
+export default HorizontalMovieList;

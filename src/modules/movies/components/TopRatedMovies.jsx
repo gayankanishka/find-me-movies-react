@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Typography, makeStyles } from '@material-ui/core';
 import movieService from '../../../services/movie-db.service';
-import MovieList from './MovieList';
+import HorizontalMovieList from './HorizontalMovieList';
 import Loader from '../../../components/Loader';
 
 const useStyles = makeStyles((theme) => ({
@@ -30,7 +30,7 @@ const TopRatedMovies = () => {
   return (
     <div className={classes.root}>
       <Typography variant="h6">Top Rated Movies</Typography>
-      <MovieList movies={movies} />
+      <HorizontalMovieList movies={movies} />
     </div>
   );
 };
