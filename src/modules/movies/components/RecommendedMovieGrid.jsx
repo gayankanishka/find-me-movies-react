@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const RecommendedMovies = ({ id }) => {
+const RecommendedMovieGrid = ({ id }) => {
   const classes = useStyles();
   const [movies, setMovies] = useState();
 
@@ -36,8 +36,8 @@ const RecommendedMovies = ({ id }) => {
   );
 };
 
-RecommendedMovies.propTypes = {
+RecommendedMovieGrid.propTypes = {
   id: PropTypes.string.isRequired
 };
 
-export default RecommendedMovies;
+export default RecommendedMovieGrid;
