@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Loader = () => {
+const Spinner = () => {
   const classes = useStyles();
 
   return (
@@ -19,4 +19,4 @@ const Loader = () => {
   );
 };
 
-export default Loader;
+export default Spinner;

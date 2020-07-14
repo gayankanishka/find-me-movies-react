@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
 import movieService from '../services/movie-db.service';
-import Loader from '../components/Loader';
+import Spinner from '../components/Spinner';
 import MoviePoster from '../modules/movies/components/MoviePoster';
 import MovieRating from '../modules/movies/components/MovieRating';
 import MovieGenres from '../modules/movies/components/MovieGenres';
@@ -41,7 +41,7 @@ const MovieDetails = () => {
   }, [id]);
 
   if (movie === undefined) {
-    return <Loader />;
+    return <Spinner />;
   }
 
   document.getElementById('root').style.backgroundImage = `url(
