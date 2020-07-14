@@ -1,7 +1,9 @@
-import Home from './pages/Home';
-import MovieDetails from './pages/MovieDetails';
-import PageNotFound from './pages/PageNotFound';
-import OnTheaters from './pages/OnTheaters';
+import { lazy } from 'react';
+
+const Home = lazy(() => import('./pages/Home'));
+const MovieDetails = lazy(() => import('./pages/MovieDetails'));
+const PageNotFound = lazy(() => import('./pages/PageNotFound'));
+const OnTheaters = lazy(() => import('./pages/OnTheaters'));
 
 const routes = [
   {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Router, Switch, Route } from 'react-router-dom';
 import {
   MuiThemeProvider,
@@ -37,11 +37,13 @@ const App = () => {
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
         <Layout style={{ background: '#181818' }}>
-          <Switch>
-            {routes.map((route) => (
-              <RouteWithSubRoutes key={route.path} {...route} />
-            ))}
-          </Switch>
+          <Suspense fallback={<div>Loading...</div>}>
+            <Switch>
+              {routes.map((route) => (
+                <RouteWithSubRoutes key={route.path} {...route} />
+              ))}
+            </Switch>
+          </Suspense>
         </Layout>
       </MuiThemeProvider>
     </Router>
