@@ -22,7 +22,7 @@ const RecommendedMovieGrid = ({ id }) => {
     };
 
     fetchData();
-  }, []);
+  }, [id]);
 
   if (movies === undefined) {
     return <Loader />;
