@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const TopRatedMovies = () => {
+const TopRatedMovieGrid = () => {
   const classes = useStyles();
   const [movies, setMovies] = useState();
 
@@ -35,4 +35,4 @@ const TopRatedMovies = () => {
   );
 };
 
-export default TopRatedMovies;
+export default TopRatedMovieGrid;
