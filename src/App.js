@@ -8,6 +8,7 @@ import {
 import Layout from './components/Layout';
 import routes from './routeConfig';
 import history from './utils/history.utils';
+import Loader from './components/Loader';
 
 const theme = createMuiTheme({
   palette: {
@@ -37,7 +38,7 @@ const App = () => {
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
         <Layout style={{ background: '#181818' }}>
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<Loader />}>
             <Switch>
               {routes.map((route) => (
                 <RouteWithSubRoutes key={route.path} {...route} />
