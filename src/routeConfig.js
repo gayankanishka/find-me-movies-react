@@ -6,6 +6,7 @@ const PageNotFound = lazy(() => import('./pages/PageNotFound'));
 const OnTheaters = lazy(() => import('./pages/OnTheaters'));
 const PopularMovies = lazy(() => import('./pages/PopularMovies'));
 const TopRatedMovies = lazy(() => import('./pages/TopRatedMovies'));
+const UpcomingMovies = lazy(() => import('./pages/UpcomingMovies'));
 
 const routes = [
   {
@@ -32,6 +33,11 @@ const routes = [
     path: '/top-movies',
     exact: true,
     component: TopRatedMovies
+  },
+  {
+    path: '/upcoming-movies',
+    exact: true,
+    component: UpcomingMovies
   },
   {
     path: '*',
