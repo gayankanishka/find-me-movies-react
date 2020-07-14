@@ -15,7 +15,7 @@ const UpcomingMovies = () => {
   const [movies, setMovies] = useState();
 
   useEffect(() => {
-    movieService.getUpcomingMovies().then((data) => setMovies(data));
+    movieService.getUpcomingMovies().then((data) => setMovies(data.results));
   }, []);
 
   if (movies === undefined) {

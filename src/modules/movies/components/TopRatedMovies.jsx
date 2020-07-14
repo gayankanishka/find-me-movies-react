@@ -15,7 +15,7 @@ const TopRatedMovies = () => {
   const [movies, setMovies] = useState();
 
   useEffect(() => {
-    movieService.getTopRatedMovies().then((data) => setMovies(data));
+    movieService.getTopRatedMovies().then((data) => setMovies(data.results));
   }, []);
 
   if (movies === undefined) {

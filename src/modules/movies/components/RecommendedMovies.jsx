@@ -16,7 +16,9 @@ const RecommendedMovies = ({ id }) => {
   const [movies, setMovies] = useState();
 
   useEffect(() => {
-    movieService.getRecommendedMovies(id).then((data) => setMovies(data));
+    movieService
+      .getRecommendedMovies(id)
+      .then((data) => setMovies(data.results));
   }, [id]);
 
   if (movies === undefined) {
