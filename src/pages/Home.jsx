@@ -1,7 +1,7 @@
 import React from 'react';
 import PopularMovieGrid from '../modules/movies/components/PopularMovieGrid';
 import TopRatedMovieGrid from '../modules/movies/components/TopRatedMovieGrid';
-import UpcomingMovies from '../modules/movies/components/UpcomingMovies';
+import UpcomingMovieGrid from '../modules/movies/components/UpcomingMovieGrid';
 import DiscoverMovies from '../modules/movies/components/DiscoverMovies';
 
 const Home = () => {
@@ -10,7 +10,7 @@ const Home = () => {
       <DiscoverMovies />
       <PopularMovieGrid />
       <TopRatedMovieGrid />
-      <UpcomingMovies />
+      <UpcomingMovieGrid />
     </>
   );
 };

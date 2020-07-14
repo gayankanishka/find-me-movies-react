@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const UpcomingMovies = () => {
+const UpcomingMovieGrid = () => {
   const classes = useStyles();
   const [movies, setMovies] = useState();
 
@@ -30,4 +30,4 @@ const UpcomingMovies = () => {
   );
 };
 
-export default UpcomingMovies;
+export default UpcomingMovieGrid;
