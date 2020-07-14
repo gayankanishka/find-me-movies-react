@@ -9,19 +9,19 @@ function goToMovieDetails(movieId) {
 }
 
 function goToOnTheaters() {
-  history.push('on-theaters');
+  history.push('/on-theaters');
 }
 
 function goToPopularMovies() {
-  history.push('popular-movies');
+  history.push('/popular-movies');
 }
 
 function goToTopMovies() {
-  history.push('top-movies');
+  history.push('/top-movies');
 }
 
 function goToUpcomingMovies() {
-  history.push('upcoming-movies');
+  history.push('/upcoming-movies');
 }
 
 const navigationService = {
