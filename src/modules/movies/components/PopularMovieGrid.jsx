@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Typography, makeStyles } from '@material-ui/core';
 import movieService from '../../../services/movie-db.service';
 import HorizontalMovieList from './HorizontalMovieList';
-import Loader from '../../../components/Loader';
+import SkeltonLoader from '../../../components/SkeltonLoader';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,14 +23,10 @@ const PopularMovieGrid = () => {
     fetchData();
   }, []);
 
-  if (movies === undefined) {
-    return <Loader />;
-  }
-
   return (
     <div className={classes.root}>
       <Typography variant="h6">Popular Movies</Typography>
-      <HorizontalMovieList movies={movies} />
+      {movies ? <HorizontalMovieList movies={movies} /> : <SkeltonLoader />}
     </div>
   );
 };

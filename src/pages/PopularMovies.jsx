@@ -3,6 +3,7 @@ import { Typography } from '@material-ui/core';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import movieService from '../services/movie-db.service';
 import VerticalMovieList from '../modules/movies/components/VerticalMovieList';
+import SkeltonLoader from '../components/SkeltonLoader';
 
 const PopularMovies = () => {
   const [movies, setMovies] = useState([]);
@@ -31,7 +32,7 @@ const PopularMovies = () => {
         dataLength={movies.length}
         next={fetchMovies}
         hasMore={page !== 1000}
-        loader={<h4>Loading...</h4>}
+        loader={<SkeltonLoader />}
       >
         <VerticalMovieList movies={movies} />
       </InfiniteScroll>

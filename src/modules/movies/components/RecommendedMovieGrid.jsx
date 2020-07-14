@@ -3,7 +3,7 @@ import { Typography, makeStyles } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import movieService from '../../../services/movie-db.service';
 import HorizontalMovieList from './HorizontalMovieList';
-import Loader from '../../../components/Loader';
+import SkeltonLoader from '../../../components/SkeltonLoader';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,14 +24,10 @@ const RecommendedMovieGrid = ({ id }) => {
     fetchData();
   }, [id]);
 
-  if (movies === undefined) {
-    return <Loader />;
-  }
-
   return (
     <div className={classes.root}>
       <Typography variant="h6">Recommendations</Typography>
-      <HorizontalMovieList movies={movies} />
+      {movies ? <HorizontalMovieList movies={movies} /> : <SkeltonLoader />}
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import Loader from '../../../components/Loader';
 import movieService from '../../../services/movie-db.service';
 import MovieCarousel from './MovieCarousel';
+import SkeltonLoader from '../../../components/SkeltonLoader';
 
 const DiscoverMovies = () => {
   const [movies, setMovies] = useState();
@@ -15,11 +15,9 @@ const DiscoverMovies = () => {
     fetchData();
   }, []);
 
-  if (movies === undefined) {
-    return <Loader />;
-  }
-
-  return <MovieCarousel movies={movies} />;
+  return (
+    <>{movies ? <MovieCarousel movies={movies} /> : <SkeltonLoader />}</>
+  );
 };
 
 export default DiscoverMovies;
