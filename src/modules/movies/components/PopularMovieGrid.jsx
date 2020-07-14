@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const PopularMovies = () => {
+const PopularMovieGrid = () => {
   const classes = useStyles();
   const [movies, setMovies] = useState();
 
@@ -35,4 +35,4 @@ const PopularMovies = () => {
   );
 };
 
-export default PopularMovies;
+export default PopularMovieGrid;
