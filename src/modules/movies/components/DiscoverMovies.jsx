@@ -7,7 +7,12 @@ const DiscoverMovies = () => {
   const [movies, setMovies] = useState();
 
   useEffect(() => {
-    movieService.discoverMovies().then((data) => setMovies(data));
+    const fetchData = async () => {
+      const data = await movieService.discoverMovies();
+      setMovies(data.results);
+    };
+
+    fetchData();
   }, []);
 
   if (movies === undefined) {

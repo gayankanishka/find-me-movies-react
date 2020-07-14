@@ -16,10 +16,13 @@ const RecommendedMovies = ({ id }) => {
   const [movies, setMovies] = useState();
 
   useEffect(() => {
-    movieService
-      .getRecommendedMovies(id)
-      .then((data) => setMovies(data.results));
-  }, [id]);
+    const fetchData = async () => {
+      const data = await movieService.getRecommendedMovies(id);
+      setMovies(data.results);
+    };
+
+    fetchData();
+  }, []);
 
   if (movies === undefined) {
     return <Loader />;

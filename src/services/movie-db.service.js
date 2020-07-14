@@ -1,52 +1,63 @@
 import apiService from './_shared/api.service';
 
-function getMovieById(id) {
-  return apiService.get(`/movie/${id}`).then((res) => res);
+async function getMovieById(id) {
+  const res = await apiService.get(`/movie/${id}`);
+  return res;
 }
 
-function getPopularMovies(pageNumber) {
+async function getPopularMovies(pageNumber) {
   const params = {
     page: pageNumber
   };
-  return apiService.get('movie/popular', params).then((res) => res);
+
+  const res = await apiService.get('movie/popular', params);
+  return res;
 }
 
-function getTopRatedMovies(pageNumber) {
+async function getTopRatedMovies(pageNumber) {
   const params = {
     page: pageNumber
   };
-  return apiService.get('/movie/top_rated', params).then((res) => res);
+
+  const res = await apiService.get('/movie/top_rated', params);
+  return res;
 }
 
-function getUpcomingMovies(pageNumber) {
+async function getUpcomingMovies(pageNumber) {
   const params = {
     page: pageNumber
   };
-  return apiService.get('/movie/upcoming', params).then((res) => res);
+
+  const res = await apiService.get('/movie/upcoming', params);
+  return res;
 }
 
-function getRecommendedMovies(id, pageNumber) {
+async function getRecommendedMovies(id, pageNumber) {
   const params = {
     page: pageNumber
   };
-  return apiService
-    .get(`movie/${id}/recommendations`, params)
-    .then((res) => res);
+
+  const res = await apiService.get(`movie/${id}/recommendations`, params);
+  return res;
 }
 
-function discoverMovies(pageNumber) {
+async function discoverMovies(pageNumber) {
   const params = {
     primary_release_year: new Date().getFullYear(),
     page: pageNumber
   };
-  return apiService.get('/discover/movie', params).then((res) => res.results);
+
+  const res = await apiService.get('/discover/movie', params);
+  return res;
 }
 
-function getNowPlayingMovies(pageNumber) {
+async function getNowPlayingMovies(pageNumber) {
   const params = {
     page: pageNumber
   };
-  return apiService.get('/movie/now_playing', params).then((res) => res);
+
+  const res = await apiService.get('/movie/now_playing', params);
+  return res;
 }
 
 const movieService = {

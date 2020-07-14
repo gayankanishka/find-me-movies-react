@@ -15,7 +15,12 @@ const PopularMovies = () => {
   const [movies, setMovies] = useState();
 
   useEffect(() => {
-    movieService.getPopularMovies().then((data) => setMovies(data.results));
+    const fetchData = async () => {
+      const data = await movieService.getPopularMovies();
+      setMovies(data.results);
+    };
+
+    fetchData();
   }, []);
 
   if (movies === undefined) {

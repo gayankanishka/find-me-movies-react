@@ -9,19 +9,21 @@ const OnTheaters = () => {
   const [page, setPage] = useState(1);
 
   useEffect(() => {
-    movieService.getNowPlayingMovies().then((data) => {
+    const fetchData = async () => {
+      const data = await movieService.getNowPlayingMovies();
       setMovies(data.results);
       setPage(data.page);
-    });
+    };
+
+    fetchData();
   }, []);
 
-  const fetchMovies = () => {
-    movieService.getNowPlayingMovies(page + 1).then((data) => {
-      setMovies((prev) => [...prev, ...data.results]);
-      setPage(data.page);
-    });
+  const fetchMovies = async () => {
+    const data = await movieService.getNowPlayingMovies(page + 1);
+    setMovies((prev) => [...prev, ...data.results]);
+    setPage(data.page);
   };
-  // TODO: integrate spinner for loading
+
   return (
     <>
       <Typography variant="h6">On Theaters</Typography>

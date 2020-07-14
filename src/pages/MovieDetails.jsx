@@ -32,7 +32,12 @@ const MovieDetails = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    movieService.getMovieById(id).then((data) => setMovie(data));
+    const fetchData = async () => {
+      const data = await movieService.getMovieById(id);
+      setMovie(data);
+    };
+
+    fetchData();
   }, [id]);
 
   if (movie === undefined) {

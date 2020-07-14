@@ -10,9 +10,10 @@ const httpClient = axios.create({
   }
 });
 
-function get(endpoint, params) {
+async function get(endpoint, params) {
   const url = stringUtils.createUrl(endpoint, params);
-  return httpClient.get(url).then((res) => res.data);
+  const res = await httpClient.get(url);
+  return res.data;
 }
 
 const apiService = {
