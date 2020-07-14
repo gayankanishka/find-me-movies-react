@@ -4,27 +4,40 @@ function getMovieById(id) {
   return apiService.get(`/movie/${id}`).then((res) => res);
 }
 
-function getPopularMovies() {
-  return apiService.get('movie/popular').then((res) => res.results);
-}
-
-function getTopRatedMovies() {
-  return apiService.get('/movie/top_rated').then((res) => res.results);
-}
-
-function getUpcomingMovies() {
-  return apiService.get('/movie/upcoming').then((res) => res.results);
-}
-
-function getRecommendedMovies(id) {
-  return apiService
-    .get(`movie/${id}/recommendations`)
-    .then((res) => res.results);
-}
-
-function discoverMovies() {
+function getPopularMovies(pageNumber) {
   const params = {
-    primary_release_year: new Date().getFullYear()
+    page: pageNumber
+  };
+  return apiService.get('movie/popular', params).then((res) => res);
+}
+
+function getTopRatedMovies(pageNumber) {
+  const params = {
+    page: pageNumber
+  };
+  return apiService.get('/movie/top_rated', params).then((res) => res);
+}
+
+function getUpcomingMovies(pageNumber) {
+  const params = {
+    page: pageNumber
+  };
+  return apiService.get('/movie/upcoming', params).then((res) => res);
+}
+
+function getRecommendedMovies(id, pageNumber) {
+  const params = {
+    page: pageNumber
+  };
+  return apiService
+    .get(`movie/${id}/recommendations`, params)
+    .then((res) => res);
+}
+
+function discoverMovies(pageNumber) {
+  const params = {
+    primary_release_year: new Date().getFullYear(),
+    page: pageNumber
   };
   return apiService.get('/discover/movie', params).then((res) => res.results);
 }
