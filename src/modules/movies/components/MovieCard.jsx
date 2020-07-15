@@ -6,6 +6,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import { Grid, Typography } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
 import PropTypes from 'prop-types';
+import LazyLoad from 'react-lazyload';
 import navigationService from '../../../services/navigation.service';
 import config from '../../../config';
 import stringUtils from '../../../utils/string.utils';
@@ -31,13 +32,15 @@ const MovieCard = ({ movie }) => {
         <CardActionArea
           onClick={() => navigationService.goToMovieDetails(movie.id)}
         >
-          <CardMedia
-            component="img"
-            alt="Movie poster"
-            image={config.tmdbApi.posterBaseUrl + movie.poster_path}
-            title={movie.title}
-            className={classes.image}
-          />
+          <LazyLoad once height={300} offset={500}>
+            <CardMedia
+              component="img"
+              alt="Movie poster"
+              image={config.tmdbApi.posterBaseUrl + movie.poster_path}
+              title={movie.title}
+              className={classes.image}
+            />
+          </LazyLoad>
           <Typography variant="subtitle1" align="center">
             <strong>{movie.title}</strong>
           </Typography>
