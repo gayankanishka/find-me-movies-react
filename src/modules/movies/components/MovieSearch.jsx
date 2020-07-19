@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { makeStyles, InputBase } from '@material-ui/core';
 import movieService from '../../../services/movie-db.service';
+import navigationService from '../../../services/navigation.service';
 
 const useStyles = makeStyles((theme) => ({
   inputRoot: {
@@ -27,19 +28,19 @@ const MovieSearch = () => {
   const [open, setOpen] = useState(false);
   const [movies, setMovies] = useState([]);
   const [query, setQuery] = useState('');
-  const loading = open && query && movies.length === 0;
+  const loading = open && movies.length === 0 && query !== '';
 
   useEffect(() => {
     let active = true;
+
+    if (!loading) {
+      return undefined;
+    }
 
     if (query === '') {
       return () => {
         active = false;
       };
-    }
-
-    if (!loading) {
-      return undefined;
     }
 
     (async () => {
@@ -53,7 +54,7 @@ const MovieSearch = () => {
     return () => {
       active = false;
     };
-  }, [loading]);
+  }, [loading, query]);
 
   useEffect(() => {
     if (!open) {
@@ -68,6 +69,9 @@ const MovieSearch = () => {
 
   return (
     <Autocomplete
+      autoComplete
+      blurOnSelect
+      value={query}
       open={open}
       style={{ width: '100%' }}
       onOpen={() => {
@@ -76,10 +80,29 @@ const MovieSearch = () => {
       onClose={() => {
         setOpen(false);
       }}
-      getOptionSelected={(option, value) => option.title === value.title}
-      getOptionLabel={(option) => option.title}
+      clearOnBlur
+      selectOnFocus
+      handleHomeEndKeys
+      getOptionLabel={(option) => {
+        if (typeof option === 'string') {
+          return option;
+        }
+        if (option.inputValue) {
+          return option.inputValue;
+        }
+        return option.title;
+      }}
       options={movies}
       loading={loading}
+      onChange={(event, movie) => {
+        if (movie) {
+          navigationService.goToMovieDetails(movie.id);
+          setQuery('');
+        }
+      }}
+      getOptionSelected={(option, value) => {
+        return value.value === option.value;
+      }}
       renderInput={(params) => (
         <InputBase
           ref={params.InputProps.ref}
