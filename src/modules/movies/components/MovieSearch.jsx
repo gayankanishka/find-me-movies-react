@@ -1,10 +1,29 @@
 import React, { useEffect, useState } from 'react';
-import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import { makeStyles, InputBase } from '@material-ui/core';
 import movieService from '../../../services/movie-db.service';
 
+const useStyles = makeStyles((theme) => ({
+  inputRoot: {
+    color: 'inherit'
+  },
+  inputInput: {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      width: '12ch',
+      '&:focus': {
+        width: '20ch'
+      }
+    }
+  }
+}));
+
 const MovieSearch = () => {
+  const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [movies, setMovies] = useState([]);
   const [query, setQuery] = useState('');
@@ -49,8 +68,8 @@ const MovieSearch = () => {
 
   return (
     <Autocomplete
-      style={{ width: 300 }}
       open={open}
+      style={{ width: '100%' }}
       onOpen={() => {
         setOpen(true);
       }}
@@ -62,19 +81,16 @@ const MovieSearch = () => {
       options={movies}
       loading={loading}
       renderInput={(params) => (
-        <TextField
-          {...params}
+        <InputBase
+          ref={params.InputProps.ref}
+          classes={{
+            root: classes.inputRoot,
+            input: classes.inputInput
+          }}
+          placeholder="Search..."
           onChange={searchMovies}
-          InputProps={{
-            ...params.InputProps,
-            endAdornment: (
-              <>
-                {loading ? (
-                  <CircularProgress color="inherit" size={20} />
-                ) : null}
-                {params.InputProps.endAdornment}
-              </>
-            )
+          inputProps={{
+            ...params.inputProps
           }}
         />
       )}
