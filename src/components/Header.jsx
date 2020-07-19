@@ -6,7 +6,6 @@ import Typography from '@material-ui/core/Typography';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
-import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import Slide from '@material-ui/core/Slide';
@@ -24,6 +23,7 @@ import WhatshotIcon from '@material-ui/icons/Whatshot';
 import TheatersIcon from '@material-ui/icons/Theaters';
 import ScheduleIcon from '@material-ui/icons/Schedule';
 import navigationService from '../services/navigation.service';
+import MovieSearch from '../modules/movies/components/MovieSearch';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -204,14 +204,7 @@ const Header = (props) => {
               <div className={classes.searchIcon}>
                 <SearchIcon />
               </div>
-              <InputBase
-                placeholder="Search…"
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput
-                }}
-                inputProps={{ 'aria-label': 'search' }}
-              />
+              <MovieSearch />
             </div>
           </Toolbar>
         </AppBar>
