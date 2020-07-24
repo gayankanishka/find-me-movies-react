@@ -1,32 +1,29 @@
 import React from 'react';
-import { Grid, makeStyles, Paper } from '@material-ui/core';
+import { Grid, makeStyles } from '@material-ui/core';
 import SwiperCore, { Navigation, Pagination, Autoplay } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import PropTypes from 'prop-types';
 import 'swiper/swiper-bundle.css';
 import config from '../../../config';
-import navigationService from '../../../services/navigation.service';
-import MovieTitle from './MovieTitle';
-import MovieRating from './MovieRating';
+import MovieCard from './MovieCard';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     margin: theme.spacing(2)
   },
-  swipeSlide: {
-    cursor: 'pointer'
+  slide: {
+    WebkitFilter: 'brightness(50%)'
   },
-  image: {
+  background: {
     maxHeight: '100%',
     maxWidth: '100%'
   },
-  title: {
+  poster: {
     top: '50%',
     left: '50%',
     position: 'absolute',
     transform: 'translate(-50%, -50%)',
-    backgroundColor: 'rgba(255, 255, 255, 0.6)',
-    backdropFilter: 'blur(5px)'
+    WebkitFilter: 'brightness(100%)'
   }
 }));
 
@@ -48,22 +45,14 @@ const MovieCarousel = ({ movies }) => {
         >
           {movies.map((movie) => {
             return (
-              <SwiperSlide
-                key={movie.id}
-                className={classes.swipeSlide}
-                onClick={() => navigationService.goToMovieDetails(movie.id)}
-              >
-                <Paper elevation={3} className={classes.title}>
-                  <MovieTitle
-                    title={movie.title}
-                    releaseDate={movie.release_date}
-                  />
-                  <MovieRating voteAvg={movie.vote_average} />
-                </Paper>
+              <SwiperSlide key={movie.id} className={classes.slide}>
+                <div className={classes.poster}>
+                  <MovieCard movie={movie} />
+                </div>
                 <img
                   alt={movie.title}
                   src={config.tmdbApi.backdropBaseUrl + movie.backdrop_path}
-                  className={classes.image}
+                  className={classes.background}
                 />
               </SwiperSlide>
             );
@@ -79,7 +68,8 @@ MovieCarousel.propTypes = {
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       title: PropTypes.string.isRequired,
-      poster_path: PropTypes.string.isRequired
+      poster_path: PropTypes.string.isRequired,
+      backdrop_path: PropTypes.string.isRequired
     })
   ).isRequired
 };
