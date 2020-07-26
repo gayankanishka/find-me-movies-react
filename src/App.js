@@ -9,6 +9,7 @@ import Layout from './components/Layout';
 import routes from './routeConfig';
 import history from './utils/history.utils';
 import Spinner from './components/Spinner';
+import ScrollToTop from './components/ScrollToTop';
 
 const theme = createMuiTheme({
   palette: {
@@ -35,6 +36,7 @@ const App = () => {
 
   return (
     <Router history={history}>
+      <ScrollToTop />
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
         <Layout style={{ background: '#181818' }}>
