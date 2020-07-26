@@ -8,7 +8,11 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary">
       {'Copyright © '}
-      <Link color="inherit" href="https://gayankanishka.github.io/">
+      <Link
+        color="inherit"
+        href="https://gayankanishka.github.io/"
+        target="_blank"
+      >
         Visit Me
       </Link>{' '}
       {new Date().getFullYear()}
