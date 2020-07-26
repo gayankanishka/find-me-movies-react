@@ -26,7 +26,11 @@ const RecommendedMovieGrid = ({ id }) => {
 
   return (
     <div className={classes.root}>
-      <Typography variant="h6">Recommendations</Typography>
+      {movies && movies.length > 0 ? (
+        <Typography variant="h6">Recommendations</Typography>
+      ) : (
+        ''
+      )}
       {movies ? <HorizontalMovieList movies={movies} /> : <SkeltonLoader />}
     </div>
   );
