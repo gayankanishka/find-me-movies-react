@@ -7,15 +7,12 @@ import 'swiper/swiper-bundle.css';
 import config from '../../../config';
 import MovieCard from './MovieCard';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    margin: theme.spacing(2)
-  },
+const useStyles = makeStyles(() => ({
   slide: {
     WebkitFilter: 'brightness(50%)'
   },
   background: {
-    maxHeight: '100%',
+    maxHeight: '100vh',
     maxWidth: '100%'
   },
   poster: {
@@ -41,7 +38,6 @@ const MovieCarousel = ({ movies }) => {
           }}
           navigation
           pagination={{ clickable: true }}
-          className={classes.root}
         >
           {movies.map((movie) => {
             return (
@@ -68,7 +64,6 @@ MovieCarousel.propTypes = {
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       title: PropTypes.string.isRequired,
-      poster_path: PropTypes.string.isRequired,
       backdrop_path: PropTypes.string.isRequired
     })
   ).isRequired
