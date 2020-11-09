@@ -8,9 +8,6 @@ import config from '../../../config';
 import MovieCard from './MovieCard';
 
 const useStyles = makeStyles(() => ({
-  slide: {
-    WebkitFilter: 'brightness(50%)'
-  },
   background: {
     maxHeight: '100vh',
     maxWidth: '100%'
@@ -19,8 +16,7 @@ const useStyles = makeStyles(() => ({
     top: '50%',
     left: '50%',
     position: 'absolute',
-    transform: 'translate(-50%, -50%)',
-    WebkitFilter: 'brightness(100%)'
+    transform: 'translate(-50%, -50%)'
   }
 }));
 
@@ -41,7 +37,7 @@ const MovieCarousel = ({ movies }) => {
         >
           {movies.map((movie) => {
             return (
-              <SwiperSlide key={movie.id} className={classes.slide}>
+              <SwiperSlide key={movie.id}>
                 <div className={classes.poster}>
                   <MovieCard movie={movie} />
                 </div>
