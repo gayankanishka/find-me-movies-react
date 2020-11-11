@@ -1,7 +1,11 @@
-# This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app)
+# Find me Movies
 
-![CI/CD](https://github.com/gayankanishka/find-me-movies/workflows/CI/badge.svg)
-![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
+![CI][ci-url]
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]][license-url]
 
 ## Available Scripts
 
@@ -40,32 +44,16 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+[ci-url]: https://github.com/gayankanishka/find-me-movies/workflows/CI/badge.svg
+[contributors-shield]: https://img.shields.io/badge/CONTRIBUTORS-green.svg
+[contributors-url]: https://github.com/gayankanishka/find-me-movies/graphs/contributors
+[forks-shield]: https://img.shields.io/badge/FORKS-blue.svg
+[forks-url]: https://github.com/gayankanishka/find-me-movies/network/members
+[stars-shield]: https://img.shields.io/badge/STARS-blue.svg
+[stars-url]: https://github.com/gayankanishka/find-me-movies/stargazers
+[issues-shield]: https://img.shields.io/badge/ISSUES-orange.svg
+[issues-url]: https://github.com/gayankanishka/find-me-movies/issues
+[license-shield]: https://img.shields.io/badge/License-MIT-blue.svg
+[license-url]: https://github.com/gayankanishka/find-me-movies/blob/master/LICENSE
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+<!-- [product-screenshot]: images/screenshot.png -->
