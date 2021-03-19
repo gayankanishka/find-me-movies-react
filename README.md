@@ -1,9 +1,6 @@
 # Find me Movies
 
 ![CI][ci-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
 [![Netlify Status](https://api.netlify.com/api/v1/badges/8e07b48b-db00-44e5-afa8-17b097d6b27a/deploy-status)](https://app.netlify.com/sites/awesome-lovelace-132762/deploys)
 
