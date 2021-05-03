@@ -18,7 +18,7 @@
     "react-lazyload": "^3.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.3",
-    "swiper": "^6.5.8"
+    "swiper": "^6.5.9"
   },
   "scripts": {
     "start": "set HTTPS=true&&react-scripts start",
