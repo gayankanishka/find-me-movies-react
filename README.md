@@ -41,10 +41,10 @@ What's included:
 
 ## Quick Start
 
-After setting up your local DEV environment, you can clone this repository and run the solution using `yarn start` command. Make sure to configure the `.env` file with the provided setting values.
+After setting up your local DEV environment, you can clone this repository and run the solution using `yarn start` command. Make sure to create and configure the `.env` file with the provided setting value.
 
 ```
-
+REACT_APP_TMDB_BASE_URL=https://api.themoviedb.org/3/
 ```
 
 ### Prerequisites
