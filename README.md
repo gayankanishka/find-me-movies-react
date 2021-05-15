@@ -4,6 +4,50 @@
 [![MIT License][license-shield]][license-url]
 [![Netlify Status](https://api.netlify.com/api/v1/badges/8e07b48b-db00-44e5-afa8-17b097d6b27a/deploy-status)](https://app.netlify.com/sites/awesome-lovelace-132762/deploys)
 
+The `Find me Movies` is a React based web application built on top of the The Movie DB API. The application will easily help you to find Trending and Upcoming Movies. 
+
+## Main application screens
+
+### Home Page
+![alt text]?raw=true)
+
+What's included:
+
+
+
+## Table of Content
+
+- [Quick Start](#quick-start)
+  - [Prerequisites](#prerequisites)
+  - [Development Environment Setup](#development-environment-setup)
+  - [Build and run](#build-and-run-from-source)
+  - [Available scripts](#available-scripts)
+- [License](#license)
+
+## Quick Start
+
+After setting up your local DEV environment, you can clone this repository and run the solution using `yarn start` command. Make sure to configure the `.env` file with the provided setting values.
+
+```
+
+```
+
+### Prerequisites
+
+You'll need the following tools:
+
+
+
+### Development Environment Setup
+
+First clone this repository locally.
+
+
+
+### Build and run from source
+
+
+
 ## Available Scripts
 
 In the project directory, you can run:
@@ -12,14 +56,6 @@ In the project directory, you can run:
 
 Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
 ### `yarn build`
 
@@ -40,6 +76,10 @@ If you aren’t satisfied with the build tool and configuration choices, you can
 Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## License
+
+Licensed under the [MIT](LICENSE) license.
 
 [ci-url]: https://github.com/gayankanishka/find-me-movies/workflows/CI/badge.svg
 [contributors-shield]: https://img.shields.io/badge/CONTRIBUTORS-green.svg
