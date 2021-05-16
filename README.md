@@ -6,10 +6,6 @@
 
 The `Find me Movies` is a React based web application built on top of the The Movie DB API. The application will easily help you to find Trending and Upcoming Movies. 
 
-## High-level architecture diagram
-
-
-
 ## Main application screens
 
 ### Home page
