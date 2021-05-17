@@ -5,7 +5,6 @@ import config from '../../config';
 const httpClient = axios.create({
   baseURL: config.tmdbApi.baseUrl,
   headers: {
-    Authorization: `Bearer ${config.tmdbApi.apiKey}`,
     'Content-Type': 'application/json;charset=utf-8'
   }
 });
