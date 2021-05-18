@@ -66,7 +66,7 @@ First clone this repository locally.
 - Run `yarn` command from the repository root
 - Add `.env` file with the configs mentioned above
 - Run `yarn start`
-- Local site will be available in `[http://localhost:3000](http://localhost:3000)`
+- Local site will be available in [http://localhost:3000](http://localhost:3000)
 
 ## Available Scripts
 
