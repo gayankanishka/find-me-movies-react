@@ -6,6 +6,11 @@ const app = fastify({
   logger: true,
 });
 
+fastify.register(require('fastify-rate-limit'), {
+  max: 10,
+  timeWindow: '1 minute'
+});y
+
 app.register(proxy, {
   upstream: process.env.REACT_APP_TMDB_BASE_URL,
   prefix: "/api",
