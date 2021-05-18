@@ -24,7 +24,12 @@ The `Find me Movies` is a React based web application built on top of the The Mo
 
 What's included:
 
-
+- Uses [`React`](hhttps://reactjs.org/) as the web application framework
+- Uses [`TMDB API`](https://developers.themoviedb.org/3/getting-started/introduction) to retrieve movie information
+- Uses [`Material UI`](https://material-ui.com/) to style the components
+- Uses [`Axios`](https://www.npmjs.com/package/axios) as the HTTP client
+- Uses [`Fastify`](https://www.fastify.io/) as the proxy API framework
+- Hosted with [`Vercel`](https://vercel.com/)
 
 ## Table of Content
 
