@@ -6,8 +6,8 @@ const app = fastify({
   logger: true
 });
 
-fastify.register(require('fastify-rate-limit'), {
-  max: 10,
+app.register(require('fastify-rate-limit'), {
+  max: 100,
   timeWindow: '1 minute'
 });
 
