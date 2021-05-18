@@ -24,7 +24,7 @@ The `Find me Movies` is a React based web application built on top of the The Mo
 
 What's included:
 
-- Uses [`React`](hhttps://reactjs.org/) as the web application framework
+- Uses [`React`](https://reactjs.org/) as the web application framework
 - Uses [`TMDB API`](https://developers.themoviedb.org/3/getting-started/introduction) to retrieve movie information
 - Uses [`Material UI`](https://material-ui.com/) to style the components
 - Uses [`Axios`](https://www.npmjs.com/package/axios) as the HTTP client
@@ -45,24 +45,29 @@ What's included:
 After setting up your local DEV environment, you can clone this repository and run the solution using `yarn start` command. Make sure to create and configure the `.env` file with the provided setting value.
 
 ```
-REACT_APP_TMDB_BASE_URL=https://api.themoviedb.org/3/
+REACT_APP_TMDB_PROXY_BASE_URL=https://find-me-movies.vercel.app/api/
+REACT_APP_TMDB_POSTER_BASE_URL=https://image.tmdb.org/t/p/w220_and_h330_face/
+REACT_APP_TMDB_BACKDROP_BASE_URL=https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/
 ```
 
 ### Prerequisites
 
 You'll need the following tools:
 
-
-
-### Development Environment Setup
-
-First clone this repository locally.
-
+- [Yarn package manager](https://yarnpkg.com/getting-started/install)
+- [Node.js](https://nodejs.org/en/), version `>=14`
+- [VS Code](https://code.visualstudio.com/)
+- [TMDB developer account](https://www.themoviedb.org/signup)
 
 
 ### Build and run from source
 
+First clone this repository locally.
 
+- Run `yarn` command from the repository root
+- Add `.env` file with the configs mentioned above
+- Run `yarn start`
+- Local site will be available in `[http://localhost:3000]`
 
 ## Available Scripts
 
