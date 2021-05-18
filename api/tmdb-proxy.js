@@ -1,28 +1,28 @@
-require("dotenv").config();
-const fastify = require("fastify");
-const proxy = require("fastify-http-proxy");
+require('dotenv').config();
+const fastify = require('fastify');
+const proxy = require('fastify-http-proxy');
 
 const app = fastify({
-  logger: true,
+  logger: true
 });
 
 fastify.register(require('fastify-rate-limit'), {
   max: 10,
   timeWindow: '1 minute'
-});y
+});
 
 app.register(proxy, {
   upstream: process.env.REACT_APP_TMDB_BASE_URL,
-  prefix: "/api",
+  prefix: '/api',
   replyOptions: {
     rewriteRequestHeaders: (originalReq, headers) => ({
       ...headers,
-      Authorization: `Bearer ${process.env.REACT_APP_TMDB_API_KEY}`,
-    }),
-  },
+      Authorization: `Bearer ${process.env.REACT_APP_TMDB_API_KEY}`
+    })
+  }
 });
 
 export default async (req, res) => {
   await app.ready();
-  app.server.emit("request", req, res);
+  app.server.emit('request', req, res);
 };
