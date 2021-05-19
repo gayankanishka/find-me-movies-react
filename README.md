@@ -12,7 +12,7 @@ The `Find me Movies` is a React based web application built on top of the The Mo
 
 ### Home page
 
-![Capture1](https://user-images.githubusercontent.com/32380979/118348897-e5b5f480-b56a-11eb-9682-5daf0320cbc4.PNG)
+![Capture1](https://user-images.githubusercontent.com/32380979/118840265-dde8ae00-b8e4-11eb-8754-287ea9fbf004.PNG)
 
 ![Capture2](https://user-images.githubusercontent.com/32380979/118348902-eb133f00-b56a-11eb-8ffc-5e9b2e047525.PNG)
 
