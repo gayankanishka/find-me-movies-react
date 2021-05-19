@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import PropTypes from 'prop-types';
 import 'swiper/swiper-bundle.css';
 import config from '../../../config';
-import MovieCard from './MovieCard';
+import navigationService from '../../../services/navigation.service';
 
 const useStyles = makeStyles(() => ({
   background: {
@@ -37,10 +37,10 @@ const MovieCarousel = ({ movies }) => {
         >
           {movies.map((movie) => {
             return (
-              <SwiperSlide key={movie.id}>
-                <div className={classes.poster}>
-                  <MovieCard movie={movie} />
-                </div>
+              <SwiperSlide
+                key={movie.id}
+                onClick={() => navigationService.goToMovieDetails(movie.id)}
+              >
                 <img
                   alt={movie.title}
                   src={config.tmdbApi.backdropBaseUrl + movie.backdrop_path}
