@@ -7,7 +7,7 @@ const app = fastify({
 });
 
 app.register(require('fastify-rate-limit'), {
-  max: 100,
+  max: process.env.REACT_APP_MAX_RATE_LIMIT,
   timeWindow: '1 minute'
 });
 
