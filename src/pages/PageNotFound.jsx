@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 
 const PageNotFound = () => {
   const location = useLocation();
+  document.getElementById('root').style.backgroundImage = null;
 
   return (
     <div>

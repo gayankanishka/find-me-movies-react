@@ -25,6 +25,8 @@ const OnTheaters = () => {
     setPage(data.page);
   };
 
+  document.getElementById('root').style.backgroundImage = null;
+
   return (
     <>
       <Typography variant="h6">On Theaters</Typography>

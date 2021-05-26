@@ -5,6 +5,8 @@ import UpcomingMovieGrid from '../modules/movies/components/UpcomingMovieGrid';
 import DiscoverMovies from '../modules/movies/components/DiscoverMovies';
 
 const Home = () => {
+  document.getElementById('root').style.backgroundImage = null;
+
   return (
     <>
       <DiscoverMovies />

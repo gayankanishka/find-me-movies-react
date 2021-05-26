@@ -25,6 +25,8 @@ const TopRatedMovies = () => {
     setPage(data.page);
   };
 
+  document.getElementById('root').style.backgroundImage = null;
+
   return (
     <>
       <Typography variant="h6">Top Rated Movies</Typography>

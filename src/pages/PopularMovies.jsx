@@ -25,6 +25,8 @@ const PopularMovies = () => {
     setPage(data.page);
   };
 
+  document.getElementById('root').style.backgroundImage = null;
+
   return (
     <>
       <Typography variant="h6">Popular Movies</Typography>

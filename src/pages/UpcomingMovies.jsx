@@ -25,6 +25,8 @@ const UpcomingMovies = () => {
     setPage(data.page);
   };
 
+  document.getElementById('root').style.backgroundImage = null;
+
   return (
     <>
       <Typography variant="h6">Upcoming Movies</Typography>
