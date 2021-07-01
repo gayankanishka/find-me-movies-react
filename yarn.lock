@@ -4204,7 +4204,7 @@ encodeurl@~1.0.2:
   resolved "https://registry.yarnpkg.com/encodeurl/-/encodeurl-1.0.2.tgz#ad3ff4c86ec2d029322f5a02c3a9a606c95b3f59"
   integrity sha1-rT/0yG7C0CkyL1oCw6mmBslbP1k=
 
-end-of-stream@^1.0.0, end-of-stream@^1.1.0, end-of-stream@^1.4.1:
+end-of-stream@^1.0.0, end-of-stream@^1.1.0, end-of-stream@^1.4.4:
   version "1.4.4"
   resolved "https://registry.yarnpkg.com/end-of-stream/-/end-of-stream-1.4.4.tgz#5ae64a5f45057baf3626ec14da0ca5e4b2431eb0"
   integrity sha512-+uw1inIHVPQoaVuHzRyXd21icM+cnt4CzD5rW+NC1wjOUSTOs+Te7FOv7AhN7vS9x/oIyhLP5PR1H+phQAHu5Q==
@@ -5051,12 +5051,12 @@ fastify-error@^0.3.0:
   resolved "https://registry.yarnpkg.com/fastify-error/-/fastify-error-0.3.1.tgz#8eb993e15e3cf57f0357fc452af9290f1c1278d2"
   integrity sha512-oCfpcsDndgnDVgiI7bwFKAun2dO+4h84vBlkWsWnz/OUK9Reff5UFoFl241xTiLeHWX/vU9zkDVXqYUxjOwHcQ==
 
-fastify-http-proxy@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/fastify-http-proxy/-/fastify-http-proxy-5.0.0.tgz#9c24826add22cd6de9e7260696e0e986415c1fda"
-  integrity sha512-sky2KzumdjSTd7IjKVtSF3KLOz/m4rWvTRgXe/7gR4qnDAsQubiLUM80ZVbVwLGcrPq/1PHVf2ZsfSUMmbHhAQ==
+fastify-http-proxy@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/fastify-http-proxy/-/fastify-http-proxy-6.0.0.tgz#faed8f560ec73c62235555ec7f24eb142d8a6de4"
+  integrity sha512-/unbkLzq3DaSIHjaBNHf2ID42/PEmixwtdwlQz/6pF8wyBlkhDKcsMeePFWl6rox501cFKR4sLu1ATsxjh9xUA==
   dependencies:
-    fastify-reply-from "^5.0.1"
+    fastify-reply-from "^6.0.0"
     ws "^7.4.1"
 
 fastify-plugin@^3.0.0:
@@ -5073,18 +5073,18 @@ fastify-rate-limit@^5.5.0:
     ms "^2.1.1"
     tiny-lru "^7.0.0"
 
-fastify-reply-from@^5.0.1:
-  version "5.3.0"
-  resolved "https://registry.yarnpkg.com/fastify-reply-from/-/fastify-reply-from-5.3.0.tgz#cc5da748ddfe73560bb5bedfb890b22c0d39c0d6"
-  integrity sha512-afEdY/akDIwCwhw0sk8KoVJjAfO1tWGY7i3nC7U6/JU52f890d+l6+H3rmPMcvKyuujEoKSzT7yRV6VFL61nYA==
+fastify-reply-from@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/fastify-reply-from/-/fastify-reply-from-6.0.0.tgz#86d4b616389f74b3b68c374bbb3849417116c68e"
+  integrity sha512-wbXlnHIOIgXIZu3TaSL2RMfV8Yqq5wtCct896u6UDa+zRU29uyS+qof2ckAgmDhvVzcWjmkFIe953sQPLBJUZg==
   dependencies:
-    end-of-stream "^1.4.1"
+    end-of-stream "^1.4.4"
     fastify-plugin "^3.0.0"
     http-errors "^1.8.0"
     pump "^3.0.0"
-    semver "^7.2.1"
-    tiny-lru "^7.0.0"
-    undici "^3.3.1"
+    semver "^7.3.5"
+    tiny-lru "^7.0.6"
+    undici "^4.0.0"
 
 fastify-warning@^0.2.0:
   version "0.2.0"
@@ -7555,6 +7555,13 @@ lru-cache@^5.1.1:
   integrity sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==
   dependencies:
     yallist "^3.0.2"
+
+lru-cache@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-6.0.0.tgz#6d6fe6570ebd96aaf90fcad1dafa3b2566db3a94"
+  integrity sha512-Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA==
+  dependencies:
+    yallist "^4.0.0"
 
 make-dir@^2.0.0, make-dir@^2.1.0:
   version "2.1.0"
@@ -10497,6 +10504,13 @@ semver@^7.2.1, semver@^7.3.2:
   resolved "https://registry.yarnpkg.com/semver/-/semver-7.3.2.tgz#604962b052b81ed0786aae84389ffba70ffd3938"
   integrity sha512-OrOb32TeeambH6UrhtShmF7CRDqhL6/5XpPNp2DuRH6+9QLw/orhp72j87v8Qa1ScDkvrrBNpZcDejAirJmfXQ==
 
+semver@^7.3.5:
+  version "7.3.5"
+  resolved "https://registry.yarnpkg.com/semver/-/semver-7.3.5.tgz#0b621c879348d8998e4b0e4be94b3f12e6018ef7"
+  integrity sha512-PoeGJYh8HK4BTO/a9Tf6ZG3veo/A7ZVsYrSA6J8ny9nb3B1VrpkuN+z9OE5wfE5p6H4LchYZsegiQgbJD94ZFQ==
+  dependencies:
+    lru-cache "^6.0.0"
+
 send@0.17.1:
   version "0.17.1"
   resolved "https://registry.yarnpkg.com/send/-/send-0.17.1.tgz#c1d8b059f7900f7466dd4938bdc44e11ddb376c8"
@@ -11344,7 +11358,7 @@ tiny-invariant@^1.0.2:
   resolved "https://registry.yarnpkg.com/tiny-invariant/-/tiny-invariant-1.1.0.tgz#634c5f8efdc27714b7f386c35e6760991d230875"
   integrity sha512-ytxQvrb1cPc9WBEI/HSeYYoGD0kWnGEOR8RY6KomWLBVhqz0RgTwVO9dLrGz7dC+nN9llyI7OKAgRq8Vq4ZBSw==
 
-tiny-lru@^7.0.0:
+tiny-lru@^7.0.0, tiny-lru@^7.0.6:
   version "7.0.6"
   resolved "https://registry.yarnpkg.com/tiny-lru/-/tiny-lru-7.0.6.tgz#b0c3cdede1e5882aa2d1ae21cb2ceccf2a331f24"
   integrity sha512-zNYO0Kvgn5rXzWpL0y3RS09sMK67eGaQj9805jlK9G6pSadfriTczzLHFXa/xcW4mIRfmlB9HyQ/+SgL0V1uow==
@@ -11549,10 +11563,10 @@ unbox-primitive@^1.0.1:
     has-symbols "^1.0.2"
     which-boxed-primitive "^1.0.2"
 
-undici@^3.3.1:
-  version "3.3.6"
-  resolved "https://registry.yarnpkg.com/undici/-/undici-3.3.6.tgz#06d3b97b7eeff46bce6f8a71079c09f64dd59dc1"
-  integrity sha512-/j3YTZ5AobMB4ZrTY72mzM54uFUX32v0R/JRW9G2vOyF1uSKYAx+WT8dMsAcRS13TOFISv094TxIyWYk+WEPsA==
+undici@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/undici/-/undici-4.0.0.tgz#0794fe33ac06af978a93e62749a17012d5386643"
+  integrity sha512-bVXZKTcQPECj2yYWgVWk1tDw3T24Bzfbp5H5bivcVCpklpqoGvJ842mCA54bExFzuCZcIPrwsVJXWt215/qRIg==
 
 unicode-canonical-property-names-ecmascript@^1.0.4:
   version "1.0.4"
