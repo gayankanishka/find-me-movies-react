@@ -5051,10 +5051,10 @@ fastify-error@^0.3.0:
   resolved "https://registry.yarnpkg.com/fastify-error/-/fastify-error-0.3.1.tgz#8eb993e15e3cf57f0357fc452af9290f1c1278d2"
   integrity sha512-oCfpcsDndgnDVgiI7bwFKAun2dO+4h84vBlkWsWnz/OUK9Reff5UFoFl241xTiLeHWX/vU9zkDVXqYUxjOwHcQ==
 
-fastify-http-proxy@^6.1.0:
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/fastify-http-proxy/-/fastify-http-proxy-6.1.0.tgz#1965e7c43568937f362dda611edbf13c05c3b76e"
-  integrity sha512-ce0DQeNWoMo+GRxczwzSFxibXd4oUQOS1pNpJKTLwrGaCaJuwHyhPDO3mAThmC9Qf6luP8w25W04g+BR9bmikw==
+fastify-http-proxy@^6.2.0:
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/fastify-http-proxy/-/fastify-http-proxy-6.2.0.tgz#2f35453e3057c8e183880783f3551415c6b4c846"
+  integrity sha512-oD0PQvrNrPNwXOg+3DcGwhC2g/11t0F6MPx7jaVWhjhCgX/xUgeP6OoFb6vBBGYOkRQG7ocakNs/2xs+uj2+Ag==
   dependencies:
     fastify-reply-from "^6.0.0"
     ws "^8.0.0"
