@@ -18,21 +18,19 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const HorizontalMovieList = ({ movies }) => {
+function HorizontalMovieList({ movies }) {
   const classes = useStyles();
 
   return (
-    <>
-      <div className={classes.root}>
-        <GridList className={classes.gridList} cols={2.5}>
-          {(movies || []).map((data) => {
-            return <MovieCard key={data.id} movie={data} />;
-          })}
-        </GridList>
-      </div>
-    </>
+    <div className={classes.root}>
+      <GridList className={classes.gridList} cols={2.5}>
+        {(movies || []).map((data) => (
+          <MovieCard key={data.id} movie={data} />
+        ))}
+      </GridList>
+    </div>
   );
-};
+}
 
 HorizontalMovieList.propTypes = {
   movies: PropTypes.arrayOf(

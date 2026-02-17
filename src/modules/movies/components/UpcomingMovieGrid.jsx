@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const UpcomingMovieGrid = () => {
+function UpcomingMovieGrid() {
   const classes = useStyles();
   const [movies, setMovies] = useState();
 
@@ -24,6 +24,6 @@ const UpcomingMovieGrid = () => {
       {movies ? <HorizontalMovieList movies={movies} /> : <SkeltonLoader />}
     </div>
   );
-};
+}
 
 export default UpcomingMovieGrid;

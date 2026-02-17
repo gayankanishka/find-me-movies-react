@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const PopularMovieGrid = () => {
+function PopularMovieGrid() {
   const classes = useStyles();
   const [movies, setMovies] = useState();
 
@@ -29,6 +29,6 @@ const PopularMovieGrid = () => {
       {movies ? <HorizontalMovieList movies={movies} /> : <SkeltonLoader />}
     </div>
   );
-};
+}
 
 export default PopularMovieGrid;

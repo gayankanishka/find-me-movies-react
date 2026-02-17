@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Spinner = () => {
+function Spinner() {
   const classes = useStyles();
 
   return (
@@ -17,6 +17,6 @@ const Spinner = () => {
       <CircularProgress size={50} thickness={5} />
     </Backdrop>
   );
-};
+}
 
 export default Spinner;

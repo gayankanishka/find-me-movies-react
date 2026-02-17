@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const MovieCard = ({ movie }) => {
+function MovieCard({ movie }) {
   const classes = useStyles();
 
   return (
@@ -59,7 +59,7 @@ const MovieCard = ({ movie }) => {
       </Card>
     </Grid>
   );
-};
+}
 
 MovieCard.propTypes = {
   movie: PropTypes.shape({

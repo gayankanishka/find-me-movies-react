@@ -2,7 +2,7 @@ import React from 'react';
 import { Typography, Grid } from '@material-ui/core';
 import PropTypes from 'prop-types';
 
-const InlineDescriptor = ({ title, description }) => {
+function InlineDescriptor({ title, description }) {
   return (
     <Grid container direction="row" alignItems="baseline">
       <Typography variant="h6">
@@ -12,7 +12,7 @@ const InlineDescriptor = ({ title, description }) => {
       <Typography variant="subtitle1">{description}</Typography>
     </Grid>
   );
-};
+}
 
 InlineDescriptor.propTypes = {
   title: PropTypes.string.isRequired,

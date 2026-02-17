@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const MovieSearch = () => {
+function MovieSearch() {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [movies, setMovies] = useState([]);
@@ -100,9 +100,7 @@ const MovieSearch = () => {
           setQuery('');
         }
       }}
-      getOptionSelected={(option, value) => {
-        return value.value === option.value;
-      }}
+      getOptionSelected={(option, value) => value.value === option.value}
       renderInput={(params) => (
         <InputBase
           ref={params.InputProps.ref}
@@ -119,6 +117,6 @@ const MovieSearch = () => {
       )}
     />
   );
-};
+}
 
 export default MovieSearch;

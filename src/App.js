@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React, { Suspense } from 'react';
 import { Router, Switch, Route } from 'react-router-dom';
 import {
@@ -5,8 +6,10 @@ import {
   createMuiTheme,
   CssBaseline
 } from '@material-ui/core';
+import PropTypes from 'prop-types';
+
 import Layout from './components/Layout';
-import routes from './routeConfig';
+import routeConfig from './routeConfig';
 import history from './utils/history.utils';
 import Spinner from './components/Spinner';
 import ScrollToTop from './components/ScrollToTop';
@@ -20,20 +23,17 @@ const theme = createMuiTheme({
   }
 });
 
-const App = () => {
-  function RouteWithSubRoutes(route) {
-    return (
-      <Route
-        exact={route.exact}
-        path={route.path}
-        render={(props) => (
-          // HINT: pass the sub-routes down to keep nesting
-          <route.component {...props} routes={route.routes} />
-        )}
-      />
-    );
-  }
+function RouteWithSubRoutes({ exact, path, routes, component: Component }) {
+  return (
+    <Route
+      exact={exact}
+      path={path}
+      render={(props) => <Component {...props} routes={routes} />}
+    />
+  );
+}
 
+function App() {
   return (
     <Router history={history}>
       <ScrollToTop />
@@ -42,7 +42,7 @@ const App = () => {
         <Layout style={{ background: '#181818' }}>
           <Suspense fallback={<Spinner />}>
             <Switch>
-              {routes.map((route) => (
+              {routeConfig.map((route) => (
                 <RouteWithSubRoutes key={route.path} {...route} />
               ))}
             </Switch>
@@ -51,6 +51,15 @@ const App = () => {
       </MuiThemeProvider>
     </Router>
   );
+}
+
+RouteWithSubRoutes.propTypes = {
+  path: PropTypes.string.isRequired,
+  exact: PropTypes.bool.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  routes: PropTypes.object.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  component: PropTypes.object.isRequired
 };
 
 export default App;

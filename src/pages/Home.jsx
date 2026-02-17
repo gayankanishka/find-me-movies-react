@@ -4,7 +4,7 @@ import TopRatedMovieGrid from '../modules/movies/components/TopRatedMovieGrid';
 import UpcomingMovieGrid from '../modules/movies/components/UpcomingMovieGrid';
 import DiscoverMovies from '../modules/movies/components/DiscoverMovies';
 
-const Home = () => {
+function Home() {
   document.getElementById('root').style.backgroundImage = null;
 
   return (
@@ -15,6 +15,6 @@ const Home = () => {
       <UpcomingMovieGrid />
     </>
   );
-};
+}
 
 export default Home;
