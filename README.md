@@ -4,7 +4,7 @@
 [![MIT License][license-shield]][license-url]
 ![Vercel](http://therealsujitk-vercel-badge.vercel.app/?app=find-me-movies)
 
-The `Find me Movies` is a React based web application built on top of the The Movie DB API. The application will easily help you to find Trending and Upcoming Movies. 
+The `Find me Movies` is a React based web application built on top of the The Movie DB API. The application will easily help you to find Trending and Upcoming Movies.
 
 [`Live site here`](https://find-me-movies.vercel.app/)
 
@@ -30,7 +30,6 @@ What's included:
 - Uses [`TMDB API`](https://developers.themoviedb.org/3/getting-started/introduction) to retrieve movie information
 - Uses [`Material UI`](https://material-ui.com/) to style the components
 - Uses [`Axios`](https://www.npmjs.com/package/axios) as the HTTP client
-- Uses [`Fastify`](https://www.fastify.io/) as the proxy API framework
 - Hosted with [`Vercel`](https://vercel.com/)
 
 ## Table of Content
@@ -59,7 +58,6 @@ You'll need the following tools:
 - [Node.js](https://nodejs.org/en/), version `>=14`
 - [VS Code](https://code.visualstudio.com/)
 - [TMDB developer account](https://www.themoviedb.org/signup)
-
 
 ### Build and run from source
 
