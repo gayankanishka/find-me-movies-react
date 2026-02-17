@@ -11,7 +11,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const Layout = ({ children }) => {
+function Layout({ children }) {
   const classes = useStyles();
 
   return (
@@ -23,7 +23,7 @@ const Layout = ({ children }) => {
       <Footer />
     </>
   );
-};
+}
 
 Layout.propTypes = {
   children: PropTypes.element.isRequired

@@ -5,7 +5,7 @@ import movieService from '../services/movie-db.service';
 import VerticalMovieList from '../modules/movies/components/VerticalMovieList';
 import SkeltonLoader from '../components/SkeltonLoader';
 
-const UpcomingMovies = () => {
+function UpcomingMovies() {
   const [movies, setMovies] = useState([]);
   const [page, setPage] = useState(1);
 
@@ -40,6 +40,6 @@ const UpcomingMovies = () => {
       </InfiniteScroll>
     </>
   );
-};
+}
 
 export default UpcomingMovies;

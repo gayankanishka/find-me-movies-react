@@ -29,19 +29,17 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Footer = () => {
+function Footer() {
   const classes = useStyles();
 
   return (
-    <>
-      <footer className={classes.footer}>
-        <Container maxWidth="sm">
-          <Typography variant="body1">Gayan K.</Typography>
-          <Copyright />
-        </Container>
-      </footer>
-    </>
+    <footer className={classes.footer}>
+      <Container maxWidth="sm">
+        <Typography variant="body1">Gayan K.</Typography>
+        <Copyright />
+      </Container>
+    </footer>
   );
-};
+}
 
 export default Footer;

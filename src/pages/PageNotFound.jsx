@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 
-const PageNotFound = () => {
+function PageNotFound() {
   const location = useLocation();
   document.getElementById('root').style.backgroundImage = null;
 
@@ -13,6 +13,6 @@ const PageNotFound = () => {
       </h3>
     </div>
   );
-};
+}
 
 export default PageNotFound;

@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const TopRatedMovieGrid = () => {
+function TopRatedMovieGrid() {
   const classes = useStyles();
   const [movies, setMovies] = useState();
 
@@ -29,6 +29,6 @@ const TopRatedMovieGrid = () => {
       {movies ? <HorizontalMovieList movies={movies} /> : <SkeltonLoader />}
     </div>
   );
-};
+}
 
 export default TopRatedMovieGrid;

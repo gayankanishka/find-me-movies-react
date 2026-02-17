@@ -3,7 +3,7 @@ import movieService from '../../../services/movie-db.service';
 import MovieCarousel from './MovieCarousel';
 import SkeltonLoader from '../../../components/SkeltonLoader';
 
-const DiscoverMovies = () => {
+function DiscoverMovies() {
   const [movies, setMovies] = useState();
 
   useEffect(() => {
@@ -15,9 +15,7 @@ const DiscoverMovies = () => {
     fetchData();
   }, []);
 
-  return (
-    <>{movies ? <MovieCarousel movies={movies} /> : <SkeltonLoader />}</>
-  );
-};
+  return movies ? <MovieCarousel movies={movies} /> : <SkeltonLoader />;
+}
 
 export default DiscoverMovies;

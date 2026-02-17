@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const RecommendedMovieGrid = ({ id }) => {
+function RecommendedMovieGrid({ id }) {
   const classes = useStyles();
   const [movies, setMovies] = useState();
 
@@ -34,7 +34,7 @@ const RecommendedMovieGrid = ({ id }) => {
       {movies ? <HorizontalMovieList movies={movies} /> : <SkeltonLoader />}
     </div>
   );
-};
+}
 
 RecommendedMovieGrid.propTypes = {
   id: PropTypes.string.isRequired

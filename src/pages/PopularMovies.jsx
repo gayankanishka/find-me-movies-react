@@ -5,7 +5,7 @@ import movieService from '../services/movie-db.service';
 import VerticalMovieList from '../modules/movies/components/VerticalMovieList';
 import SkeltonLoader from '../components/SkeltonLoader';
 
-const PopularMovies = () => {
+function PopularMovies() {
   const [movies, setMovies] = useState([]);
   const [page, setPage] = useState(1);
 
@@ -40,6 +40,6 @@ const PopularMovies = () => {
       </InfiniteScroll>
     </>
   );
-};
+}
 
 export default PopularMovies;

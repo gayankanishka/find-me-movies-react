@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-props-no-spreading */
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
@@ -89,7 +91,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const HideOnScroll = (props) => {
+function HideOnScroll(props) {
   const { children } = props;
   const trigger = useScrollTrigger();
 
@@ -98,21 +100,21 @@ const HideOnScroll = (props) => {
       {children}
     </Slide>
   );
-};
+}
 
 HideOnScroll.propTypes = {
   children: PropTypes.element.isRequired
 };
 
 // TODO: Refactor side drawer stuff
-const Header = (props) => {
+function Header(props) {
   const classes = useStyles();
   const [state, setState] = React.useState({
     left: false
   });
   const anchor = 'left';
 
-  const toggleDrawer = (anchor, open) => (event) => {
+  const toggleDrawer = (anch, open) => (event) => {
     if (
       event &&
       event.type === 'keydown' &&
@@ -121,7 +123,7 @@ const Header = (props) => {
       return;
     }
 
-    setState({ ...state, [anchor]: open });
+    setState({ ...state, [anch]: open });
   };
 
   const list = () => (
@@ -219,6 +221,6 @@ const Header = (props) => {
       </SwipeableDrawer>
     </div>
   );
-};
+}
 
 export default Header;

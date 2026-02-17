@@ -17,7 +17,8 @@ app.register(proxy, {
   replyOptions: {
     rewriteRequestHeaders: (originalReq, headers) => ({
       ...headers,
-      Authorization: `Bearer ${process.env.REACT_APP_TMDB_API_KEY}`
+      Authorization: `Bearer ${process.env.REACT_APP_TMDB_API_KEY}`,
+      'X-Forwarded-Host': 'api.themoviedb.org'
     })
   }
 });

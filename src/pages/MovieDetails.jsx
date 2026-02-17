@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const MovieDetails = () => {
+function MovieDetails() {
   const classes = useStyles();
   const [movie, setMovie] = useState();
   const { id } = useParams();
@@ -73,6 +73,6 @@ const MovieDetails = () => {
       </Grid>
     </Grid>
   );
-};
+}
 
 export default MovieDetails;

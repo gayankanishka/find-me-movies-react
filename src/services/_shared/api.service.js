@@ -5,7 +5,8 @@ import config from '../../config';
 const httpClient = axios.create({
   baseURL: config.tmdbApi.baseUrl,
   headers: {
-    'Content-Type': 'application/json;charset=utf-8'
+    'Content-Type': 'application/json;charset=utf-8',
+    'X-Forwarded-Host': 'api.themoviedb.org'
   }
 });
 

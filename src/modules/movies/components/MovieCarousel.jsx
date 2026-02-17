@@ -20,7 +20,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const MovieCarousel = ({ movies }) => {
+function MovieCarousel({ movies }) {
   SwiperCore.use([Navigation, Pagination, Autoplay]);
   const classes = useStyles();
 
@@ -35,25 +35,23 @@ const MovieCarousel = ({ movies }) => {
           navigation
           pagination={{ clickable: true }}
         >
-          {movies.map((movie) => {
-            return (
-              <SwiperSlide
-                key={movie.id}
-                onClick={() => navigationService.goToMovieDetails(movie.id)}
-              >
-                <img
-                  alt={movie.title}
-                  src={config.tmdbApi.backdropBaseUrl + movie.backdrop_path}
-                  className={classes.background}
-                />
-              </SwiperSlide>
-            );
-          })}
+          {movies.map((movie) => (
+            <SwiperSlide
+              key={movie.id}
+              onClick={() => navigationService.goToMovieDetails(movie.id)}
+            >
+              <img
+                alt={movie.title}
+                src={config.tmdbApi.backdropBaseUrl + movie.backdrop_path}
+                className={classes.background}
+              />
+            </SwiperSlide>
+          ))}
         </Swiper>
       </Grid>
     </Grid>
   );
-};
+}
 
 MovieCarousel.propTypes = {
   movies: PropTypes.arrayOf(

@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const MoviePoster = ({ path }) => {
+function MoviePoster({ path }) {
   const classes = useStyles();
   const imageSrc = `${config.tmdbApi.posterBaseUrl}${path}`;
 
@@ -21,7 +21,7 @@ const MoviePoster = ({ path }) => {
       </Card>
     </Grid>
   );
-};
+}
 
 MoviePoster.propTypes = {
   path: PropTypes.string.isRequired

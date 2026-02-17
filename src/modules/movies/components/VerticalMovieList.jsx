@@ -17,19 +17,19 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const VerticalMovieList = ({ movies }) => {
+function VerticalMovieList({ movies }) {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
       <GridList cellHeight={180} className={classes.gridList}>
-        {(movies || []).map((data) => {
-          return <MovieCard key={data.id} movie={data} />;
-        })}
+        {(movies || []).map((data) => (
+          <MovieCard key={data.id} movie={data} />
+        ))}
       </GridList>
     </div>
   );
-};
+}
 
 VerticalMovieList.propTypes = {
   movies: PropTypes.arrayOf(

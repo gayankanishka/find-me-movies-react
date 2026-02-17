@@ -8,7 +8,7 @@ const useStyles = makeStyles({
   }
 });
 
-const SkeltonLoader = () => {
+function SkeltonLoader() {
   const classes = useStyles();
 
   return (
@@ -19,6 +19,6 @@ const SkeltonLoader = () => {
       <Skeleton />
     </div>
   );
-};
+}
 
 export default SkeltonLoader;
