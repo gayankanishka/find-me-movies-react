@@ -19,6 +19,8 @@ export default async function handler(req, res) {
 
     res.status(tmdbRes.status);
     res.setHeader('Content-Type', 'application/json');
+    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+    res.setHeader('CDN-Cache-Control', 'no-store');
     res.send(data);
   } catch (err) {
     res.status(500).json({ error: 'Proxy error', details: String(err) });
