@@ -9,6 +9,7 @@ export default async function handler(req, res) {
     const apiKey = process.env.TMDB_API_KEY || process.env.REACT_APP_TMDB_API_KEY;
 
     const tmdbRes = await fetch(url, {
+      cache: 'no-store',
       headers: {
         Authorization: `Bearer ${apiKey}`,
         'Content-Type': 'application/json'
