@@ -1,29 +1,23 @@
-require('dotenv').config();
-const fastify = require('fastify');
-const proxy = require('fastify-http-proxy');
+export default async function handler(req, res) {
+  try {
+    const path = req.query.path.join('/');
+    const query = new URLSearchParams(req.query).toString();
 
-const app = fastify({
-  logger: true
-});
+    const url = `https://api.themoviedb.org/3/${path}?${query}`;
 
-app.register(require('fastify-rate-limit'), {
-  max: process.env.REACT_APP_MAX_RATE_LIMIT,
-  timeWindow: '1 minute'
-});
+    const tmdbRes = await fetch(url, {
+      headers: {
+        Authorization: `Bearer ${process.env.REACT_APP_TMDB_API_KEY}`,
+        'Content-Type': 'application/json'
+      }
+    });
 
-app.register(proxy, {
-  upstream: process.env.REACT_APP_TMDB_BASE_URL,
-  prefix: '/api',
-  replyOptions: {
-    rewriteRequestHeaders: (originalReq, headers) => ({
-      ...headers,
-      Authorization: `Bearer ${process.env.REACT_APP_TMDB_API_KEY}`,
-      'X-Forwarded-Host': 'api.themoviedb.org'
-    })
+    const data = await tmdbRes.text();
+
+    res.status(tmdbRes.status);
+    res.setHeader('Content-Type', 'application/json');
+    res.send(data);
+  } catch (err) {
+    res.status(500).json({ error: 'Proxy error', details: String(err) });
   }
-});
-
-export default async (req, res) => {
-  await app.ready();
-  app.server.emit('request', req, res);
-};
+}

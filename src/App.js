@@ -1,11 +1,8 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { Suspense } from 'react';
 import { Router, Switch, Route } from 'react-router-dom';
-import {
-  MuiThemeProvider,
-  createMuiTheme,
-  CssBaseline
-} from '@material-ui/core';
+import { MuiThemeProvider, CssBaseline } from '@material-ui/core';
+import { createTheme } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 
 import Layout from './components/Layout';
@@ -14,7 +11,7 @@ import history from './utils/history.utils';
 import Spinner from './components/Spinner';
 import ScrollToTop from './components/ScrollToTop';
 
-const theme = createMuiTheme({
+const theme = createTheme({
   palette: {
     type: 'dark',
     background: {
