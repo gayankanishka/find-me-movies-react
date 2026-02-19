@@ -1,8 +1,2 @@
 {
-  "rewrites": [
-    {
-      "source": "/api(.*)",
-      "destination": "/api/tmdb-proxy.js"
-    }
-  ]
 }
