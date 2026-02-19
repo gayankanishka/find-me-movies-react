@@ -54,7 +54,7 @@ RouteWithSubRoutes.propTypes = {
   path: PropTypes.string.isRequired,
   exact: PropTypes.bool.isRequired,
   // eslint-disable-next-line react/forbid-prop-types
-  routes: PropTypes.object.isRequired,
+  routes: PropTypes.object,
   // eslint-disable-next-line react/forbid-prop-types
   component: PropTypes.object.isRequired
 };

@@ -1,13 +1,16 @@
 export default async function handler(req, res) {
   try {
-    const path = req.query.path.join('/');
-    const query = new URLSearchParams(req.query).toString();
+    const { path, ...queryParams } = req.query;
+    const tmdbPath = Array.isArray(path) ? path.join('/') : path;
+    const query = new URLSearchParams(queryParams).toString();
 
-    const url = `https://api.themoviedb.org/3/${path}?${query}`;
+    const url = `https://api.themoviedb.org/3/${tmdbPath}${query ? `?${query}` : ''}`;
+
+    const apiKey = process.env.TMDB_API_KEY || process.env.REACT_APP_TMDB_API_KEY;
 
     const tmdbRes = await fetch(url, {
       headers: {
-        Authorization: `Bearer ${process.env.REACT_APP_TMDB_API_KEY}`,
+        Authorization: `Bearer ${apiKey}`,
         'Content-Type': 'application/json'
       }
     });
