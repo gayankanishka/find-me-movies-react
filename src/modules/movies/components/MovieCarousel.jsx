@@ -20,8 +20,9 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
+SwiperCore.use([Navigation, Pagination, Autoplay]);
+
 function MovieCarousel({ movies }) {
-  SwiperCore.use([Navigation, Pagination, Autoplay]);
   const classes = useStyles();
 
   return (
