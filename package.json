@@ -18,7 +18,7 @@
     "react-lazyload": "^3.2.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^5.0.1",
-    "swiper": "^6.0.1"
+    "swiper": "^8.4.7"
   },
   "scripts": {
     "preinstall": "npx only-allow pnpm",
