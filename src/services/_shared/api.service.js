@@ -2,12 +2,17 @@ import axios from 'axios';
 import stringUtils from '../../utils/string.utils';
 import config from '../../config';
 
+const headers = {
+  'Content-Type': 'application/json;charset=utf-8'
+};
+
+if (config.tmdbApi.apiKey) {
+  headers.Authorization = `Bearer ${config.tmdbApi.apiKey}`;
+}
+
 const httpClient = axios.create({
   baseURL: config.tmdbApi.baseUrl,
-  headers: {
-    'Content-Type': 'application/json;charset=utf-8',
-    'X-Forwarded-Host': 'api.themoviedb.org'
-  }
+  headers
 });
 
 async function get(endpoint, params) {
