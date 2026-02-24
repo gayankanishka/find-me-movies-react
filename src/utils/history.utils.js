@@ -1,3 +1,2 @@
-const createHistory = require('history').createBrowserHistory;
-
-export default createHistory();
+import { createBrowserHistory } from 'history/cjs/history.min';
+export default createBrowserHistory();
