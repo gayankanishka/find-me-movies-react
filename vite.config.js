@@ -9,5 +9,14 @@ export default defineConfig({
   },
   build: {
     outDir: 'build'
+  },
+  optimizeDeps: {
+    include: [
+      '@mui/material',
+      '@mui/material/styles',
+      '@mui/icons-material',
+      '@emotion/react',
+      '@emotion/styled'
+    ]
   }
 });
