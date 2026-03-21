@@ -22,9 +22,10 @@ A cinematic movie discovery app built with React and powered by the [TMDB API](h
 - **Browse by Genre** — colour-coded genre cards leading to filtered, sortable movie lists with infinite scroll
 - **Recently Viewed** — locally persisted history of movies you've visited (no login required)
 
-![alt text](</docs/assets/Screenshot 2026-03-21 at 14.35.32.png>)
+<img width="2553" height="1346" alt="Screenshot 2026-03-21 at 14 35 32" src="https://github.com/user-attachments/assets/04c11d8f-915b-4138-aa3d-e01fe722920e" />
 
-![alt text](</docs/assets/Screenshot 2026-03-21 at 14.36.04.png>)
+<img width="2553" height="1346" alt="Screenshot 2026-03-21 at 14 36 04" src="https://github.com/user-attachments/assets/cdfef552-89cf-4f72-8748-52b031b3aa9a" />
+
 
 ### Movie Detail
 
@@ -36,9 +37,10 @@ A cinematic movie discovery app built with React and powered by the [TMDB API](h
 - Keywords and similar movie recommendations
 - **Share** button using the Web Share API with clipboard fallback
 
-![alt text](</docs/assets/Screenshot 2026-03-21 at 14.43.10.png>)
+<img width="2553" height="1346" alt="Screenshot 2026-03-21 at 14 43 10" src="https://github.com/user-attachments/assets/6c34e9b5-1323-41f9-9cba-79cf72aeb83b" />
 
-![alt text](</docs/assets/Screenshot 2026-03-21 at 14.43.40.png>)
+<img width="2553" height="1346" alt="Screenshot 2026-03-21 at 14 43 40" src="https://github.com/user-attachments/assets/fe995ea9-932e-4601-8014-7a16c68fe371" />
+
 
 ### Person Pages
 
@@ -46,7 +48,7 @@ A cinematic movie discovery app built with React and powered by the [TMDB API](h
 - Full filmography grid with character or job labels, sorted by popularity
 - Direct link to IMDb and personal homepage where available
 
-![alt text](</docs/assets/Screenshot 2026-03-21 at 15.33.40.png>)
+<img width="2553" height="1346" alt="Screenshot 2026-03-21 at 15 33 40" src="https://github.com/user-attachments/assets/de14f12f-a856-4148-b096-9702dca0968e" />
 
 ### Search
 
@@ -59,9 +61,9 @@ A cinematic movie discovery app built with React and powered by the [TMDB API](h
 - Slide-out drawer for mobile with all routes
 - Fixed bottom navigation bar on mobile (Home, Popular, Search, Trending, Genres)
 
-![alt text](</docs/assets/Screenshot 2026-03-21 at 14.44.26.png>)
+<img width="2553" height="1346" alt="Screenshot 2026-03-21 at 14 44 26" src="https://github.com/user-attachments/assets/578e4e78-6787-4a72-ac0c-5dba86497d86" />
 
-![alt text](<Screenshot 2026-03-21 at 14.44.08.png>)
+<img width="2553" height="1346" alt="Screenshot 2026-03-21 at 14 44 08" src="https://github.com/user-attachments/assets/7c898239-4680-4397-87e9-dd804dfb1960" />
 
 ---
 
