@@ -69,6 +69,11 @@ async function searchMovies(query) {
   return res;
 }
 
+async function getMovieVideos(id) {
+  const res = await apiService.get(`/movie/${id}/videos`);
+  return res;
+}
+
 const movieService = {
   getMovieById,
   getPopularMovies,
@@ -77,7 +82,8 @@ const movieService = {
   getRecommendedMovies,
   discoverMovies,
   getNowPlayingMovies,
-  searchMovies
+  searchMovies,
+  getMovieVideos
 };
 
 export default movieService;

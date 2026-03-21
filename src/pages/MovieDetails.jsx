@@ -5,6 +5,8 @@ import {
   Chip,
   Container,
   CircularProgress,
+  Dialog,
+  IconButton,
   Rating,
   Skeleton,
   Typography
@@ -12,7 +14,8 @@ import {
 import {
   PlayArrowRounded,
   BookmarkBorderRounded,
-  StarRounded
+  StarRounded,
+  CloseRounded
 } from '@mui/icons-material';
 import { motion } from 'framer-motion';
 import movieService from '../services/movie-db.service';
@@ -119,6 +122,8 @@ function CastCard({ member }) {
 function MovieDetails() {
   const [movie, setMovie] = useState(null);
   const [cast, setCast] = useState([]);
+  const [trailerKey, setTrailerKey] = useState(null);
+  const [trailerOpen, setTrailerOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
 
@@ -126,14 +131,18 @@ function MovieDetails() {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const [movieData, creditsData] = await Promise.all([
+        const [movieData, creditsData, videosData] = await Promise.all([
           movieService.getMovieById(id),
-          apiService.get(`/movie/${id}/credits`)
+          apiService.get(`/movie/${id}/credits`).catch(() => ({ cast: [] })),
+          movieService.getMovieVideos(id).catch(() => ({ results: [] }))
         ]);
         setMovie(movieData);
         setCast(creditsData.cast ? creditsData.cast.slice(0, 12) : []);
+        const trailer = (videosData.results || []).find(
+          (v) => v.site === 'YouTube' && (v.type === 'Trailer' || v.type === 'Teaser')
+        );
+        setTrailerKey(trailer ? trailer.key : null);
       } catch {
-        // credits may fail gracefully — movie data takes priority
         try {
           const movieData = await movieService.getMovieById(id);
           setMovie(movieData);
@@ -393,8 +402,9 @@ function MovieDetails() {
               <Box sx={{ display: 'flex', gap: 1.5, flexWrap: 'wrap' }}>
                 <Box
                   component={motion.button}
-                  whileHover={{ scale: 1.04 }}
-                  whileTap={{ scale: 0.97 }}
+                  whileHover={{ scale: trailerKey ? 1.04 : 1 }}
+                  whileTap={{ scale: trailerKey ? 0.97 : 1 }}
+                  onClick={() => trailerKey && setTrailerOpen(true)}
                   sx={{
                     display: 'flex',
                     alignItems: 'center',
@@ -402,19 +412,19 @@ function MovieDetails() {
                     px: 2.5,
                     py: 1,
                     borderRadius: '10px',
-                    background: '#818cf8',
+                    background: trailerKey ? '#818cf8' : 'rgba(129,140,248,0.3)',
                     border: 'none',
                     color: '#fff',
                     fontWeight: 700,
                     fontSize: '0.875rem',
-                    cursor: 'pointer',
+                    cursor: trailerKey ? 'pointer' : 'not-allowed',
                     outline: 'none',
                     transition: 'background 0.2s ease',
-                    '&:hover': { background: '#6366f1' }
+                    '&:hover': { background: trailerKey ? '#6366f1' : 'rgba(129,140,248,0.3)' }
                   }}
                 >
                   <PlayArrowRounded sx={{ fontSize: '1.1rem' }} />
-                  Watch Trailer
+                  {trailerKey ? 'Watch Trailer' : 'No Trailer'}
                 </Box>
                 <Box
                   component={motion.button}
@@ -540,6 +550,55 @@ function MovieDetails() {
           </Box>
         </motion.div>
       </Container>
+
+      {/* Trailer Modal */}
+      <Dialog
+        open={trailerOpen}
+        onClose={() => setTrailerOpen(false)}
+        maxWidth="md"
+        fullWidth
+        PaperProps={{
+          sx: {
+            background: '#09090b',
+            border: '1px solid rgba(255,255,255,0.08)',
+            borderRadius: '16px',
+            overflow: 'hidden'
+          }
+        }}
+      >
+        <Box sx={{ position: 'relative', pt: '56.25%', background: '#000' }}>
+          <IconButton
+            onClick={() => setTrailerOpen(false)}
+            sx={{
+              position: 'absolute',
+              top: 8,
+              right: 8,
+              zIndex: 10,
+              color: '#fff',
+              background: 'rgba(0,0,0,0.6)',
+              '&:hover': { background: 'rgba(0,0,0,0.85)' }
+            }}
+          >
+            <CloseRounded />
+          </IconButton>
+          {trailerOpen && trailerKey && (
+            <Box
+              component="iframe"
+              src={`https://www.youtube.com/embed/${trailerKey}?autoplay=1&rel=0`}
+              title="Trailer"
+              allow="autoplay; encrypted-media"
+              allowFullScreen
+              sx={{
+                position: 'absolute',
+                inset: 0,
+                width: '100%',
+                height: '100%',
+                border: 'none'
+              }}
+            />
+          )}
+        </Box>
+      </Dialog>
     </motion.div>
   );
 }
