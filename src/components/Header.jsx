@@ -1,100 +1,64 @@
 /* eslint-disable react/jsx-props-no-spreading */
-
 import React from 'react';
-import { Link } from 'react-router-dom';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import { alpha, makeStyles } from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
-import IconButton from '@material-ui/core/IconButton';
-import useScrollTrigger from '@material-ui/core/useScrollTrigger';
-import Slide from '@material-ui/core/Slide';
-import PropTypes from 'prop-types';
+import { Link, useLocation } from 'react-router-dom';
 import {
+  AppBar,
+  Toolbar,
+  Typography,
+  IconButton,
+  Box,
+  Button,
   SwipeableDrawer,
   List,
-  ListItem,
+  ListItemButton,
   ListItemIcon,
-  ListItemText
-} from '@material-ui/core';
-import HomeIcon from '@material-ui/icons/Home';
-import TrendingUpIcon from '@material-ui/icons/TrendingUp';
-import WhatshotIcon from '@material-ui/icons/Whatshot';
-import TheatersIcon from '@material-ui/icons/Theaters';
-import ScheduleIcon from '@material-ui/icons/Schedule';
+  ListItemText,
+  Divider,
+  useScrollTrigger,
+  Slide
+} from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import WhatshotIcon from '@mui/icons-material/Whatshot';
+import TheatersIcon from '@mui/icons-material/Theaters';
+import ScheduleIcon from '@mui/icons-material/Schedule';
+import LocalMoviesIcon from '@mui/icons-material/LocalMovies';
+import { motion, AnimatePresence } from 'framer-motion';
+import PropTypes from 'prop-types';
+
 import navigationService from '../services/navigation.service';
 import MovieSearch from '../modules/movies/components/MovieSearch';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    marginBottom: theme.spacing(10)
+const NAV_LINKS = [
+  {
+    label: 'Popular',
+    icon: <TrendingUpIcon fontSize="small" />,
+    action: () => navigationService.goToPopularMovies(),
+    path: '/popular-movies'
   },
-  menuButton: {
-    marginRight: theme.spacing(2)
+  {
+    label: 'Top Rated',
+    icon: <WhatshotIcon fontSize="small" />,
+    action: () => navigationService.goToTopMovies(),
+    path: '/top-movies'
   },
-  title: {
-    flexGrow: 1,
-    display: 'none',
-    textDecoration: 'none',
-    color: 'white',
-    [theme.breakpoints.up('sm')]: {
-      display: 'block'
-    }
+  {
+    label: 'Upcoming',
+    icon: <ScheduleIcon fontSize="small" />,
+    action: () => navigationService.goToUpcomingMovies(),
+    path: '/upcoming-movies'
   },
-  search: {
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.15),
-    '&:hover': {
-      backgroundColor: alpha(theme.palette.common.white, 0.25)
-    },
-    marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(1),
-      width: 'auto'
-    }
-  },
-  searchIcon: {
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  inputRoot: {
-    color: 'inherit'
-  },
-  inputInput: {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      width: '12ch',
-      '&:focus': {
-        width: '20ch'
-      }
-    }
-  },
-  appBar: {
-    backgroundColor: '#000'
-  },
-  list: {
-    width: 250
+  {
+    label: 'In Theaters',
+    icon: <TheatersIcon fontSize="small" />,
+    action: () => navigationService.goToOnTheaters(),
+    path: '/on-theaters'
   }
-}));
+];
 
-function HideOnScroll(props) {
-  const { children } = props;
+
+function HideOnScroll({ children }) {
   const trigger = useScrollTrigger();
-
   return (
     <Slide appear={false} direction="down" in={!trigger}>
       {children}
@@ -106,120 +70,260 @@ HideOnScroll.propTypes = {
   children: PropTypes.element.isRequired
 };
 
-// TODO: Refactor side drawer stuff
-function Header(props) {
-  const classes = useStyles();
-  const [state, setState] = React.useState({
-    left: false
-  });
-  const anchor = 'left';
-
-  const toggleDrawer = (anch, open) => (event) => {
-    if (
-      event &&
-      event.type === 'keydown' &&
-      (event.key === 'Tab' || event.key === 'Shift')
-    ) {
-      return;
-    }
-
-    setState({ ...state, [anch]: open });
-  };
-
-  const list = () => (
-    <div
-      role="presentation"
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
-      className={classes.list}
-    >
-      <List>
-        <ListItem button>
-          <ListItemIcon>
-            <HomeIcon />
-          </ListItemIcon>
-          <ListItemText
-            primary="Home"
-            onClick={() => navigationService.goToHome()}
+function NavButton({ label, action, path, isActive }) {
+  return (
+    <Box sx={{ position: 'relative' }}>
+      <Button
+        onClick={action}
+        sx={{
+          color: isActive ? 'primary.main' : 'text.secondary',
+          fontWeight: isActive ? 600 : 500,
+          fontSize: '0.875rem',
+          px: 1.5,
+          py: 0.75,
+          minWidth: 'auto',
+          background: 'transparent',
+          '&:hover': {
+            color: 'text.primary',
+            background: 'transparent'
+          }
+        }}
+      >
+        {label}
+      </Button>
+      <AnimatePresence>
+        {isActive && (
+          <motion.div
+            layoutId="nav-indicator"
+            style={{
+              position: 'absolute',
+              bottom: 0,
+              left: '12px',
+              right: '12px',
+              height: '2px',
+              background: 'linear-gradient(90deg, #818cf8, #6366f1)',
+              borderRadius: '1px'
+            }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
           />
-        </ListItem>
-        <ListItem button>
-          <ListItemIcon>
-            <TrendingUpIcon />
-          </ListItemIcon>
-          <ListItemText
-            primary="Popular Movies"
-            onClick={() => navigationService.goToPopularMovies()}
-          />
-        </ListItem>
-        <ListItem button>
-          <ListItemIcon>
-            <WhatshotIcon />
-          </ListItemIcon>
-          <ListItemText
-            primary="Top Rated Movies"
-            onClick={() => navigationService.goToTopMovies()}
-          />
-        </ListItem>
-        <ListItem button>
-          <ListItemIcon>
-            <TheatersIcon />
-          </ListItemIcon>
-          <ListItemText
-            primary="On Theaters"
-            onClick={() => navigationService.goToOnTheaters()}
-          />
-        </ListItem>
-        <ListItem button>
-          <ListItemIcon>
-            <ScheduleIcon />
-          </ListItemIcon>
-          <ListItemText
-            primary="Upcoming Movies"
-            onClick={() => navigationService.goToUpcomingMovies()}
-          />
-        </ListItem>
-      </List>
-    </div>
+        )}
+      </AnimatePresence>
+    </Box>
   );
+}
+
+NavButton.propTypes = {
+  label: PropTypes.string.isRequired,
+  action: PropTypes.func.isRequired,
+  path: PropTypes.string.isRequired,
+  isActive: PropTypes.bool.isRequired
+};
+
+function DrawerContent({ onClose }) {
+  const location = useLocation();
 
   return (
-    <div className={classes.root}>
+    <Box
+      sx={{ width: 260, pt: 2, pb: 2 }}
+      role="presentation"
+      onClick={onClose}
+      onKeyDown={onClose}
+    >
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 1,
+          px: 2,
+          pb: 2
+        }}
+      >
+        <LocalMoviesIcon sx={{ color: 'primary.main', fontSize: 22 }} />
+        <Typography variant="subtitle1" fontWeight={700}>
+          <Box component="span" sx={{ color: 'text.primary' }}>
+            FindMe
+          </Box>
+          <Box component="span" sx={{ color: 'primary.main' }}>
+            Movies
+          </Box>
+        </Typography>
+      </Box>
+
+      <Divider sx={{ mb: 1 }} />
+
+      <List disablePadding>
+        {NAV_LINKS.map(({ label, icon, action, path }) => {
+          const isActive = location.pathname === path;
+          return (
+            <ListItemButton
+              key={path}
+              onClick={action}
+              selected={isActive}
+              sx={{ mx: 1, borderRadius: '8px', mb: 0.5 }}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 36,
+                  color: isActive ? 'primary.main' : 'text.secondary'
+                }}
+              >
+                {icon}
+              </ListItemIcon>
+              <ListItemText
+                primary={label}
+                primaryTypographyProps={{
+                  fontSize: '0.9rem',
+                  fontWeight: isActive ? 600 : 400,
+                  color: isActive ? 'primary.main' : 'text.primary'
+                }}
+              />
+            </ListItemButton>
+          );
+        })}
+      </List>
+
+      <Divider sx={{ mt: 2, mb: 2 }} />
+
+      <Box sx={{ px: 3 }}>
+        <MovieSearch />
+      </Box>
+    </Box>
+  );
+}
+
+DrawerContent.propTypes = {
+  onClose: PropTypes.func.isRequired
+};
+
+function Header(props) {
+  const location = useLocation();
+  const [drawerOpen, setDrawerOpen] = React.useState(false);
+
+  const handleOpenDrawer = () => setDrawerOpen(true);
+  const handleCloseDrawer = () => setDrawerOpen(false);
+
+  return (
+    <Box sx={{ mb: { xs: 8, sm: 9 } }}>
       <HideOnScroll {...props}>
-        <AppBar className={classes.appBar}>
-          <Toolbar>
+        <AppBar elevation={0} position="fixed">
+          <Toolbar sx={{ gap: 1, minHeight: { xs: 56, sm: 64 } }}>
+            {/* Hamburger — mobile only */}
             <IconButton
               edge="start"
-              className={classes.menuButton}
               color="inherit"
-              aria-label="open drawer"
-              onClick={toggleDrawer(anchor, true)}
+              aria-label="open navigation menu"
+              onClick={handleOpenDrawer}
+              sx={{
+                display: { md: 'none' },
+                mr: 0.5,
+                color: 'text.secondary',
+                '&:hover': { color: 'text.primary' }
+              }}
             >
               <MenuIcon />
             </IconButton>
-            <Link to="/" className={classes.title}>
-              <Typography variant="h6" noWrap>
-                Find Me Movies
+
+            {/* Logo */}
+            <Box
+              component={Link}
+              to="/"
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 0.75,
+                textDecoration: 'none',
+                flexShrink: 0
+              }}
+            >
+              <motion.div
+                whileHover={{ rotate: 15, scale: 1.1 }}
+                transition={{ duration: 0.2 }}
+              >
+                <LocalMoviesIcon
+                  sx={{
+                    color: 'primary.main',
+                    fontSize: { xs: 22, sm: 24 }
+                  }}
+                />
+              </motion.div>
+              <Typography
+                variant="h6"
+                noWrap
+                sx={{
+                  fontWeight: 800,
+                  fontSize: { xs: '1rem', sm: '1.125rem' },
+                  letterSpacing: '-0.01em',
+                  lineHeight: 1
+                }}
+              >
+                <Box component="span" sx={{ color: 'text.primary' }}>
+                  FindMe
+                </Box>
+                <Box component="span" sx={{ color: 'primary.main' }}>
+                  Movies
+                </Box>
               </Typography>
-            </Link>
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon />
-              </div>
+            </Box>
+
+            {/* Desktop nav */}
+            <Box
+              sx={{
+                display: { xs: 'none', md: 'flex' },
+                alignItems: 'center',
+                gap: 0.5,
+                ml: 3
+              }}
+            >
+              {NAV_LINKS.map(({ label, action, path }) => (
+                <NavButton
+                  key={path}
+                  label={label}
+                  action={action}
+                  path={path}
+                  isActive={location.pathname === path}
+                />
+              ))}
+            </Box>
+
+            {/* Spacer */}
+            <Box sx={{ flex: 1 }} />
+
+            {/* Search — desktop */}
+            <Box
+              sx={{
+                display: { xs: 'none', sm: 'flex' },
+                minWidth: 220,
+                maxWidth: 300,
+                width: '100%'
+              }}
+            >
               <MovieSearch />
-            </div>
+            </Box>
           </Toolbar>
         </AppBar>
       </HideOnScroll>
+
+      {/* Mobile drawer */}
       <SwipeableDrawer
-        anchor={anchor}
-        open={state[anchor]}
-        onClose={toggleDrawer(anchor, false)}
-        onOpen={toggleDrawer(anchor, true)}
+        anchor="left"
+        open={drawerOpen}
+        onClose={handleCloseDrawer}
+        onOpen={handleOpenDrawer}
+        PaperProps={{
+          sx: {
+            background: 'rgba(9,9,11,0.97)',
+            backdropFilter: 'blur(20px)',
+            WebkitBackdropFilter: 'blur(20px)',
+            borderRight: '1px solid rgba(255,255,255,0.06)'
+          }
+        }}
       >
-        {list()}
+        <DrawerContent onClose={handleCloseDrawer} />
       </SwipeableDrawer>
-    </div>
+    </Box>
   );
 }
 

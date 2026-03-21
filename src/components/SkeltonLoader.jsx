@@ -1,23 +1,32 @@
 import React from 'react';
-import Skeleton from '@material-ui/lab/Skeleton';
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles({
-  root: {
-    maxWidth: '100%'
-  }
-});
+import { Box, Skeleton } from '@mui/material';
 
 function SkeltonLoader() {
-  const classes = useStyles();
-
   return (
-    <div className={classes.root}>
-      <Skeleton />
-      <Skeleton />
-      <Skeleton />
-      <Skeleton />
-    </div>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'row',
+        gap: '12px',
+        overflow: 'hidden',
+        width: '100%'
+      }}
+    >
+      {Array.from({ length: 6 }).map((_, index) => (
+        <Skeleton
+          key={index}
+          variant="rectangular"
+          animation="wave"
+          width={185}
+          height={270}
+          sx={{
+            borderRadius: '12px',
+            bgcolor: 'rgba(129,140,248,0.08)',
+            flexShrink: 0
+          }}
+        />
+      ))}
+    </Box>
   );
 }
 

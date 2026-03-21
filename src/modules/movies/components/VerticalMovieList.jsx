@@ -1,33 +1,28 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import GridList from '@material-ui/core/GridList';
+import { Box } from '@mui/material';
 import PropTypes from 'prop-types';
 import MovieCard from './MovieCard';
 
-const useStyles = makeStyles(() => ({
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    overflow: 'hidden'
-  },
-  gridList: {
-    maxWidth: '100%',
-    maxHeight: '100%'
-  }
-}));
-
 function VerticalMovieList({ movies }) {
-  const classes = useStyles();
-
   return (
-    <div className={classes.root}>
-      <GridList cellHeight={180} className={classes.gridList}>
-        {(movies || []).map((data) => (
-          <MovieCard key={data.id} movie={data} />
-        ))}
-      </GridList>
-    </div>
+    <Box
+      sx={{
+        display: 'grid',
+        gridTemplateColumns: {
+          xs: 'repeat(2, 1fr)',
+          sm: 'repeat(3, 1fr)',
+          md: 'repeat(auto-fill, minmax(185px, 1fr))'
+        },
+        gap: '16px',
+        width: '100%',
+        // Align cards to center within each grid cell
+        justifyItems: 'center'
+      }}
+    >
+      {(movies || []).map((data) => (
+        <MovieCard key={data.id} movie={data} />
+      ))}
+    </Box>
   );
 }
 

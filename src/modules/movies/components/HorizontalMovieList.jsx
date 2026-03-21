@@ -1,34 +1,54 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import GridList from '@material-ui/core/GridList';
+import { Box } from '@mui/material';
 import PropTypes from 'prop-types';
 import MovieCard from './MovieCard';
 
-const useStyles = makeStyles(() => ({
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    overflow: 'hidden',
-    width: '100%'
-  },
-  gridList: {
-    flexWrap: 'nowrap',
-    transform: 'translateZ(0)'
-  }
-}));
-
 function HorizontalMovieList({ movies }) {
-  const classes = useStyles();
-
   return (
-    <div className={classes.root}>
-      <GridList className={classes.gridList} cols={2.5}>
+    <Box
+      sx={{
+        width: '100%',
+        overflowX: 'auto',
+        overflowY: 'hidden',
+        // Hide scrollbar on mobile/touch devices
+        scrollbarWidth: 'thin',
+        scrollbarColor: 'rgba(129,140,248,0.3) transparent',
+        '&::-webkit-scrollbar': {
+          height: '4px'
+        },
+        '&::-webkit-scrollbar-track': {
+          background: 'transparent'
+        },
+        '&::-webkit-scrollbar-thumb': {
+          background: 'rgba(129,140,248,0.3)',
+          borderRadius: '2px',
+          '&:hover': {
+            background: 'rgba(129,140,248,0.5)'
+          }
+        },
+        // Hide scrollbar on mobile
+        '@media (max-width: 600px)': {
+          scrollbarWidth: 'none',
+          '&::-webkit-scrollbar': {
+            display: 'none'
+          }
+        }
+      }}
+    >
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'row',
+          gap: '12px',
+          pb: 1,
+          width: 'max-content'
+        }}
+      >
         {(movies || []).map((data) => (
           <MovieCard key={data.id} movie={data} />
         ))}
-      </GridList>
-    </div>
+      </Box>
+    </Box>
   );
 }
 

@@ -1,25 +1,43 @@
 import React from 'react';
-import { Card, makeStyles, Grid, CardMedia } from '@material-ui/core';
+import { Box, Card } from '@mui/material';
 import PropTypes from 'prop-types';
 import config from '../../../config';
 
-const useStyles = makeStyles((theme) => ({
-  cardWrapper: {
-    maxWidth: 340,
-    padding: theme.spacing(2)
-  }
-}));
-
 function MoviePoster({ path }) {
-  const classes = useStyles();
   const imageSrc = `${config.tmdbApi.posterBaseUrl}${path}`;
 
   return (
-    <Grid item xs={12} sm={6} className={classes.cardWrapper}>
-      <Card elevation={5}>
-        <CardMedia component="img" image={imageSrc} alt="Movie poster" />
+    <Box
+      sx={{
+        maxWidth: 340,
+        width: '100%',
+        p: 2,
+        flexShrink: 0
+      }}
+    >
+      <Card
+        elevation={0}
+        sx={{
+          borderRadius: '16px',
+          overflow: 'hidden',
+          border: '1px solid rgba(255,255,255,0.08)',
+          boxShadow: '0 8px 32px rgba(0,0,0,0.5)',
+          background: '#0f0f13'
+        }}
+      >
+        <Box
+          component="img"
+          src={imageSrc}
+          alt="Movie poster"
+          sx={{
+            width: '100%',
+            height: 'auto',
+            display: 'block',
+            objectFit: 'cover'
+          }}
+        />
       </Card>
-    </Grid>
+    </Box>
   );
 }
 

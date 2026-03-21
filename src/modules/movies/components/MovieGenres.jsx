@@ -1,19 +1,48 @@
 import React from 'react';
-import { Grid, Typography } from '@material-ui/core';
+import { Box, Chip } from '@mui/material';
+import { motion } from 'framer-motion';
 import PropTypes from 'prop-types';
 
 function MovieGenres({ genres }) {
   return (
-    <Grid container direction="row" alignItems="baseline">
-      <Typography variant="h6">Genres: </Typography>
+    <Box
+      sx={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        gap: 0.75,
+        alignItems: 'center'
+      }}
+    >
       {genres.map((genre, index) => (
-        <Typography variant="overline" component="h3" key={genre.id}>
-          &nbsp;
-          {genre.name}
-          {index === genres.length - 1 ? '' : ', '}
-        </Typography>
+        <motion.div
+          key={genre.id}
+          initial={{ opacity: 0, scale: 0.85 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.25, delay: index * 0.04 }}
+        >
+          <Chip
+            label={genre.name}
+            size="small"
+            sx={{
+              background: 'rgba(129,140,248,0.15)',
+              color: '#818cf8',
+              border: '1px solid rgba(129,140,248,0.3)',
+              borderRadius: '20px',
+              fontWeight: 500,
+              fontSize: '0.72rem',
+              letterSpacing: '0.03em',
+              height: '24px',
+              '&:hover': {
+                background: 'rgba(129,140,248,0.25)'
+              },
+              '& .MuiChip-label': {
+                px: 1.25
+              }
+            }}
+          />
+        </motion.div>
       ))}
-    </Grid>
+    </Box>
   );
 }
 

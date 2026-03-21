@@ -6,7 +6,7 @@ export default async function handler(req, res) {
 
     const url = `https://api.themoviedb.org/3/${tmdbPath}${query ? `?${query}` : ''}`;
 
-    const apiKey = process.env.TMDB_API_KEY || process.env.REACT_APP_TMDB_API_KEY;
+    const apiKey = process.env.TMDB_API_KEY || process.env.VITE_TMDB_API_KEY;
 
     const tmdbRes = await fetch(url, {
       cache: 'no-store',

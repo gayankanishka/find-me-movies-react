@@ -1,14 +1,20 @@
 import React from 'react';
-import { Grid, Typography } from '@material-ui/core';
+import { Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 
 function Paragraph({ body }) {
   return (
-    <Grid item>
-      <Typography variant="body1" paragraph>
-        {body}
-      </Typography>
-    </Grid>
+    <Typography
+      variant="body1"
+      paragraph
+      sx={{
+        color: '#a1a1aa',
+        lineHeight: 1.7,
+        fontSize: '0.95rem'
+      }}
+    >
+      {body}
+    </Typography>
   );
 }
 

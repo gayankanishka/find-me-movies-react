@@ -1,24 +1,16 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { Suspense } from 'react';
 import { Router, Switch, Route } from 'react-router-dom';
-import { MuiThemeProvider, CssBaseline } from '@material-ui/core';
-import { createTheme } from '@material-ui/core/styles';
+import { ThemeProvider, CssBaseline } from '@mui/material';
+import { AnimatePresence } from 'framer-motion';
 import PropTypes from 'prop-types';
 
+import theme from './theme';
 import Layout from './components/Layout';
 import routeConfig from './routeConfig';
 import history from './utils/history.utils';
 import Spinner from './components/Spinner';
 import ScrollToTop from './components/ScrollToTop';
-
-const theme = createTheme({
-  palette: {
-    type: 'dark',
-    background: {
-      default: '#181818'
-    }
-  }
-});
 
 function RouteWithSubRoutes({ exact, path, routes, component: Component }) {
   return (
@@ -33,30 +25,37 @@ function RouteWithSubRoutes({ exact, path, routes, component: Component }) {
 function App() {
   return (
     <Router history={history}>
-      <ScrollToTop />
-      <MuiThemeProvider theme={theme}>
+      <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Layout style={{ background: '#181818' }}>
+        <ScrollToTop />
+        <Layout>
           <Suspense fallback={<Spinner />}>
-            <Switch>
-              {routeConfig.map((route) => (
-                <RouteWithSubRoutes key={route.path} {...route} />
-              ))}
-            </Switch>
+            <AnimatePresence mode="wait">
+              <Switch>
+                {routeConfig.map((route) => (
+                  <RouteWithSubRoutes key={route.path} {...route} />
+                ))}
+              </Switch>
+            </AnimatePresence>
           </Suspense>
         </Layout>
-      </MuiThemeProvider>
+      </ThemeProvider>
     </Router>
   );
 }
 
 RouteWithSubRoutes.propTypes = {
   path: PropTypes.string.isRequired,
-  exact: PropTypes.bool.isRequired,
+  exact: PropTypes.bool,
   // eslint-disable-next-line react/forbid-prop-types
   routes: PropTypes.object,
   // eslint-disable-next-line react/forbid-prop-types
   component: PropTypes.object.isRequired
+};
+
+RouteWithSubRoutes.defaultProps = {
+  exact: false,
+  routes: undefined
 };
 
 export default App;
