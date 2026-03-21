@@ -1,16 +1,39 @@
 import React from 'react';
-import { Typography, Grid } from '@material-ui/core';
+import { Box, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 
 function InlineDescriptor({ title, description }) {
   return (
-    <Grid container direction="row" alignItems="baseline">
-      <Typography variant="h6">
-        {title}
-        :&nbsp;
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'baseline',
+        gap: 0.5
+      }}
+    >
+      <Typography
+        variant="h6"
+        sx={{
+          color: '#999999',
+          fontSize: '0.9rem',
+          fontWeight: 600,
+          letterSpacing: '0.05em',
+          textTransform: 'uppercase'
+        }}
+      >
+        {title}:
       </Typography>
-      <Typography variant="subtitle1">{description}</Typography>
-    </Grid>
+      <Typography
+        variant="subtitle1"
+        sx={{
+          color: '#fafafa',
+          fontSize: '0.95rem'
+        }}
+      >
+        {description}
+      </Typography>
+    </Box>
   );
 }
 

@@ -1,21 +1,55 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { CircularProgress, Backdrop } from '@material-ui/core';
-
-const useStyles = makeStyles((theme) => ({
-  backdrop: {
-    zIndex: theme.zIndex.drawer + 1,
-    color: '#fff'
-  }
-}));
+import { Box, CircularProgress } from '@mui/material';
+import { motion } from 'framer-motion';
 
 function Spinner() {
-  const classes = useStyles();
-
   return (
-    <Backdrop className={classes.backdrop} open>
-      <CircularProgress size={50} thickness={5} />
-    </Backdrop>
+    <Box
+      component={motion.div}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.3 }}
+      sx={{
+        position: 'fixed',
+        inset: 0,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'rgba(10,10,10,0.85)',
+        backdropFilter: 'blur(8px)',
+        WebkitBackdropFilter: 'blur(8px)',
+        zIndex: (theme) => theme.zIndex.drawer + 100
+      }}
+    >
+      <Box sx={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        {/* Outer pulsing ring */}
+        <Box
+          component={motion.div}
+          animate={{ scale: [1, 1.4, 1], opacity: [0.4, 0, 0.4] }}
+          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+          sx={{
+            position: 'absolute',
+            width: 80,
+            height: 80,
+            borderRadius: '50%',
+            border: '2px solid',
+            borderColor: '#e8b84b'
+          }}
+        />
+        {/* MUI spinner */}
+        <CircularProgress
+          size={48}
+          thickness={3}
+          sx={{
+            color: '#e8b84b',
+            '& .MuiCircularProgress-circle': {
+              strokeLinecap: 'round'
+            }
+          }}
+        />
+      </Box>
+    </Box>
   );
 }
 

@@ -69,6 +69,35 @@ async function searchMovies(query) {
   return res;
 }
 
+async function getMovieVideos(id) {
+  const res = await apiService.get(`/movie/${id}/videos`);
+  return res;
+}
+
+async function getTrendingMovies(timeWindow = 'day') {
+  return apiService.get(`/trending/movie/${timeWindow}`);
+}
+
+async function getGenres() {
+  return apiService.get('/genre/movie/list');
+}
+
+async function discoverByGenre(genreId, pageNumber = 1, sortBy = 'popularity.desc') {
+  return apiService.get('/discover/movie', {
+    with_genres: genreId,
+    page: pageNumber,
+    sort_by: sortBy
+  });
+}
+
+async function getPersonDetails(id) {
+  return apiService.get(`/person/${id}`);
+}
+
+async function getPersonMovies(id) {
+  return apiService.get(`/person/${id}/movie_credits`);
+}
+
 const movieService = {
   getMovieById,
   getPopularMovies,
@@ -77,7 +106,13 @@ const movieService = {
   getRecommendedMovies,
   discoverMovies,
   getNowPlayingMovies,
-  searchMovies
+  searchMovies,
+  getMovieVideos,
+  getTrendingMovies,
+  getGenres,
+  discoverByGenre,
+  getPersonDetails,
+  getPersonMovies
 };
 
 export default movieService;
