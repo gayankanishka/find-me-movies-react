@@ -1,38 +1,17 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { Suspense, useMemo } from 'react';
+import React, { Suspense } from 'react';
 import { Router, Switch, Route } from 'react-router-dom';
-import { ThemeProvider, CssBaseline, createTheme } from '@mui/material';
+import { ThemeProvider, CssBaseline } from '@mui/material';
 import { AnimatePresence } from 'framer-motion';
 import PropTypes from 'prop-types';
 
-import baseTheme from './theme';
+import theme from './theme';
 import Layout from './components/Layout';
 import routeConfig from './routeConfig';
 import history from './utils/history.utils';
 import Spinner from './components/Spinner';
 import ScrollToTop from './components/ScrollToTop';
 import ErrorBoundary from './components/ErrorBoundary';
-import { ColorModeProvider, useColorMode } from './context/ColorModeContext';
-
-function createDynamicTheme(mode) {
-  const isLight = mode === 'light';
-  return createTheme({
-    ...baseTheme,
-    palette: {
-      ...baseTheme.palette,
-      mode,
-      background: {
-        default: isLight ? '#f8f8fc' : '#09090b',
-        paper: isLight ? '#ffffff' : '#0f0f13'
-      },
-      text: {
-        primary: isLight ? '#09090b' : '#fafafa',
-        secondary: isLight ? '#52525b' : '#a1a1aa',
-        disabled: isLight ? '#a1a1aa' : '#52525b'
-      }
-    }
-  });
-}
 
 function RouteWithSubRoutes({ exact, path, routes, component: Component }) {
   return (
@@ -58,10 +37,7 @@ RouteWithSubRoutes.defaultProps = {
   routes: undefined
 };
 
-function AppWithTheme() {
-  const { mode } = useColorMode();
-  const theme = useMemo(() => createDynamicTheme(mode), [mode]);
-
+function App() {
   return (
     <Router history={history}>
       <ThemeProvider theme={theme}>
@@ -82,14 +58,6 @@ function AppWithTheme() {
         </Layout>
       </ThemeProvider>
     </Router>
-  );
-}
-
-function App() {
-  return (
-    <ColorModeProvider>
-      <AppWithTheme />
-    </ColorModeProvider>
   );
 }
 

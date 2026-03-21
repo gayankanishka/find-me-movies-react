@@ -21,6 +21,7 @@ import {
 import { motion } from 'framer-motion';
 import movieService from '../services/movie-db.service';
 import apiService from '../services/_shared/api.service';
+import navigationService from '../services/navigation.service';
 import RecommendedMovieGrid from '../modules/movies/components/RecommendedMovieGrid';
 import config from '../config';
 
@@ -123,7 +124,8 @@ function CastCard({ member }) {
     <motion.div
       whileHover={{ scale: 1.04 }}
       transition={{ duration: 0.2, ease: 'easeOut' }}
-      style={{ flexShrink: 0, width: 110 }}
+      style={{ flexShrink: 0, width: 110, cursor: 'pointer' }}
+      onClick={() => navigationService.goToPerson(member.id)}
     >
       <Box
         sx={{
@@ -131,7 +133,7 @@ function CastCard({ member }) {
           overflow: 'hidden',
           background: '#0f0f13',
           border: '1px solid rgba(255,255,255,0.08)',
-          cursor: 'default'
+          cursor: 'pointer'
         }}
       >
         <Box
