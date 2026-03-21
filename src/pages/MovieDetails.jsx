@@ -13,7 +13,6 @@ import {
 } from '@mui/material';
 import {
   PlayArrowRounded,
-  BookmarkBorderRounded,
   StarRounded,
   CloseRounded
 } from '@mui/icons-material';
@@ -425,34 +424,6 @@ function MovieDetails() {
                 >
                   <PlayArrowRounded sx={{ fontSize: '1.1rem' }} />
                   {trailerKey ? 'Watch Trailer' : 'No Trailer'}
-                </Box>
-                <Box
-                  component={motion.button}
-                  whileHover={{ scale: 1.04 }}
-                  whileTap={{ scale: 0.97 }}
-                  sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 0.75,
-                    px: 2.5,
-                    py: 1,
-                    borderRadius: '10px',
-                    background: 'transparent',
-                    border: '1px solid rgba(129,140,248,0.45)',
-                    color: '#818cf8',
-                    fontWeight: 700,
-                    fontSize: '0.875rem',
-                    cursor: 'pointer',
-                    outline: 'none',
-                    transition: 'all 0.2s ease',
-                    '&:hover': {
-                      background: 'rgba(129,140,248,0.08)',
-                      borderColor: '#818cf8'
-                    }
-                  }}
-                >
-                  <BookmarkBorderRounded sx={{ fontSize: '1.1rem' }} />
-                  Watchlist
                 </Box>
               </Box>
             </motion.div>
