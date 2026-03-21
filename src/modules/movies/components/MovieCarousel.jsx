@@ -316,7 +316,7 @@ function MovieCarousel({ movies }) {
                 position: 'absolute',
                 inset: 0,
                 background:
-                  'linear-gradient(to right, rgba(10,10,10,0.98) 35%, rgba(10,10,10,0.6) 70%, rgba(10,10,10,0.2) 100%)',
+                  'linear-gradient(to right, rgba(10,10,10,0.95) 30%, rgba(10,10,10,0.4) 70%, transparent 100%)',
                 zIndex: 2
               }}
             />
@@ -327,7 +327,7 @@ function MovieCarousel({ movies }) {
                 position: 'absolute',
                 inset: 0,
                 background:
-                  'linear-gradient(to top, rgba(10,10,10,0.97) 0%, rgba(10,10,10,0.3) 60%, transparent 100%)',
+                  'linear-gradient(to top, rgba(10,10,10,0.9) 0%, transparent 50%)',
                 zIndex: 2
               }}
             />
@@ -338,7 +338,7 @@ function MovieCarousel({ movies }) {
                 position: 'absolute',
                 inset: 0,
                 background:
-                  'linear-gradient(to bottom, rgba(10,10,10,0.6) 0%, transparent 30%)',
+                  'linear-gradient(to bottom, rgba(10,10,10,0.4) 0%, transparent 25%)',
                 zIndex: 2
               }}
             />
