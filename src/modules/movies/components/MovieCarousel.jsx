@@ -7,12 +7,13 @@ import {
   InfoOutlined,
   BookmarkBorderOutlined
 } from '@mui/icons-material';
-import { Navigation, Pagination, Autoplay } from 'swiper';
+import { Navigation, Pagination, Autoplay, EffectFade } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { motion, AnimatePresence } from 'framer-motion';
 import PropTypes from 'prop-types';
 import 'swiper/swiper.min.css';
 import 'swiper/css/pagination';
+import 'swiper/css/effect-fade';
 import config from '../../../config';
 import navigationService from '../../../services/navigation.service';
 import MovieGenres from './MovieGenres';
@@ -280,8 +281,10 @@ function MovieCarousel({ movies }) {
       }}
     >
       <Swiper
-        modules={[Navigation, Pagination, Autoplay]}
+        modules={[Navigation, Pagination, Autoplay, EffectFade]}
         slidesPerView={1}
+        effect="fade"
+        fadeEffect={{ crossFade: true }}
         autoplay={{ delay: 6000, disableOnInteraction: false }}
         loop
         pagination={{ clickable: true }}

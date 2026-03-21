@@ -430,7 +430,7 @@ function MovieDetails() {
                   src={posterUrl}
                   alt={`${movie.title} poster`}
                   sx={{
-                    width: { xs: 110, sm: 140, md: 160 },
+                    width: { xs: 130, sm: 180, md: 220 },
                     borderRadius: '12px',
                     boxShadow: '0 25px 50px rgba(0,0,0,0.8)',
                     display: 'block'

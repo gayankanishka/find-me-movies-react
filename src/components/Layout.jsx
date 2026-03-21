@@ -1,8 +1,9 @@
 import React from 'react';
-import { Box, Container } from '@mui/material';
+import { Box } from '@mui/material';
 import PropTypes from 'prop-types';
 import Header from './Header';
 import Footer from './Footer';
+import BottomNav from './BottomNav';
 
 function Layout({ children }) {
   return (
@@ -33,14 +34,14 @@ function Layout({ children }) {
         sx={{
           flex: 1,
           position: 'relative',
-          zIndex: 1
+          zIndex: 1,
+          pb: { xs: '60px', md: 0 }
         }}
       >
-        <Container maxWidth="xl" sx={{ py: { xs: 2, sm: 3 } }}>
-          {children}
-        </Container>
+        {children}
       </Box>
       <Footer />
+      <BottomNav />
     </Box>
   );
 }
