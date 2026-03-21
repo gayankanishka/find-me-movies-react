@@ -74,8 +74,8 @@ function SlideContent({ movie }) {
               <Box
                 sx={{
                   display: 'inline-block',
-                  background: 'rgba(129,140,248,0.2)',
-                  border: '1px solid rgba(129,140,248,0.4)',
+                  background: 'rgba(232,184,75,0.2)',
+                  border: '1px solid rgba(232,184,75,0.4)',
                   borderRadius: '6px',
                   px: 1.25,
                   py: 0.25,
@@ -84,7 +84,7 @@ function SlideContent({ movie }) {
               >
                 <Typography
                   sx={{
-                    color: '#818cf8',
+                    color: '#e8b84b',
                     fontSize: '0.72rem',
                     fontWeight: 700,
                     letterSpacing: '0.1em',
@@ -123,16 +123,16 @@ function SlideContent({ movie }) {
                 precision={0.5}
                 readOnly
                 size="small"
-                icon={<StarRounded sx={{ color: '#f59e0b', fontSize: '1rem' }} />}
+                icon={<StarRounded sx={{ color: '#e8b84b', fontSize: '1rem' }} />}
                 emptyIcon={
-                  <StarRounded sx={{ color: 'rgba(245,158,11,0.3)', fontSize: '1rem' }} />
+                  <StarRounded sx={{ color: 'rgba(232,184,75,0.3)', fontSize: '1rem' }} />
                 }
               />
-              <Typography sx={{ color: '#f59e0b', fontWeight: 700, fontSize: '0.85rem' }}>
+              <Typography sx={{ color: '#e8b84b', fontWeight: 700, fontSize: '0.85rem' }}>
                 {movie.vote_average?.toFixed(1)}
                 <Typography
                   component="span"
-                  sx={{ color: '#a1a1aa', fontWeight: 400, fontSize: '0.78rem' }}
+                  sx={{ color: '#999999', fontWeight: 400, fontSize: '0.78rem' }}
                 >
                   /10
                 </Typography>
@@ -178,18 +178,18 @@ function SlideContent({ movie }) {
                 startIcon={<InfoOutlined />}
                 onClick={() => navigationService.goToMovieDetails(movie.id)}
                 sx={{
-                  background: '#818cf8',
-                  color: '#09090b',
+                  background: '#e8b84b',
+                  color: '#0a0a0a',
                   fontWeight: 700,
                   fontSize: '0.82rem',
                   borderRadius: '10px',
                   px: 2.5,
                   py: 1,
                   textTransform: 'none',
-                  boxShadow: '0 4px 16px rgba(129,140,248,0.4)',
+                  boxShadow: '0 4px 16px rgba(232,184,75,0.4)',
                   '&:hover': {
-                    background: '#a5b4fc',
-                    boxShadow: '0 6px 20px rgba(129,140,248,0.5)'
+                    background: '#f5d27a',
+                    boxShadow: '0 6px 20px rgba(232,184,75,0.5)'
                   }
                 }}
               >
@@ -255,7 +255,7 @@ function MovieCarousel({ movies }) {
         width: '100%',
         height: { xs: '70vh', md: '85vh' },
         overflow: 'hidden',
-        background: '#09090b',
+        background: '#0a0a0a',
         // Custom swiper nav button styles via global CSS-in-JS
         '& .swiper': {
           width: '100%',
@@ -273,7 +273,7 @@ function MovieCarousel({ movies }) {
           transition: 'all 0.2s'
         },
         '& .swiper-pagination-bullet-active': {
-          background: '#818cf8',
+          background: '#e8b84b',
           width: '20px',
           borderRadius: '3px'
         }
@@ -313,7 +313,7 @@ function MovieCarousel({ movies }) {
                 position: 'absolute',
                 inset: 0,
                 background:
-                  'linear-gradient(to right, rgba(9,9,11,0.95) 30%, rgba(9,9,11,0.4) 70%, transparent 100%)',
+                  'linear-gradient(to right, rgba(10,10,10,0.95) 30%, rgba(10,10,10,0.4) 70%, transparent 100%)',
                 zIndex: 2
               }}
             />
@@ -324,7 +324,7 @@ function MovieCarousel({ movies }) {
                 position: 'absolute',
                 inset: 0,
                 background:
-                  'linear-gradient(to top, rgba(9,9,11,0.9) 0%, transparent 50%)',
+                  'linear-gradient(to top, rgba(10,10,10,0.9) 0%, transparent 50%)',
                 zIndex: 2
               }}
             />
@@ -335,7 +335,7 @@ function MovieCarousel({ movies }) {
                 position: 'absolute',
                 inset: 0,
                 background:
-                  'linear-gradient(to bottom, rgba(9,9,11,0.4) 0%, transparent 25%)',
+                  'linear-gradient(to bottom, rgba(10,10,10,0.4) 0%, transparent 25%)',
                 zIndex: 2
               }}
             />
@@ -378,8 +378,8 @@ function MovieCarousel({ movies }) {
           cursor: 'pointer',
           transition: 'all 0.2s',
           '&:hover': {
-            background: 'rgba(129,140,248,0.2)',
-            borderColor: 'rgba(129,140,248,0.4)'
+            background: 'rgba(232,184,75,0.2)',
+            borderColor: 'rgba(232,184,75,0.4)'
           },
           '&::after': { display: 'none' }
         }}
@@ -407,8 +407,8 @@ function MovieCarousel({ movies }) {
           cursor: 'pointer',
           transition: 'all 0.2s',
           '&:hover': {
-            background: 'rgba(129,140,248,0.2)',
-            borderColor: 'rgba(129,140,248,0.4)'
+            background: 'rgba(232,184,75,0.2)',
+            borderColor: 'rgba(232,184,75,0.4)'
           },
           '&::after': { display: 'none' }
         }}

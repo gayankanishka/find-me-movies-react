@@ -84,10 +84,10 @@ function MovieSearch() {
       noOptionsText={
         query.length > 1 ? (
           <Box sx={{ py: 2, textAlign: 'center' }}>
-            <Typography sx={{ color: '#a1a1aa', fontSize: '0.875rem' }}>
+            <Typography sx={{ color: '#999999', fontSize: '0.875rem' }}>
               No results for &quot;{query}&quot;
             </Typography>
-            <Typography sx={{ color: '#52525b', fontSize: '0.75rem', mt: 0.5 }}>
+            <Typography sx={{ color: '#555555', fontSize: '0.75rem', mt: 0.5 }}>
               Try a different title or spelling
             </Typography>
           </Box>
@@ -104,7 +104,7 @@ function MovieSearch() {
         <Paper
           {...props}
           sx={{
-            background: '#0f0f13',
+            background: '#141414',
             border: '1px solid rgba(255,255,255,0.08)',
             borderRadius: '12px',
             mt: 0.5,
@@ -171,7 +171,7 @@ function MovieSearch() {
               cursor: 'pointer',
               transition: 'background 0.15s ease',
               '&:hover, &.Mui-focused': {
-                background: 'rgba(129,140,248,0.08) !important'
+                background: 'rgba(232,184,75,0.08) !important'
               }
             }}
           >
@@ -228,7 +228,7 @@ function MovieSearch() {
               </Box>
               <Box
                 sx={{
-                  color: '#a1a1aa',
+                  color: '#999999',
                   fontSize: '0.75rem',
                   mt: 0.3
                 }}
@@ -246,18 +246,18 @@ function MovieSearch() {
             alignItems: 'center',
             background: 'rgba(255,255,255,0.06)',
             border: inputFocused
-              ? '1px solid rgba(129,140,248,0.5)'
+              ? '1px solid rgba(232,184,75,0.5)'
               : '1px solid rgba(255,255,255,0.1)',
             borderRadius: '24px',
             px: 1.5,
             py: 0.25,
             transition: 'border-color 0.2s ease, box-shadow 0.2s ease',
-            boxShadow: inputFocused ? '0 0 0 3px rgba(129,140,248,0.12)' : 'none'
+            boxShadow: inputFocused ? '0 0 0 3px rgba(232,184,75,0.12)' : 'none'
           }}
         >
           <SearchIcon
             sx={{
-              color: inputFocused ? '#818cf8' : 'rgba(255,255,255,0.4)',
+              color: inputFocused ? '#e8b84b' : 'rgba(255,255,255,0.4)',
               fontSize: '1.1rem',
               mr: 1,
               flexShrink: 0,

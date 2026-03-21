@@ -36,7 +36,7 @@ class ErrorBoundary extends React.Component {
           </Typography>
           <Typography
             sx={{
-              color: '#a1a1aa',
+              color: '#999999',
               fontSize: '0.9rem',
               textAlign: 'center',
               maxWidth: 400
@@ -47,7 +47,7 @@ class ErrorBoundary extends React.Component {
           <Button
             variant="contained"
             onClick={() => window.location.href = '/'}
-            sx={{ mt: 1, background: '#818cf8', '&:hover': { background: '#6366f1' } }}
+            sx={{ mt: 1, background: '#e8b84b', '&:hover': { background: '#c9952e' } }}
           >
             Go Home
           </Button>

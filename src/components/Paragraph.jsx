@@ -8,7 +8,7 @@ function Paragraph({ body }) {
       variant="body1"
       paragraph
       sx={{
-        color: '#a1a1aa',
+        color: '#999999',
         lineHeight: 1.7,
         fontSize: '0.95rem'
       }}

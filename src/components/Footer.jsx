@@ -33,8 +33,8 @@ function Footer() {
               px: 2,
               py: 0.75,
               borderRadius: '8px',
-              background: 'rgba(129,140,248,0.06)',
-              border: '1px solid rgba(129,140,248,0.12)'
+              background: 'rgba(232,184,75,0.06)',
+              border: '1px solid rgba(232,184,75,0.12)'
             }}
           >
             <MovieFilterIcon sx={{ color: 'primary.main', fontSize: 18 }} />

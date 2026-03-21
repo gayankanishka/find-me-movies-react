@@ -22,7 +22,7 @@ function MovieRating({ voteAvg }) {
         <Typography
           variant="h6"
           sx={{
-            color: '#a1a1aa',
+            color: '#999999',
             fontSize: '0.9rem',
             fontWeight: 600,
             letterSpacing: '0.05em',
@@ -36,12 +36,12 @@ function MovieRating({ voteAvg }) {
           max={5}
           precision={0.5}
           readOnly
-          icon={<StarRounded sx={{ color: '#f59e0b' }} />}
-          emptyIcon={<StarRounded sx={{ color: 'rgba(245,158,11,0.25)' }} />}
+          icon={<StarRounded sx={{ color: '#e8b84b' }} />}
+          emptyIcon={<StarRounded sx={{ color: 'rgba(232,184,75,0.25)' }} />}
         />
         <Typography
           sx={{
-            color: '#f59e0b',
+            color: '#e8b84b',
             fontWeight: 700,
             fontSize: '0.95rem'
           }}
@@ -49,7 +49,7 @@ function MovieRating({ voteAvg }) {
           {voteAvg.toFixed(1)}
           <Typography
             component="span"
-            sx={{ color: '#a1a1aa', fontWeight: 400, fontSize: '0.8rem' }}
+            sx={{ color: '#999999', fontWeight: 400, fontSize: '0.8rem' }}
           >
             /10
           </Typography>

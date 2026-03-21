@@ -31,8 +31,8 @@ const GENRE_COLORS = {
   35: '#22c55e',    // Comedy
   80: '#64748b',    // Crime
   99: '#06b6d4',    // Documentary
-  18: '#818cf8',    // Drama
-  10751: '#f59e0b', // Family
+  18: '#e8b84b',    // Drama
+  10751: '#e8b84b', // Family
   14: '#a855f7',    // Fantasy
   36: '#84cc16',    // History
   27: '#7c3aed',    // Horror
@@ -46,7 +46,7 @@ const GENRE_COLORS = {
   37: '#d97706'     // Western
 };
 
-const DEFAULT_COLOR = '#818cf8';
+const DEFAULT_COLOR = '#e8b84b';
 
 function GenreCard({ genre }) {
   const color = GENRE_COLORS[genre.id] || DEFAULT_COLOR;
@@ -91,13 +91,12 @@ function GenreCard({ genre }) {
         />
         <Typography
           sx={{
-            color: '#fafafa',
-            fontWeight: 700,
+            color: 'rgba(0,0,0,0.85)',
+            fontWeight: 800,
             fontSize: '0.95rem',
             textAlign: 'center',
             px: 1.5,
-            zIndex: 1,
-            textShadow: '0 1px 4px rgba(0,0,0,0.5)'
+            zIndex: 1
           }}
         >
           {genre.name}
@@ -125,7 +124,7 @@ function GenrePage() {
       initial="initial"
       animate="animate"
       exit="exit"
-      style={{ minHeight: '100vh', background: '#09090b' }}
+      style={{ minHeight: '100vh', background: '#0a0a0a' }}
     >
       <Container maxWidth="xl" sx={{ px: { xs: 2, md: 4 }, pt: { xs: 5, md: 7 }, pb: 8 }}>
         {/* Page header */}
@@ -135,7 +134,7 @@ function GenrePage() {
           transition={{ duration: 0.4, delay: 0.05 }}
         >
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 1 }}>
-            <CategoryIcon sx={{ color: '#818cf8', fontSize: '2rem' }} />
+            <CategoryIcon sx={{ color: '#e8b84b', fontSize: '2rem' }} />
             <Typography
               sx={{
                 color: '#fafafa',
@@ -150,7 +149,7 @@ function GenrePage() {
           </Box>
           <Typography
             sx={{
-              color: '#a1a1aa',
+              color: '#999999',
               fontSize: '0.95rem',
               mb: 5,
               ml: 0.25

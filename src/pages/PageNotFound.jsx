@@ -32,7 +32,7 @@ function FilmStrip() {
           sx={{
             width: 36,
             height: 50,
-            border: '2px solid rgba(129,140,248,0.6)',
+            border: '2px solid rgba(232,184,75,0.6)',
             borderRadius: '3px',
             position: 'relative',
             flexShrink: 0,
@@ -43,7 +43,7 @@ function FilmStrip() {
               transform: 'translateX(-50%)',
               width: 8,
               height: 6,
-              background: 'rgba(129,140,248,0.6)',
+              background: 'rgba(232,184,75,0.6)',
               borderRadius: '1px'
             },
             '&::before': { top: -7 },
@@ -68,7 +68,7 @@ function PageNotFound() {
       exit="exit"
       style={{
         minHeight: '100vh',
-        background: '#09090b',
+        background: '#0a0a0a',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center'
@@ -104,7 +104,7 @@ function PageNotFound() {
               fontSize: { xs: '6rem', sm: '9rem', md: '12rem' },
               fontWeight: 900,
               lineHeight: 1,
-              background: 'linear-gradient(135deg, #818cf8 0%, #a78bfa 50%, #c084fc 100%)',
+              background: 'linear-gradient(135deg, #e8b84b, #f5d27a, #c9952e)',
               backgroundClip: 'text',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
@@ -144,7 +144,7 @@ function PageNotFound() {
           </Typography>
           <Typography
             sx={{
-              color: '#a1a1aa',
+              color: '#999999',
               fontSize: '0.9rem',
               mb: 4,
               maxWidth: 380
@@ -154,12 +154,12 @@ function PageNotFound() {
             <Box
               component="code"
               sx={{
-                background: 'rgba(129,140,248,0.12)',
-                border: '1px solid rgba(129,140,248,0.2)',
+                background: 'rgba(232,184,75,0.12)',
+                border: '1px solid rgba(232,184,75,0.2)',
                 borderRadius: '4px',
                 px: 0.75,
                 py: 0.15,
-                color: '#818cf8',
+                color: '#e8b84b',
                 fontSize: '0.85rem',
                 fontFamily: 'monospace'
               }}
@@ -188,7 +188,7 @@ function PageNotFound() {
               px: 3,
               py: 1.25,
               borderRadius: '12px',
-              background: '#818cf8',
+              background: '#e8b84b',
               border: 'none',
               color: '#fff',
               fontWeight: 700,
@@ -196,7 +196,7 @@ function PageNotFound() {
               cursor: 'pointer',
               outline: 'none',
               transition: 'background 0.2s ease',
-              '&:hover': { background: '#6366f1' }
+              '&:hover': { background: '#c9952e' }
             }}
           >
             <HomeRounded sx={{ fontSize: '1.15rem' }} />

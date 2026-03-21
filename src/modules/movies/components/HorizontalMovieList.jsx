@@ -12,7 +12,7 @@ function HorizontalMovieList({ movies }) {
         overflowY: 'hidden',
         // Hide scrollbar on mobile/touch devices
         scrollbarWidth: 'thin',
-        scrollbarColor: 'rgba(129,140,248,0.3) transparent',
+        scrollbarColor: 'rgba(232,184,75,0.3) transparent',
         '&::-webkit-scrollbar': {
           height: '4px'
         },
@@ -20,10 +20,10 @@ function HorizontalMovieList({ movies }) {
           background: 'transparent'
         },
         '&::-webkit-scrollbar-thumb': {
-          background: 'rgba(129,140,248,0.3)',
+          background: 'rgba(232,184,75,0.3)',
           borderRadius: '2px',
           '&:hover': {
-            background: 'rgba(129,140,248,0.5)'
+            background: 'rgba(232,184,75,0.5)'
           }
         },
         // Hide scrollbar on mobile

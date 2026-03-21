@@ -67,7 +67,7 @@ function OnTheaters() {
       initial="initial"
       animate="animate"
       exit="exit"
-      style={{ minHeight: '100vh', background: '#09090b' }}
+      style={{ minHeight: '100vh', background: '#0a0a0a' }}
     >
       <Container maxWidth="xl" sx={{ px: { xs: 2, md: 4 }, pt: { xs: 5, md: 7 }, pb: 8 }}>
         {/* Page header */}
@@ -77,7 +77,7 @@ function OnTheaters() {
           transition={{ duration: 0.4, delay: 0.05 }}
         >
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 1 }}>
-            <TheatersRounded sx={{ color: '#818cf8', fontSize: '2rem' }} />
+            <TheatersRounded sx={{ color: '#e8b84b', fontSize: '2rem' }} />
             <Typography
               sx={{
                 color: '#fafafa',
@@ -92,7 +92,7 @@ function OnTheaters() {
           </Box>
           <Typography
             sx={{
-              color: '#a1a1aa',
+              color: '#999999',
               fontSize: '0.95rem',
               mb: 3,
               ml: 0.25
@@ -112,16 +112,16 @@ function OnTheaters() {
                 sx={
                   sortBy === value
                     ? {
-                        background: 'rgba(129,140,248,0.2)',
-                        border: '1px solid #818cf8',
-                        color: '#818cf8',
+                        background: 'rgba(232,184,75,0.2)',
+                        border: '1px solid #e8b84b',
+                        color: '#e8b84b',
                         fontWeight: 600,
-                        '&:hover': { background: 'rgba(129,140,248,0.28)' }
+                        '&:hover': { background: 'rgba(232,184,75,0.28)' }
                       }
                     : {
                         background: 'rgba(255,255,255,0.04)',
                         border: '1px solid rgba(255,255,255,0.08)',
-                        color: '#a1a1aa',
+                        color: '#999999',
                         '&:hover': { background: 'rgba(255,255,255,0.08)', color: '#fafafa' }
                       }
                 }

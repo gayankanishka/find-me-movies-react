@@ -22,6 +22,7 @@ import { motion } from 'framer-motion';
 import movieService from '../services/movie-db.service';
 import apiService from '../services/_shared/api.service';
 import navigationService from '../services/navigation.service';
+import { saveRecentlyViewed } from '../utils/recently-viewed.utils';
 import RecommendedMovieGrid from '../modules/movies/components/RecommendedMovieGrid';
 import config from '../config';
 
@@ -45,7 +46,7 @@ function ReviewCard({ review }) {
   return (
     <Box
       sx={{
-        background: '#0f0f13',
+        background: '#141414',
         border: '1px solid rgba(255,255,255,0.08)',
         borderRadius: '12px',
         p: 2.5
@@ -57,7 +58,7 @@ function ReviewCard({ review }) {
             width: 36,
             height: 36,
             borderRadius: '50%',
-            background: '#818cf8',
+            background: '#e8b84b',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center'
@@ -71,7 +72,7 @@ function ReviewCard({ review }) {
           <Typography sx={{ color: '#fafafa', fontWeight: 600, fontSize: '0.875rem' }}>
             {review.author}
           </Typography>
-          <Typography sx={{ color: '#a1a1aa', fontSize: '0.75rem' }}>
+          <Typography sx={{ color: '#999999', fontSize: '0.75rem' }}>
             {review.created_at
               ? new Date(review.created_at).toLocaleDateString('en-US', {
                   year: 'numeric',
@@ -83,14 +84,14 @@ function ReviewCard({ review }) {
         </Box>
         {review.author_details?.rating && (
           <Box sx={{ ml: 'auto', display: 'flex', alignItems: 'center', gap: 0.5 }}>
-            <StarRounded sx={{ color: '#f59e0b', fontSize: '1rem' }} />
-            <Typography sx={{ color: '#f59e0b', fontWeight: 700, fontSize: '0.875rem' }}>
+            <StarRounded sx={{ color: '#e8b84b', fontSize: '1rem' }} />
+            <Typography sx={{ color: '#e8b84b', fontWeight: 700, fontSize: '0.875rem' }}>
               {review.author_details.rating}/10
             </Typography>
           </Box>
         )}
       </Box>
-      <Typography sx={{ color: '#a1a1aa', fontSize: '0.875rem', lineHeight: 1.7 }}>
+      <Typography sx={{ color: '#999999', fontSize: '0.875rem', lineHeight: 1.7 }}>
         {expanded || !isLong ? content : `${content.slice(0, 300)}...`}
       </Typography>
       {isLong && (
@@ -99,7 +100,7 @@ function ReviewCard({ review }) {
           onClick={() => setExpanded((e) => !e)}
           sx={{
             mt: 1,
-            color: '#818cf8',
+            color: '#e8b84b',
             background: 'none',
             border: 'none',
             cursor: 'pointer',
@@ -131,7 +132,7 @@ function CastCard({ member }) {
         sx={{
           borderRadius: '10px',
           overflow: 'hidden',
-          background: '#0f0f13',
+          background: '#141414',
           border: '1px solid rgba(255,255,255,0.08)',
           cursor: 'pointer'
         }}
@@ -183,7 +184,7 @@ function CastCard({ member }) {
           </Typography>
           <Typography
             sx={{
-              color: '#a1a1aa',
+              color: '#999999',
               fontSize: '0.66rem',
               mt: 0.2,
               overflow: 'hidden',
@@ -236,6 +237,7 @@ function MovieDetails() {
           ]);
 
         setMovie(movieData);
+        saveRecentlyViewed(movieData);
 
         // Cast
         setCast(creditsData.cast ? creditsData.cast.slice(0, 12) : []);
@@ -300,13 +302,13 @@ function MovieDetails() {
       <Box
         sx={{
           minHeight: '100vh',
-          background: '#09090b',
+          background: '#0a0a0a',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center'
         }}
       >
-        <CircularProgress sx={{ color: '#818cf8' }} size={48} thickness={4} />
+        <CircularProgress sx={{ color: '#e8b84b' }} size={48} thickness={4} />
       </Box>
     );
   }
@@ -316,13 +318,13 @@ function MovieDetails() {
       <Box
         sx={{
           minHeight: '100vh',
-          background: '#09090b',
+          background: '#0a0a0a',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center'
         }}
       >
-        <Typography sx={{ color: '#a1a1aa' }}>Movie not found.</Typography>
+        <Typography sx={{ color: '#999999' }}>Movie not found.</Typography>
       </Box>
     );
   }
@@ -345,7 +347,7 @@ function MovieDetails() {
       initial="initial"
       animate="animate"
       exit="exit"
-      style={{ background: '#09090b', minHeight: '100vh' }}
+      style={{ background: '#0a0a0a', minHeight: '100vh' }}
     >
       {/* ── Hero Section ── */}
       <Box
@@ -354,7 +356,7 @@ function MovieDetails() {
           height: '70vh',
           minHeight: 480,
           overflow: 'hidden',
-          background: '#09090b'
+          background: '#0a0a0a'
         }}
       >
         {/* Backdrop image */}
@@ -392,7 +394,7 @@ function MovieDetails() {
             position: 'absolute',
             inset: 0,
             background:
-              'linear-gradient(to top, #09090b 0%, rgba(9,9,11,0.4) 35%, transparent 100%)'
+              'linear-gradient(to top, #0a0a0a 0%, rgba(9,9,11,0.4) 35%, transparent 100%)'
           }}
         />
 
@@ -469,7 +471,7 @@ function MovieDetails() {
                 }}
               >
                 {releaseYear && (
-                  <Typography sx={{ color: '#a1a1aa', fontSize: '0.9rem' }}>
+                  <Typography sx={{ color: '#999999', fontSize: '0.9rem' }}>
                     {releaseYear}
                   </Typography>
                 )}
@@ -483,10 +485,30 @@ function MovieDetails() {
                         background: 'rgba(255,255,255,0.3)'
                       }}
                     />
-                    <Typography sx={{ color: '#a1a1aa', fontSize: '0.9rem' }}>
+                    <Typography sx={{ color: '#999999', fontSize: '0.9rem' }}>
                       {runtime}
                     </Typography>
                   </>
+                )}
+              </Box>
+
+              {/* Language & Country */}
+              <Box sx={{ display: 'flex', gap: 2, mb: 1.5, flexWrap: 'wrap' }}>
+                {movie.original_language && (
+                  <Box>
+                    <Typography sx={{ color: '#999999', fontSize: '0.75rem' }}>Language</Typography>
+                    <Typography sx={{ color: '#ffffff', fontSize: '0.82rem', fontWeight: 600, textTransform: 'uppercase' }}>
+                      {movie.original_language}
+                    </Typography>
+                  </Box>
+                )}
+                {movie.production_countries?.[0] && (
+                  <Box>
+                    <Typography sx={{ color: '#999999', fontSize: '0.75rem' }}>Country</Typography>
+                    <Typography sx={{ color: '#ffffff', fontSize: '0.82rem', fontWeight: 600 }}>
+                      {movie.production_countries[0].name}
+                    </Typography>
+                  </Box>
                 )}
               </Box>
 
@@ -499,9 +521,9 @@ function MovieDetails() {
                       label={genre.name}
                       size="small"
                       sx={{
-                        background: 'rgba(129,140,248,0.14)',
-                        border: '1px solid rgba(129,140,248,0.3)',
-                        color: '#818cf8',
+                        background: 'rgba(232,184,75,0.14)',
+                        border: '1px solid rgba(232,184,75,0.3)',
+                        color: '#e8b84b',
                         fontWeight: 600,
                         fontSize: '0.72rem',
                         height: 24
@@ -514,9 +536,9 @@ function MovieDetails() {
               {/* Collection / Franchise */}
               {movie.belongs_to_collection && (
                 <Box sx={{ mb: 1.5 }}>
-                  <Typography sx={{ color: '#a1a1aa', fontSize: '0.82rem' }}>
+                  <Typography sx={{ color: '#999999', fontSize: '0.82rem' }}>
                     Part of{' '}
-                    <Box component="span" sx={{ color: '#818cf8', fontWeight: 600 }}>
+                    <Box component="span" sx={{ color: '#e8b84b', fontWeight: 600 }}>
                       {movie.belongs_to_collection.name}
                     </Box>
                   </Typography>
@@ -530,16 +552,16 @@ function MovieDetails() {
                   precision={0.5}
                   readOnly
                   size="small"
-                  icon={<StarRounded sx={{ color: '#f59e0b', fontSize: '1rem' }} />}
+                  icon={<StarRounded sx={{ color: '#e8b84b', fontSize: '1rem' }} />}
                   emptyIcon={
-                    <StarRounded sx={{ color: 'rgba(245,158,11,0.25)', fontSize: '1rem' }} />
+                    <StarRounded sx={{ color: 'rgba(232,184,75,0.25)', fontSize: '1rem' }} />
                   }
                 />
-                <Typography sx={{ color: '#f59e0b', fontWeight: 700, fontSize: '0.875rem' }}>
+                <Typography sx={{ color: '#e8b84b', fontWeight: 700, fontSize: '0.875rem' }}>
                   {movie.vote_average ? movie.vote_average.toFixed(1) : 'N/A'}
                 </Typography>
                 {movie.vote_count > 0 && (
-                  <Typography sx={{ color: '#a1a1aa', fontSize: '0.78rem' }}>
+                  <Typography sx={{ color: '#999999', fontSize: '0.78rem' }}>
                     ({movie.vote_count.toLocaleString()} votes)
                   </Typography>
                 )}
@@ -548,7 +570,7 @@ function MovieDetails() {
               {/* Director */}
               {director && (
                 <Box sx={{ display: 'flex', gap: 1, alignItems: 'center', mb: 0.75 }}>
-                  <Typography sx={{ color: '#a1a1aa', fontSize: '0.82rem', minWidth: 60 }}>
+                  <Typography sx={{ color: '#999999', fontSize: '0.82rem', minWidth: 60 }}>
                     Director
                   </Typography>
                   <Typography sx={{ color: '#fafafa', fontSize: '0.82rem', fontWeight: 600 }}>
@@ -560,7 +582,7 @@ function MovieDetails() {
               {/* Writers */}
               {writers?.length > 0 && (
                 <Box sx={{ display: 'flex', gap: 1, alignItems: 'center', mb: 1.5 }}>
-                  <Typography sx={{ color: '#a1a1aa', fontSize: '0.82rem', minWidth: 60 }}>
+                  <Typography sx={{ color: '#999999', fontSize: '0.82rem', minWidth: 60 }}>
                     Writers
                   </Typography>
                   <Typography sx={{ color: '#fafafa', fontSize: '0.82rem', fontWeight: 600 }}>
@@ -574,7 +596,7 @@ function MovieDetails() {
                 <Box sx={{ display: 'flex', gap: 3, mb: 1.5 }}>
                   {movie.budget > 0 && (
                     <Box>
-                      <Typography sx={{ color: '#a1a1aa', fontSize: '0.75rem' }}>Budget</Typography>
+                      <Typography sx={{ color: '#999999', fontSize: '0.75rem' }}>Budget</Typography>
                       <Typography sx={{ color: '#fafafa', fontSize: '0.82rem', fontWeight: 600 }}>
                         ${(movie.budget / 1_000_000).toFixed(0)}M
                       </Typography>
@@ -582,7 +604,7 @@ function MovieDetails() {
                   )}
                   {movie.revenue > 0 && (
                     <Box>
-                      <Typography sx={{ color: '#a1a1aa', fontSize: '0.75rem' }}>Revenue</Typography>
+                      <Typography sx={{ color: '#999999', fontSize: '0.75rem' }}>Revenue</Typography>
                       <Typography sx={{ color: '#fafafa', fontSize: '0.82rem', fontWeight: 600 }}>
                         ${(movie.revenue / 1_000_000).toFixed(0)}M
                       </Typography>
@@ -606,7 +628,7 @@ function MovieDetails() {
                     px: 2.5,
                     py: 1,
                     borderRadius: '10px',
-                    background: trailerKey ? '#818cf8' : 'rgba(129,140,248,0.3)',
+                    background: trailerKey ? 'linear-gradient(135deg, #e8b84b, #c9952e)' : 'rgba(232,184,75,0.3)',
                     border: 'none',
                     color: '#fff',
                     fontWeight: 700,
@@ -615,7 +637,7 @@ function MovieDetails() {
                     outline: 'none',
                     transition: 'background 0.2s ease',
                     '&:hover': {
-                      background: trailerKey ? '#6366f1' : 'rgba(129,140,248,0.3)'
+                      background: trailerKey ? 'linear-gradient(135deg, #f5d27a, #e8b84b)' : 'rgba(232,184,75,0.3)'
                     }
                   }}
                 >
@@ -682,7 +704,7 @@ function MovieDetails() {
               </Typography>
               <Typography
                 sx={{
-                  color: '#a1a1aa',
+                  color: '#999999',
                   fontSize: '0.95rem',
                   lineHeight: 1.8,
                   maxWidth: 820
@@ -710,7 +732,7 @@ function MovieDetails() {
                 <Box sx={{ mb: 2 }}>
                   <Typography
                     sx={{
-                      color: '#a1a1aa',
+                      color: '#999999',
                       fontSize: '0.78rem',
                       mb: 1,
                       textTransform: 'uppercase',
@@ -743,7 +765,7 @@ function MovieDetails() {
                 <Box sx={{ mb: 2 }}>
                   <Typography
                     sx={{
-                      color: '#a1a1aa',
+                      color: '#999999',
                       fontSize: '0.78rem',
                       mb: 1,
                       textTransform: 'uppercase',
@@ -776,7 +798,7 @@ function MovieDetails() {
                 <Box sx={{ mb: 2 }}>
                   <Typography
                     sx={{
-                      color: '#a1a1aa',
+                      color: '#999999',
                       fontSize: '0.78rem',
                       mb: 1,
                       textTransform: 'uppercase',
@@ -805,7 +827,7 @@ function MovieDetails() {
                 </Box>
               )}
 
-              <Typography sx={{ color: '#52525b', fontSize: '0.7rem', mt: 1 }}>
+              <Typography sx={{ color: '#555555', fontSize: '0.7rem', mt: 1 }}>
                 Powered by JustWatch
               </Typography>
             </Box>
@@ -827,7 +849,7 @@ function MovieDetails() {
                   sx={{
                     background: 'rgba(255,255,255,0.05)',
                     border: '1px solid rgba(255,255,255,0.1)',
-                    color: '#a1a1aa',
+                    color: '#999999',
                     fontSize: '0.75rem',
                     borderRadius: '6px'
                   }}
@@ -918,7 +940,7 @@ function MovieDetails() {
         fullWidth
         PaperProps={{
           sx: {
-            background: '#09090b',
+            background: '#0a0a0a',
             border: '1px solid rgba(255,255,255,0.08)',
             borderRadius: '16px',
             overflow: 'hidden'

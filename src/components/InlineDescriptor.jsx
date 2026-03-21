@@ -15,7 +15,7 @@ function InlineDescriptor({ title, description }) {
       <Typography
         variant="h6"
         sx={{
-          color: '#a1a1aa',
+          color: '#999999',
           fontSize: '0.9rem',
           fontWeight: 600,
           letterSpacing: '0.05em',

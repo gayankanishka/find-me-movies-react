@@ -21,7 +21,7 @@ function SkeltonLoader() {
           height={270}
           sx={{
             borderRadius: '12px',
-            bgcolor: 'rgba(129,140,248,0.08)',
+            bgcolor: 'rgba(232,184,75,0.06)',
             flexShrink: 0
           }}
         />

@@ -21,7 +21,7 @@ function Layout({ children }) {
           right: 0,
           height: '300px',
           background:
-            'radial-gradient(ellipse 60% 100% at 50% 0%, rgba(129,140,248,0.06) 0%, transparent 100%)',
+            'radial-gradient(ellipse 60% 100% at 50% 0%, rgba(232,184,75,0.06) 0%, transparent 100%)',
           pointerEvents: 'none',
           zIndex: 0
         }

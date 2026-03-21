@@ -31,7 +31,7 @@ function UpcomingMovieGrid() {
             fontWeight: 700,
             fontSize: '1.1rem',
             letterSpacing: '-0.01em',
-            borderLeft: '3px solid #818cf8',
+            borderLeft: '3px solid #e8b84b',
             pl: 1.5
           }}
         >
@@ -46,13 +46,13 @@ function UpcomingMovieGrid() {
             gap: 0.5,
             background: 'none',
             border: 'none',
-            color: '#818cf8',
+            color: '#e8b84b',
             fontSize: '0.85rem',
             fontWeight: 600,
             cursor: 'pointer',
             p: 0,
             transition: 'color 0.2s',
-            '&:hover': { color: '#a5b4fc' }
+            '&:hover': { color: '#f5d27a' }
           }}
         >
           See All

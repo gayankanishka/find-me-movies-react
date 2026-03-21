@@ -46,7 +46,7 @@ function RecommendedMovieGrid({ id }) {
             fontWeight: 700,
             fontSize: '1.1rem',
             letterSpacing: '-0.01em',
-            borderLeft: '3px solid #818cf8',
+            borderLeft: '3px solid #e8b84b',
             pl: 1.5
           }}
         >

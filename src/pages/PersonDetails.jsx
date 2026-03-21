@@ -29,7 +29,7 @@ function InfoRow({ label, value }) {
   if (!value) return null;
   return (
     <Box sx={{ mb: 2 }}>
-      <Typography sx={{ color: '#a1a1aa', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.08em', mb: 0.4 }}>
+      <Typography sx={{ color: '#999999', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.08em', mb: 0.4 }}>
         {label}
       </Typography>
       <Typography sx={{ color: '#fafafa', fontSize: '0.875rem', lineHeight: 1.5 }}>
@@ -79,7 +79,7 @@ function PersonDetails() {
   if (loading) {
     return (
       <Box sx={{ minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <CircularProgress sx={{ color: '#818cf8' }} />
+        <CircularProgress sx={{ color: '#e8b84b' }} />
       </Box>
     );
   }
@@ -87,7 +87,7 @@ function PersonDetails() {
   if (error || !person) {
     return (
       <Box sx={{ minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <Typography sx={{ color: '#a1a1aa' }}>Person not found.</Typography>
+        <Typography sx={{ color: '#999999' }}>Person not found.</Typography>
       </Box>
     );
   }
@@ -130,6 +130,20 @@ function PersonDetails() {
         .sort((a, b) => (b.popularity || 0) - (a.popularity || 0))
         .slice(0, 24)
     : [];
+
+  // Crew credits (for directors/writers)
+  const crewFilmography = (person.known_for_department === 'Directing' || person.known_for_department === 'Writing')
+    ? [...(movieCredits?.crew || [])]
+        .filter((m) => m.poster_path && (m.job === 'Director' || m.job === 'Writer' || m.job === 'Screenplay'))
+        .sort((a, b) => (b.popularity || 0) - (a.popularity || 0))
+        .slice(0, 12)
+    : [];
+
+  // Merge and deduplicate by movie id
+  const allFilmography = [...filmography];
+  crewFilmography.forEach((crew) => {
+    if (!allFilmography.find((m) => m.id === crew.id)) allFilmography.push(crew);
+  });
 
   // Profile
   const profileUrl = person.profile_path
@@ -185,7 +199,7 @@ function PersonDetails() {
                   width: { xs: 160, md: 240 },
                   height: { xs: 160, md: 360 },
                   borderRadius: '12px',
-                  background: 'linear-gradient(135deg, #1a1a2e, #0f0f1a)',
+                  background: 'linear-gradient(135deg, #1c1c1c, #141414)',
                   border: '1px solid rgba(255,255,255,0.08)',
                   display: 'flex',
                   flexDirection: 'column',
@@ -211,13 +225,13 @@ function PersonDetails() {
 
               {person.birthday && (
                 <Box sx={{ mb: 2 }}>
-                  <Typography sx={{ color: '#a1a1aa', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.08em', mb: 0.4 }}>
+                  <Typography sx={{ color: '#999999', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.08em', mb: 0.4 }}>
                     Born
                   </Typography>
                   <Typography sx={{ color: '#fafafa', fontSize: '0.875rem' }}>
                     {formattedBirthday}
                     {age !== null && !person.deathday && (
-                      <Box component="span" sx={{ color: '#a1a1aa' }}> ({age} years old)</Box>
+                      <Box component="span" sx={{ color: '#999999' }}> ({age} years old)</Box>
                     )}
                   </Typography>
                 </Box>
@@ -225,13 +239,13 @@ function PersonDetails() {
 
               {person.deathday && (
                 <Box sx={{ mb: 2 }}>
-                  <Typography sx={{ color: '#a1a1aa', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.08em', mb: 0.4 }}>
+                  <Typography sx={{ color: '#999999', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.08em', mb: 0.4 }}>
                     Died
                   </Typography>
                   <Typography sx={{ color: '#fafafa', fontSize: '0.875rem' }}>
                     {formattedDeathday}
                     {age !== null && (
-                      <Box component="span" sx={{ color: '#a1a1aa' }}> (aged {age})</Box>
+                      <Box component="span" sx={{ color: '#999999' }}> (aged {age})</Box>
                     )}
                   </Typography>
                 </Box>
@@ -242,11 +256,11 @@ function PersonDetails() {
 
               {person.popularity && (
                 <Box sx={{ mb: 2 }}>
-                  <Typography sx={{ color: '#a1a1aa', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.08em', mb: 0.4 }}>
+                  <Typography sx={{ color: '#999999', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.08em', mb: 0.4 }}>
                     Popularity Score
                   </Typography>
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-                    <StarRounded sx={{ color: '#f59e0b', fontSize: '1rem' }} />
+                    <StarRounded sx={{ color: '#e8b84b', fontSize: '1rem' }} />
                     <Typography sx={{ color: '#fafafa', fontSize: '0.875rem', fontWeight: 600 }}>
                       {person.popularity.toFixed(1)}
                     </Typography>
@@ -266,7 +280,7 @@ function PersonDetails() {
                     endIcon={<OpenInNewRounded sx={{ fontSize: '0.85rem' }} />}
                     sx={{
                       justifyContent: { xs: 'center', md: 'flex-start' },
-                      color: '#f59e0b',
+                      color: '#e8b84b',
                       textTransform: 'none',
                       fontWeight: 600,
                       fontSize: '0.82rem',
@@ -288,13 +302,13 @@ function PersonDetails() {
                     endIcon={<OpenInNewRounded sx={{ fontSize: '0.85rem' }} />}
                     sx={{
                       justifyContent: { xs: 'center', md: 'flex-start' },
-                      color: '#818cf8',
+                      color: '#e8b84b',
                       textTransform: 'none',
                       fontWeight: 600,
                       fontSize: '0.82rem',
                       p: 0,
                       minWidth: 0,
-                      '&:hover': { background: 'transparent', color: '#a5b4fc' }
+                      '&:hover': { background: 'transparent', color: '#f5d27a' }
                     }}
                   >
                     Official Website
@@ -326,9 +340,9 @@ function PersonDetails() {
                 label={person.known_for_department}
                 size="small"
                 sx={{
-                  background: 'rgba(129,140,248,0.15)',
-                  color: '#818cf8',
-                  border: '1px solid rgba(129,140,248,0.3)',
+                  background: 'rgba(232,184,75,0.15)',
+                  color: '#e8b84b',
+                  border: '1px solid rgba(232,184,75,0.3)',
                   fontWeight: 600,
                   fontSize: '0.75rem',
                   mb: 3
@@ -344,7 +358,7 @@ function PersonDetails() {
                 <Typography sx={{ color: '#fafafa', fontWeight: 700, fontSize: '1.15rem', mb: 1.5 }}>
                   Biography
                 </Typography>
-                <Typography sx={{ color: '#a1a1aa', fontSize: '0.9375rem', lineHeight: 1.85, whiteSpace: 'pre-line' }}>
+                <Typography sx={{ color: '#999999', fontSize: '0.9375rem', lineHeight: 1.85, whiteSpace: 'pre-line' }}>
                   {displayedBio}
                 </Typography>
                 {isBioLong && (
@@ -352,7 +366,7 @@ function PersonDetails() {
                     variant="text"
                     size="small"
                     onClick={() => setBioExpanded((prev) => !prev)}
-                    sx={{ mt: 1, color: '#818cf8', textTransform: 'none', fontWeight: 600, p: 0, minWidth: 0, '&:hover': { background: 'transparent', color: '#6366f1' } }}
+                    sx={{ mt: 1, color: '#e8b84b', textTransform: 'none', fontWeight: 600, p: 0, minWidth: 0, '&:hover': { background: 'transparent', color: '#c9952e' } }}
                   >
                     {bioExpanded ? 'Show less' : 'Read more'}
                   </Button>
@@ -361,19 +375,19 @@ function PersonDetails() {
             ) : (
               <Box sx={{ mb: 5 }}>
                 <Typography sx={{ color: '#fafafa', fontWeight: 700, fontSize: '1.15rem', mb: 1.5 }}>Biography</Typography>
-                <Typography sx={{ color: '#52525b', fontSize: '0.9rem', fontStyle: 'italic' }}>
+                <Typography sx={{ color: '#555555', fontSize: '0.9rem', fontStyle: 'italic' }}>
                   No biography available for {person.name}.
                 </Typography>
               </Box>
             )}
 
             {/* Filmography */}
-            {filmography.length > 0 && (
+            {allFilmography.length > 0 && (
               <Box>
                 <Typography sx={{ color: '#fafafa', fontWeight: 700, fontSize: '1.15rem', mb: 3 }}>
                   Filmography
-                  <Box component="span" sx={{ color: '#52525b', fontWeight: 400, fontSize: '0.85rem', ml: 1.5 }}>
-                    ({filmography.length} titles)
+                  <Box component="span" sx={{ color: '#555555', fontWeight: 400, fontSize: '0.85rem', ml: 1.5 }}>
+                    ({allFilmography.length} titles)
                   </Box>
                 </Typography>
                 <Box
@@ -383,13 +397,20 @@ function PersonDetails() {
                     gap: 2
                   }}
                 >
-                  {filmography.map((movie) => (
-                    <Box
-                      key={movie.id}
-                      onClick={() => navigationService.goToMovieDetails(movie.id)}
-                      sx={{ cursor: 'pointer' }}
-                    >
+                  {allFilmography.map((movie) => (
+                    <Box key={movie.id} onClick={() => navigationService.goToMovieDetails(movie.id)} sx={{ cursor: 'pointer' }}>
                       <MovieCard movie={movie} />
+                      {movie.character && (
+                        <Typography sx={{ color: '#999999', fontSize: '0.68rem', mt: 0.5, px: 0.5, textAlign: 'center',
+                          overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                          as {movie.character}
+                        </Typography>
+                      )}
+                      {movie.job && !movie.character && (
+                        <Typography sx={{ color: '#999999', fontSize: '0.68rem', mt: 0.5, px: 0.5, textAlign: 'center' }}>
+                          {movie.job}
+                        </Typography>
+                      )}
                     </Box>
                   ))}
                 </Box>

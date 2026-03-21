@@ -8,6 +8,7 @@ import DiscoverMovies from '../modules/movies/components/DiscoverMovies';
 import HorizontalMovieList from '../modules/movies/components/HorizontalMovieList';
 import movieService from '../services/movie-db.service';
 import navigationService from '../services/navigation.service';
+import { getRecentlyViewed } from '../utils/recently-viewed.utils';
 
 const pageVariants = {
   initial: { opacity: 0 },
@@ -33,6 +34,36 @@ function SectionWrapper({ children, delay = 0 }) {
   );
 }
 
+function RecentlyViewedSection() {
+  const [movies, setMovies] = useState([]);
+
+  useEffect(() => {
+    setMovies(getRecentlyViewed());
+  }, []);
+
+  if (movies.length === 0) return null;
+
+  return (
+    <Box>
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
+        <Typography sx={{
+          fontWeight: 700, fontSize: '1.1rem', color: '#ffffff',
+          borderLeft: '3px solid #e8b84b', pl: 1.5,
+          display: 'flex', alignItems: 'center', gap: 1
+        }}>
+          Recently Viewed
+        </Typography>
+        <Button size="small"
+          onClick={() => { localStorage.removeItem('recentlyViewed'); setMovies([]); }}
+          sx={{ color: '#555555', fontSize: '0.75rem', textTransform: 'none', '&:hover': { color: '#999999', background: 'transparent' } }}>
+          Clear
+        </Button>
+      </Box>
+      <HorizontalMovieList movies={movies} />
+    </Box>
+  );
+}
+
 function TrendingSection() {
   const [movies, setMovies] = useState([]);
 
@@ -48,7 +79,7 @@ function TrendingSection() {
             fontWeight: 700,
             fontSize: '1.1rem',
             color: '#fafafa',
-            borderLeft: '3px solid #818cf8',
+            borderLeft: '3px solid #e8b84b',
             pl: 1.5
           }}
         >
@@ -57,7 +88,7 @@ function TrendingSection() {
         <Button
           size="small"
           onClick={() => navigationService.goToTrending()}
-          sx={{ color: '#818cf8', fontSize: '0.8rem' }}
+          sx={{ color: '#e8b84b', fontSize: '0.8rem' }}
         >
           See All →
         </Button>
@@ -84,6 +115,13 @@ function Home() {
       </Box>
 
       <Container maxWidth="xl" sx={{ px: { xs: 2, md: 4 } }}>
+        {/* Recently Viewed */}
+        <Box sx={{ py: 4 }}>
+          <SectionWrapper delay={0}>
+            <RecentlyViewedSection />
+          </SectionWrapper>
+        </Box>
+
         {/* Trending Today */}
         <Box sx={{ py: 4 }}>
           <SectionWrapper delay={0.05}>

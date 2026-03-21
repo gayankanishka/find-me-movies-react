@@ -24,16 +24,16 @@ function MovieGenres({ genres }) {
             label={genre.name}
             size="small"
             sx={{
-              background: 'rgba(129,140,248,0.15)',
-              color: '#818cf8',
-              border: '1px solid rgba(129,140,248,0.3)',
+              background: 'rgba(232,184,75,0.15)',
+              color: '#e8b84b',
+              border: '1px solid rgba(232,184,75,0.3)',
               borderRadius: '20px',
               fontWeight: 500,
               fontSize: '0.72rem',
               letterSpacing: '0.03em',
               height: '24px',
               '&:hover': {
-                background: 'rgba(129,140,248,0.25)'
+                background: 'rgba(232,184,75,0.25)'
               },
               '& .MuiChip-label': {
                 px: 1.25

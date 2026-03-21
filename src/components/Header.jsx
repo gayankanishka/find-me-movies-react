@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
   AppBar,
@@ -32,42 +32,16 @@ import navigationService from '../services/navigation.service';
 import MovieSearch from '../modules/movies/components/MovieSearch';
 
 const NAV_LINKS = [
-  {
-    label: 'Popular',
-    icon: <TrendingUpIcon fontSize="small" />,
-    action: () => navigationService.goToPopularMovies(),
-    path: '/popular-movies'
-  },
-  {
-    label: 'Top Rated',
-    icon: <WhatshotIcon fontSize="small" />,
-    action: () => navigationService.goToTopMovies(),
-    path: '/top-movies'
-  },
-  {
-    label: 'Upcoming',
-    icon: <ScheduleIcon fontSize="small" />,
-    action: () => navigationService.goToUpcomingMovies(),
-    path: '/upcoming-movies'
-  },
-  {
-    label: 'In Theaters',
-    icon: <TheatersIcon fontSize="small" />,
-    action: () => navigationService.goToOnTheaters(),
-    path: '/on-theaters'
-  },
-  {
-    label: 'Trending',
-    icon: <LocalFireDepartmentIcon fontSize="small" />,
-    action: () => navigationService.goToTrending(),
-    path: '/trending'
-  },
-  {
-    label: 'Genres',
-    icon: <CategoryIcon fontSize="small" />,
-    action: () => navigationService.goToGenres(),
-    path: '/genres'
-  }
+  { label: 'Popular', icon: <WhatshotIcon fontSize="small" />, action: () => navigationService.goToPopularMovies(), path: '/popular-movies' },
+  { label: 'Trending', icon: <LocalFireDepartmentIcon fontSize="small" />, action: () => navigationService.goToTrending(), path: '/trending' },
+  { label: 'Genres', icon: <CategoryIcon fontSize="small" />, action: () => navigationService.goToGenres(), path: '/genres' },
+  { label: 'In Theaters', icon: <TheatersIcon fontSize="small" />, action: () => navigationService.goToOnTheaters(), path: '/on-theaters' },
+];
+
+const DRAWER_LINKS = [
+  ...NAV_LINKS,
+  { label: 'Top Rated', icon: <TrendingUpIcon fontSize="small" />, action: () => navigationService.goToTopMovies(), path: '/top-movies' },
+  { label: 'Upcoming', icon: <ScheduleIcon fontSize="small" />, action: () => navigationService.goToUpcomingMovies(), path: '/upcoming-movies' },
 ];
 
 
@@ -115,7 +89,7 @@ function NavButton({ label, action, path, isActive }) {
               left: '12px',
               right: '12px',
               height: '2px',
-              background: 'linear-gradient(90deg, #818cf8, #6366f1)',
+              background: 'linear-gradient(90deg, #e8b84b, #c9952e)',
               borderRadius: '1px'
             }}
             initial={{ opacity: 0 }}
@@ -160,7 +134,7 @@ function DrawerContent({ onClose }) {
           <Box component="span" sx={{ color: 'text.primary' }}>
             FindMe
           </Box>
-          <Box component="span" sx={{ color: 'primary.main' }}>
+          <Box component="span" sx={{ color: '#e8b84b' }}>
             Movies
           </Box>
         </Typography>
@@ -169,7 +143,7 @@ function DrawerContent({ onClose }) {
       <Divider sx={{ mb: 1 }} />
 
       <List disablePadding>
-        {NAV_LINKS.map(({ label, icon, action, path }) => {
+        {DRAWER_LINKS.map(({ label, icon, action, path }) => {
           const isActive = location.pathname === path;
           return (
             <ListItemButton
@@ -217,6 +191,19 @@ function Header(props) {
   const [drawerOpen, setDrawerOpen] = React.useState(false);
   const handleOpenDrawer = () => setDrawerOpen(true);
   const handleCloseDrawer = () => setDrawerOpen(false);
+
+  useEffect(() => {
+    const handler = (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        // Focus the search input — find it by a ref or querySelector
+        const searchInput = document.querySelector('input[placeholder*="earch"]');
+        if (searchInput) searchInput.focus();
+      }
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, []);
 
   return (
     <Box sx={{ mb: { xs: 8, sm: 9 } }}>
@@ -275,7 +262,7 @@ function Header(props) {
                 <Box component="span" sx={{ color: 'text.primary' }}>
                   FindMe
                 </Box>
-                <Box component="span" sx={{ color: 'primary.main' }}>
+                <Box component="span" sx={{ color: '#e8b84b' }}>
                   Movies
                 </Box>
               </Typography>
@@ -308,12 +295,37 @@ function Header(props) {
             <Box
               sx={{
                 display: { xs: 'none', sm: 'flex' },
+                alignItems: 'center',
                 minWidth: 220,
                 maxWidth: 300,
                 width: '100%'
               }}
             >
-              <MovieSearch />
+              <Box sx={{ flex: 1 }}>
+                <MovieSearch />
+              </Box>
+              {/* Cmd+K hint badge — desktop only */}
+              <Box sx={{
+                display: { xs: 'none', lg: 'flex' },
+                alignItems: 'center',
+                gap: 0.5,
+                ml: 0.75,
+                flexShrink: 0
+              }}>
+                <Box sx={{
+                  background: 'rgba(255,255,255,0.07)',
+                  border: '1px solid rgba(255,255,255,0.12)',
+                  borderRadius: '5px',
+                  px: 0.75,
+                  py: 0.25,
+                  fontSize: '0.65rem',
+                  color: '#999999',
+                  fontFamily: 'monospace',
+                  letterSpacing: '0.02em'
+                }}>
+                  ⌘K
+                </Box>
+              </Box>
             </Box>
 
           </Toolbar>
@@ -328,7 +340,7 @@ function Header(props) {
         onOpen={handleOpenDrawer}
         PaperProps={{
           sx: {
-            background: 'rgba(9,9,11,0.97)',
+            background: 'rgba(10,10,10,0.97)',
             backdropFilter: 'blur(20px)',
             WebkitBackdropFilter: 'blur(20px)',
             borderRight: '1px solid rgba(255,255,255,0.06)'

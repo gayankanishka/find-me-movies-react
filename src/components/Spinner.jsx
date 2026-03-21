@@ -16,7 +16,7 @@ function Spinner() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'rgba(9,9,11,0.85)',
+        backgroundColor: 'rgba(10,10,10,0.85)',
         backdropFilter: 'blur(8px)',
         WebkitBackdropFilter: 'blur(8px)',
         zIndex: (theme) => theme.zIndex.drawer + 100
@@ -34,7 +34,7 @@ function Spinner() {
             height: 80,
             borderRadius: '50%',
             border: '2px solid',
-            borderColor: 'primary.main'
+            borderColor: '#e8b84b'
           }}
         />
         {/* MUI spinner */}
@@ -42,7 +42,7 @@ function Spinner() {
           size={48}
           thickness={3}
           sx={{
-            color: 'primary.main',
+            color: '#e8b84b',
             '& .MuiCircularProgress-circle': {
               strokeLinecap: 'round'
             }
