@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Box, Container, Typography, Chip } from '@mui/material';
-import { UpcomingRounded } from '@mui/icons-material';
+import { useParams, useLocation } from 'react-router-dom';
+import CategoryIcon from '@mui/icons-material/Category';
 import { motion } from 'framer-motion';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import movieService from '../services/movie-db.service';
@@ -14,54 +15,54 @@ const pageVariants = {
 };
 
 const SORT_OPTIONS = [
-  { label: 'Release Date ↑', value: 'date_asc' },
-  { label: 'Release Date ↓', value: 'date_desc' },
-  { label: 'Popular', value: 'popularity' }
+  { label: 'Popular', value: 'popularity.desc' },
+  { label: 'Top Rated', value: 'vote_average.desc' },
+  { label: 'Newest', value: 'release_date.desc' }
 ];
 
-function sortMovies(movies, sortBy) {
-  const sorted = [...movies];
-  if (sortBy === 'date_asc') {
-    return sorted.sort(
-      (a, b) => new Date(a.release_date || 0) - new Date(b.release_date || 0)
-    );
-  }
-  if (sortBy === 'date_desc') {
-    return sorted.sort(
-      (a, b) => new Date(b.release_date || 0) - new Date(a.release_date || 0)
-    );
-  }
-  if (sortBy === 'popularity') {
-    return sorted.sort((a, b) => (b.popularity || 0) - (a.popularity || 0));
-  }
-  return sorted;
-}
+function GenreMoviesPage() {
+  const { id: genreId } = useParams();
+  const location = useLocation();
+  const genreName = useMemo(
+    () => new URLSearchParams(location.search).get('name') || 'Genre',
+    [location.search]
+  );
 
-function UpcomingMovies() {
   const [movies, setMovies] = useState([]);
   const [page, setPage] = useState(1);
-  const [sortBy, setSortBy] = useState('date_asc');
+  const [hasMore, setHasMore] = useState(true);
+  const [sortBy, setSortBy] = useState('popularity.desc');
 
-  document.title = 'Upcoming Movies | FindMe Movies';
+  document.title = `${genreName} Movies | FindMe Movies`;
   document.getElementById('root').style.backgroundImage = null;
 
+  // Reset and refetch when genreId or sortBy changes
   useEffect(() => {
-    const fetchData = async () => {
-      const data = await movieService.getUpcomingMovies();
-      setMovies(data.results);
-      setPage(data.page);
-    };
+    let cancelled = false;
+    setMovies([]);
+    setPage(1);
+    setHasMore(true);
 
-    fetchData();
-  }, []);
+    movieService.discoverByGenre(genreId, 1, sortBy).then((data) => {
+      if (!cancelled) {
+        setMovies(data.results || []);
+        setPage(data.page || 1);
+        setHasMore(data.page < data.total_pages);
+      }
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [genreId, sortBy]);
 
   const fetchMovies = async () => {
-    const data = await movieService.getUpcomingMovies(page + 1);
-    setMovies((prev) => [...prev, ...data.results]);
-    setPage(data.page);
+    const nextPage = page + 1;
+    const data = await movieService.discoverByGenre(genreId, nextPage, sortBy);
+    setMovies((prev) => [...prev, ...(data.results || [])]);
+    setPage(data.page || nextPage);
+    setHasMore(data.page < data.total_pages);
   };
-
-  const sortedMovies = useMemo(() => sortMovies(movies, sortBy), [movies, sortBy]);
 
   return (
     <motion.div
@@ -79,7 +80,7 @@ function UpcomingMovies() {
           transition={{ duration: 0.4, delay: 0.05 }}
         >
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 1 }}>
-            <UpcomingRounded sx={{ color: '#818cf8', fontSize: '2rem' }} />
+            <CategoryIcon sx={{ color: '#818cf8', fontSize: '2rem' }} />
             <Typography
               sx={{
                 color: '#fafafa',
@@ -89,7 +90,7 @@ function UpcomingMovies() {
                 letterSpacing: '-0.01em'
               }}
             >
-              Upcoming Movies
+              {genreName} Movies
             </Typography>
           </Box>
           <Typography
@@ -100,7 +101,7 @@ function UpcomingMovies() {
               ml: 0.25
             }}
           >
-            What&apos;s coming to theaters soon
+            Explore the best {genreName.toLowerCase()} films
           </Typography>
 
           {/* Sort chips */}
@@ -141,14 +142,14 @@ function UpcomingMovies() {
           <InfiniteScroll
             dataLength={movies.length}
             next={fetchMovies}
-            hasMore={page !== 1000}
+            hasMore={hasMore}
             loader={
               <Box sx={{ mt: 3 }}>
                 <SkeltonLoader />
               </Box>
             }
           >
-            <VerticalMovieList movies={sortedMovies} />
+            <VerticalMovieList movies={movies} />
           </InfiniteScroll>
         </motion.div>
       </Container>
@@ -156,4 +157,4 @@ function UpcomingMovies() {
   );
 }
 
-export default UpcomingMovies;
+export default GenreMoviesPage;

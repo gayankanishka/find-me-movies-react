@@ -9,12 +9,14 @@ import {
   IconButton,
   Rating,
   Skeleton,
+  Snackbar,
   Typography
 } from '@mui/material';
 import {
   PlayArrowRounded,
   StarRounded,
-  CloseRounded
+  CloseRounded,
+  ShareRounded
 } from '@mui/icons-material';
 import { motion } from 'framer-motion';
 import movieService from '../services/movie-db.service';
@@ -33,6 +35,83 @@ function formatRuntime(minutes) {
   const h = Math.floor(minutes / 60);
   const m = minutes % 60;
   return h > 0 ? `${h}h ${m}m` : `${m}m`;
+}
+
+function ReviewCard({ review }) {
+  const [expanded, setExpanded] = useState(false);
+  const content = review.content || '';
+  const isLong = content.length > 300;
+  return (
+    <Box
+      sx={{
+        background: '#0f0f13',
+        border: '1px solid rgba(255,255,255,0.08)',
+        borderRadius: '12px',
+        p: 2.5
+      }}
+    >
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 1.5 }}>
+        <Box
+          sx={{
+            width: 36,
+            height: 36,
+            borderRadius: '50%',
+            background: '#818cf8',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+        >
+          <Typography sx={{ color: '#fff', fontWeight: 700, fontSize: '0.875rem' }}>
+            {review.author?.charAt(0)?.toUpperCase() || '?'}
+          </Typography>
+        </Box>
+        <Box>
+          <Typography sx={{ color: '#fafafa', fontWeight: 600, fontSize: '0.875rem' }}>
+            {review.author}
+          </Typography>
+          <Typography sx={{ color: '#a1a1aa', fontSize: '0.75rem' }}>
+            {review.created_at
+              ? new Date(review.created_at).toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'short',
+                  day: 'numeric'
+                })
+              : ''}
+          </Typography>
+        </Box>
+        {review.author_details?.rating && (
+          <Box sx={{ ml: 'auto', display: 'flex', alignItems: 'center', gap: 0.5 }}>
+            <StarRounded sx={{ color: '#f59e0b', fontSize: '1rem' }} />
+            <Typography sx={{ color: '#f59e0b', fontWeight: 700, fontSize: '0.875rem' }}>
+              {review.author_details.rating}/10
+            </Typography>
+          </Box>
+        )}
+      </Box>
+      <Typography sx={{ color: '#a1a1aa', fontSize: '0.875rem', lineHeight: 1.7 }}>
+        {expanded || !isLong ? content : `${content.slice(0, 300)}...`}
+      </Typography>
+      {isLong && (
+        <Box
+          component="button"
+          onClick={() => setExpanded((e) => !e)}
+          sx={{
+            mt: 1,
+            color: '#818cf8',
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            fontSize: '0.8rem',
+            fontWeight: 600,
+            p: 0
+          }}
+        >
+          {expanded ? 'Show less' : 'Read more'}
+        </Box>
+      )}
+    </Box>
+  );
 }
 
 function CastCard({ member }) {
@@ -121,26 +200,70 @@ function CastCard({ member }) {
 function MovieDetails() {
   const [movie, setMovie] = useState(null);
   const [cast, setCast] = useState([]);
+  const [director, setDirector] = useState(null);
+  const [writers, setWriters] = useState([]);
   const [trailerKey, setTrailerKey] = useState(null);
   const [trailerOpen, setTrailerOpen] = useState(false);
+  const [providers, setProviders] = useState({});
+  const [keywords, setKeywords] = useState([]);
+  const [reviews, setReviews] = useState([]);
+  const [copied, setCopied] = useState(false);
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
+
+  // Dynamic document title
+  useEffect(() => {
+    if (movie) document.title = `${movie.title} | FindMe Movies`;
+    return () => {
+      document.title = 'FindMe Movies';
+    };
+  }, [movie]);
 
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const [movieData, creditsData, videosData] = await Promise.all([
-          movieService.getMovieById(id),
-          apiService.get(`/movie/${id}/credits`).catch(() => ({ cast: [] })),
-          movieService.getMovieVideos(id).catch(() => ({ results: [] }))
-        ]);
+        const [movieData, creditsData, videosData, providersData, keywordsData, reviewsData] =
+          await Promise.all([
+            movieService.getMovieById(id),
+            apiService.get(`/movie/${id}/credits`).catch(() => ({ cast: [], crew: [] })),
+            movieService.getMovieVideos(id).catch(() => ({ results: [] })),
+            apiService.get(`/movie/${id}/watch/providers`).catch(() => ({ results: {} })),
+            apiService.get(`/movie/${id}/keywords`).catch(() => ({ keywords: [] })),
+            apiService.get(`/movie/${id}/reviews`).catch(() => ({ results: [] }))
+          ]);
+
         setMovie(movieData);
+
+        // Cast
         setCast(creditsData.cast ? creditsData.cast.slice(0, 12) : []);
+
+        // Crew — director & writers
+        setDirector(creditsData.crew?.find((c) => c.job === 'Director') || null);
+        setWriters(
+          creditsData.crew
+            ?.filter((c) => ['Writer', 'Screenplay', 'Story'].includes(c.job))
+            .slice(0, 2) || []
+        );
+
+        // Trailer
         const trailer = (videosData.results || []).find(
           (v) => v.site === 'YouTube' && (v.type === 'Trailer' || v.type === 'Teaser')
         );
         setTrailerKey(trailer ? trailer.key : null);
+
+        // Watch providers — prefer US region, fall back to first available
+        const regionProviders =
+          providersData.results?.US ||
+          Object.values(providersData.results || {})[0] ||
+          {};
+        setProviders(regionProviders);
+
+        // Keywords (up to 12)
+        setKeywords(keywordsData.keywords?.slice(0, 12) || []);
+
+        // Reviews (up to 3)
+        setReviews(reviewsData.results?.slice(0, 3) || []);
       } catch {
         try {
           const movieData = await movieService.getMovieById(id);
@@ -160,6 +283,15 @@ function MovieDetails() {
   useEffect(() => {
     document.getElementById('root').style.backgroundImage = null;
   }, []);
+
+  const handleShare = () => {
+    if (navigator.share) {
+      navigator.share({ title: movie.title, url: window.location.href });
+    } else {
+      navigator.clipboard.writeText(window.location.href);
+      setCopied(true);
+    }
+  };
 
   if (loading) {
     return (
@@ -202,6 +334,8 @@ function MovieDetails() {
   const releaseYear = movie.release_date ? movie.release_date.split('-')[0] : '';
   const runtime = formatRuntime(movie.runtime);
   const ratingValue = movie.vote_average ? movie.vote_average / 2 : 0;
+  const hasProviders =
+    providers.flatrate?.length > 0 || providers.rent?.length > 0 || providers.buy?.length > 0;
 
   return (
     <motion.div
@@ -375,6 +509,18 @@ function MovieDetails() {
                 </Box>
               )}
 
+              {/* Collection / Franchise */}
+              {movie.belongs_to_collection && (
+                <Box sx={{ mb: 1.5 }}>
+                  <Typography sx={{ color: '#a1a1aa', fontSize: '0.82rem' }}>
+                    Part of{' '}
+                    <Box component="span" sx={{ color: '#818cf8', fontWeight: 600 }}>
+                      {movie.belongs_to_collection.name}
+                    </Box>
+                  </Typography>
+                </Box>
+              )}
+
               {/* Rating */}
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2.5 }}>
                 <Rating
@@ -397,8 +543,55 @@ function MovieDetails() {
                 )}
               </Box>
 
+              {/* Director */}
+              {director && (
+                <Box sx={{ display: 'flex', gap: 1, alignItems: 'center', mb: 0.75 }}>
+                  <Typography sx={{ color: '#a1a1aa', fontSize: '0.82rem', minWidth: 60 }}>
+                    Director
+                  </Typography>
+                  <Typography sx={{ color: '#fafafa', fontSize: '0.82rem', fontWeight: 600 }}>
+                    {director.name}
+                  </Typography>
+                </Box>
+              )}
+
+              {/* Writers */}
+              {writers?.length > 0 && (
+                <Box sx={{ display: 'flex', gap: 1, alignItems: 'center', mb: 1.5 }}>
+                  <Typography sx={{ color: '#a1a1aa', fontSize: '0.82rem', minWidth: 60 }}>
+                    Writers
+                  </Typography>
+                  <Typography sx={{ color: '#fafafa', fontSize: '0.82rem', fontWeight: 600 }}>
+                    {writers.map((w) => w.name).join(', ')}
+                  </Typography>
+                </Box>
+              )}
+
+              {/* Budget & Revenue */}
+              {(movie.budget > 0 || movie.revenue > 0) && (
+                <Box sx={{ display: 'flex', gap: 3, mb: 1.5 }}>
+                  {movie.budget > 0 && (
+                    <Box>
+                      <Typography sx={{ color: '#a1a1aa', fontSize: '0.75rem' }}>Budget</Typography>
+                      <Typography sx={{ color: '#fafafa', fontSize: '0.82rem', fontWeight: 600 }}>
+                        ${(movie.budget / 1_000_000).toFixed(0)}M
+                      </Typography>
+                    </Box>
+                  )}
+                  {movie.revenue > 0 && (
+                    <Box>
+                      <Typography sx={{ color: '#a1a1aa', fontSize: '0.75rem' }}>Revenue</Typography>
+                      <Typography sx={{ color: '#fafafa', fontSize: '0.82rem', fontWeight: 600 }}>
+                        ${(movie.revenue / 1_000_000).toFixed(0)}M
+                      </Typography>
+                    </Box>
+                  )}
+                </Box>
+              )}
+
               {/* Action buttons */}
               <Box sx={{ display: 'flex', gap: 1.5, flexWrap: 'wrap' }}>
+                {/* Watch Trailer */}
                 <Box
                   component={motion.button}
                   whileHover={{ scale: trailerKey ? 1.04 : 1 }}
@@ -419,11 +612,44 @@ function MovieDetails() {
                     cursor: trailerKey ? 'pointer' : 'not-allowed',
                     outline: 'none',
                     transition: 'background 0.2s ease',
-                    '&:hover': { background: trailerKey ? '#6366f1' : 'rgba(129,140,248,0.3)' }
+                    '&:hover': {
+                      background: trailerKey ? '#6366f1' : 'rgba(129,140,248,0.3)'
+                    }
                   }}
                 >
                   <PlayArrowRounded sx={{ fontSize: '1.1rem' }} />
                   {trailerKey ? 'Watch Trailer' : 'No Trailer'}
+                </Box>
+
+                {/* Share */}
+                <Box
+                  component={motion.button}
+                  whileHover={{ scale: 1.04 }}
+                  whileTap={{ scale: 0.97 }}
+                  onClick={handleShare}
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 0.75,
+                    px: 2.5,
+                    py: 1,
+                    borderRadius: '10px',
+                    background: 'transparent',
+                    border: '1px solid rgba(255,255,255,0.18)',
+                    color: '#fafafa',
+                    fontWeight: 700,
+                    fontSize: '0.875rem',
+                    cursor: 'pointer',
+                    outline: 'none',
+                    transition: 'border-color 0.2s ease, background 0.2s ease',
+                    '&:hover': {
+                      borderColor: 'rgba(255,255,255,0.35)',
+                      background: 'rgba(255,255,255,0.05)'
+                    }
+                  }}
+                >
+                  <ShareRounded sx={{ fontSize: '1.1rem' }} />
+                  Share
                 </Box>
               </Box>
             </motion.div>
@@ -432,10 +658,7 @@ function MovieDetails() {
       </Box>
 
       {/* ── Below-hero content ── */}
-      <Container
-        maxWidth="xl"
-        sx={{ px: { xs: 2, md: 4 }, py: { xs: 5, md: 6 } }}
-      >
+      <Container maxWidth="xl" sx={{ px: { xs: 2, md: 4 }, py: { xs: 5, md: 6 } }}>
         {/* Overview */}
         {movie.overview && (
           <motion.div
@@ -467,6 +690,149 @@ function MovieDetails() {
               </Typography>
             </Box>
           </motion.div>
+        )}
+
+        {/* Where to Watch */}
+        {hasProviders && (
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, delay: 0.28 }}
+          >
+            <Box sx={{ mb: 6 }}>
+              <Typography sx={{ color: '#fafafa', fontWeight: 700, fontSize: '1.2rem', mb: 2 }}>
+                Where to Watch
+              </Typography>
+
+              {providers.flatrate && (
+                <Box sx={{ mb: 2 }}>
+                  <Typography
+                    sx={{
+                      color: '#a1a1aa',
+                      fontSize: '0.78rem',
+                      mb: 1,
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.08em'
+                    }}
+                  >
+                    Stream
+                  </Typography>
+                  <Box sx={{ display: 'flex', gap: 1.5, flexWrap: 'wrap' }}>
+                    {providers.flatrate.map((p) => (
+                      <Box
+                        key={p.provider_id}
+                        title={p.provider_name}
+                        component="img"
+                        src={`https://image.tmdb.org/t/p/w92${p.logo_path}`}
+                        alt={p.provider_name}
+                        sx={{
+                          width: 44,
+                          height: 44,
+                          borderRadius: '10px',
+                          border: '1px solid rgba(255,255,255,0.1)'
+                        }}
+                      />
+                    ))}
+                  </Box>
+                </Box>
+              )}
+
+              {providers.rent && (
+                <Box sx={{ mb: 2 }}>
+                  <Typography
+                    sx={{
+                      color: '#a1a1aa',
+                      fontSize: '0.78rem',
+                      mb: 1,
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.08em'
+                    }}
+                  >
+                    Rent
+                  </Typography>
+                  <Box sx={{ display: 'flex', gap: 1.5, flexWrap: 'wrap' }}>
+                    {providers.rent.map((p) => (
+                      <Box
+                        key={p.provider_id}
+                        title={p.provider_name}
+                        component="img"
+                        src={`https://image.tmdb.org/t/p/w92${p.logo_path}`}
+                        alt={p.provider_name}
+                        sx={{
+                          width: 44,
+                          height: 44,
+                          borderRadius: '10px',
+                          border: '1px solid rgba(255,255,255,0.1)'
+                        }}
+                      />
+                    ))}
+                  </Box>
+                </Box>
+              )}
+
+              {providers.buy && (
+                <Box sx={{ mb: 2 }}>
+                  <Typography
+                    sx={{
+                      color: '#a1a1aa',
+                      fontSize: '0.78rem',
+                      mb: 1,
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.08em'
+                    }}
+                  >
+                    Buy
+                  </Typography>
+                  <Box sx={{ display: 'flex', gap: 1.5, flexWrap: 'wrap' }}>
+                    {providers.buy.map((p) => (
+                      <Box
+                        key={p.provider_id}
+                        title={p.provider_name}
+                        component="img"
+                        src={`https://image.tmdb.org/t/p/w92${p.logo_path}`}
+                        alt={p.provider_name}
+                        sx={{
+                          width: 44,
+                          height: 44,
+                          borderRadius: '10px',
+                          border: '1px solid rgba(255,255,255,0.1)'
+                        }}
+                      />
+                    ))}
+                  </Box>
+                </Box>
+              )}
+
+              <Typography sx={{ color: '#52525b', fontSize: '0.7rem', mt: 1 }}>
+                Powered by JustWatch
+              </Typography>
+            </Box>
+          </motion.div>
+        )}
+
+        {/* Keywords */}
+        {keywords.length > 0 && (
+          <Box sx={{ mb: 6 }}>
+            <Typography sx={{ color: '#fafafa', fontWeight: 700, fontSize: '1.2rem', mb: 1.5 }}>
+              Keywords
+            </Typography>
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.75 }}>
+              {keywords.map((kw) => (
+                <Chip
+                  key={kw.id}
+                  label={kw.name}
+                  size="small"
+                  sx={{
+                    background: 'rgba(255,255,255,0.05)',
+                    border: '1px solid rgba(255,255,255,0.1)',
+                    color: '#a1a1aa',
+                    fontSize: '0.75rem',
+                    borderRadius: '6px'
+                  }}
+                />
+              ))}
+            </Box>
+          </Box>
         )}
 
         {/* Cast */}
@@ -520,6 +886,26 @@ function MovieDetails() {
             <RecommendedMovieGrid id={id} />
           </Box>
         </motion.div>
+
+        {/* Reviews */}
+        {reviews.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, delay: 0.55 }}
+          >
+            <Box sx={{ mt: 6 }}>
+              <Typography sx={{ color: '#fafafa', fontWeight: 700, fontSize: '1.2rem', mb: 2 }}>
+                Reviews
+              </Typography>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                {reviews.map((review) => (
+                  <ReviewCard key={review.id} review={review} />
+                ))}
+              </Box>
+            </Box>
+          </motion.div>
+        )}
       </Container>
 
       {/* Trailer Modal */}
@@ -570,6 +956,24 @@ function MovieDetails() {
           )}
         </Box>
       </Dialog>
+
+      {/* "Link copied!" Snackbar */}
+      <Snackbar
+        open={copied}
+        autoHideDuration={2000}
+        onClose={() => setCopied(false)}
+        message="Link copied!"
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        ContentProps={{
+          sx: {
+            background: '#1e1e24',
+            border: '1px solid rgba(255,255,255,0.1)',
+            color: '#fafafa',
+            borderRadius: '10px',
+            fontWeight: 600
+          }
+        }}
+      />
     </motion.div>
   );
 }

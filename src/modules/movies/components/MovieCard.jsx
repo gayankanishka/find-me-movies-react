@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Card, Rating } from '@mui/material';
+import { Box, Card, Rating, Typography } from '@mui/material';
 import { StarRounded } from '@mui/icons-material';
 import { motion } from 'framer-motion';
 import PropTypes from 'prop-types';
@@ -10,6 +10,11 @@ import stringUtils from '../../../utils/string.utils';
 
 function MovieCard({ movie }) {
   const [hovered, setHovered] = useState(false);
+  const [imgError, setImgError] = useState(false);
+
+  const posterUrl = movie.poster_path
+    ? config.tmdbApi.posterBaseUrl + movie.poster_path
+    : null;
 
   return (
     <motion.div
@@ -37,19 +42,34 @@ function MovieCard({ movie }) {
           flexShrink: 0
         }}
       >
-        <LazyLoad once height={270} offset={500}>
+        {(!posterUrl || imgError) ? (
           <Box
-            component="img"
-            src={config.tmdbApi.posterBaseUrl + movie.poster_path}
-            alt={movie.title}
             sx={{
               width: '100%',
-              height: '270px',
-              objectFit: 'cover',
-              display: 'block'
+              height: 270,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              background: 'linear-gradient(135deg, #0f0f1a, #1a1a2e)',
+              gap: 1
             }}
-          />
-        </LazyLoad>
+          >
+            <Box sx={{ fontSize: '3rem' }}>🎬</Box>
+            <Typography sx={{ color: '#52525b', fontSize: '0.7rem', textAlign: 'center', px: 1 }}>
+              No Image
+            </Typography>
+          </Box>
+        ) : (
+          <LazyLoad height={270} offset={100} once>
+            <img
+              src={posterUrl}
+              alt={movie.title}
+              onError={() => setImgError(true)}
+              style={{ width: '100%', height: '270px', objectFit: 'cover', display: 'block' }}
+            />
+          </LazyLoad>
+        )}
 
         {/* Hover overlay */}
         <motion.div
@@ -109,10 +129,10 @@ function MovieCard({ movie }) {
 MovieCard.propTypes = {
   movie: PropTypes.shape({
     id: PropTypes.number.isRequired,
-    poster_path: PropTypes.string.isRequired,
+    poster_path: PropTypes.string,
     title: PropTypes.string.isRequired,
-    release_date: PropTypes.string.isRequired,
-    vote_average: PropTypes.number.isRequired
+    release_date: PropTypes.string,
+    vote_average: PropTypes.number
   }).isRequired
 };
 

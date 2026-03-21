@@ -23,11 +23,16 @@ import WhatshotIcon from '@mui/icons-material/Whatshot';
 import TheatersIcon from '@mui/icons-material/Theaters';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 import LocalMoviesIcon from '@mui/icons-material/LocalMovies';
+import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
+import CategoryIcon from '@mui/icons-material/Category';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import LightModeIcon from '@mui/icons-material/LightMode';
 import { motion, AnimatePresence } from 'framer-motion';
 import PropTypes from 'prop-types';
 
 import navigationService from '../services/navigation.service';
 import MovieSearch from '../modules/movies/components/MovieSearch';
+import { useColorMode } from '../context/ColorModeContext';
 
 const NAV_LINKS = [
   {
@@ -53,6 +58,18 @@ const NAV_LINKS = [
     icon: <TheatersIcon fontSize="small" />,
     action: () => navigationService.goToOnTheaters(),
     path: '/on-theaters'
+  },
+  {
+    label: 'Trending',
+    icon: <LocalFireDepartmentIcon fontSize="small" />,
+    action: () => navigationService.goToTrending(),
+    path: '/trending'
+  },
+  {
+    label: 'Genres',
+    icon: <CategoryIcon fontSize="small" />,
+    action: () => navigationService.goToGenres(),
+    path: '/genres'
   }
 ];
 
@@ -201,6 +218,7 @@ DrawerContent.propTypes = {
 function Header(props) {
   const location = useLocation();
   const [drawerOpen, setDrawerOpen] = React.useState(false);
+  const { mode, toggleColorMode } = useColorMode();
 
   const handleOpenDrawer = () => setDrawerOpen(true);
   const handleCloseDrawer = () => setDrawerOpen(false);
@@ -302,6 +320,19 @@ function Header(props) {
             >
               <MovieSearch />
             </Box>
+
+            {/* Dark/light mode toggle */}
+            <IconButton
+              onClick={toggleColorMode}
+              aria-label="toggle color mode"
+              sx={{ color: 'text.secondary', '&:hover': { color: 'text.primary' } }}
+            >
+              {mode === 'dark' ? (
+                <LightModeIcon fontSize="small" />
+              ) : (
+                <DarkModeIcon fontSize="small" />
+              )}
+            </IconButton>
           </Toolbar>
         </AppBar>
       </HideOnScroll>

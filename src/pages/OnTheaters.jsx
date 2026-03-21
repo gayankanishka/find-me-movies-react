@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Box, Container, Typography } from '@mui/material';
+import React, { useState, useEffect, useMemo } from 'react';
+import { Box, Container, Typography, Chip } from '@mui/material';
 import { TheatersRounded } from '@mui/icons-material';
 import { motion } from 'framer-motion';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -13,9 +13,35 @@ const pageVariants = {
   exit: { opacity: 0, y: -20, transition: { duration: 0.2 } }
 };
 
+const SORT_OPTIONS = [
+  { label: 'Popular', value: 'popularity' },
+  { label: 'Rating', value: 'rating' },
+  { label: 'Date', value: 'date' }
+];
+
+function sortMovies(movies, sortBy) {
+  const sorted = [...movies];
+  if (sortBy === 'popularity') {
+    return sorted.sort((a, b) => (b.popularity || 0) - (a.popularity || 0));
+  }
+  if (sortBy === 'rating') {
+    return sorted.sort((a, b) => (b.vote_average || 0) - (a.vote_average || 0));
+  }
+  if (sortBy === 'date') {
+    return sorted.sort(
+      (a, b) => new Date(b.release_date || 0) - new Date(a.release_date || 0)
+    );
+  }
+  return sorted;
+}
+
 function OnTheaters() {
   const [movies, setMovies] = useState([]);
   const [page, setPage] = useState(1);
+  const [sortBy, setSortBy] = useState('popularity');
+
+  document.title = 'Now Playing | FindMe Movies';
+  document.getElementById('root').style.backgroundImage = null;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,7 +59,7 @@ function OnTheaters() {
     setPage(data.page);
   };
 
-  document.getElementById('root').style.backgroundImage = null;
+  const sortedMovies = useMemo(() => sortMovies(movies, sortBy), [movies, sortBy]);
 
   return (
     <motion.div
@@ -68,12 +94,40 @@ function OnTheaters() {
             sx={{
               color: '#a1a1aa',
               fontSize: '0.95rem',
-              mb: 5,
+              mb: 3,
               ml: 0.25
             }}
           >
             Currently in theaters
           </Typography>
+
+          {/* Sort chips */}
+          <Box sx={{ display: 'flex', gap: 1, mb: 4 }}>
+            {SORT_OPTIONS.map(({ label, value }) => (
+              <Chip
+                key={value}
+                label={label}
+                onClick={() => setSortBy(value)}
+                variant={sortBy === value ? 'filled' : 'outlined'}
+                sx={
+                  sortBy === value
+                    ? {
+                        background: 'rgba(129,140,248,0.2)',
+                        border: '1px solid #818cf8',
+                        color: '#818cf8',
+                        fontWeight: 600,
+                        '&:hover': { background: 'rgba(129,140,248,0.28)' }
+                      }
+                    : {
+                        background: 'rgba(255,255,255,0.04)',
+                        border: '1px solid rgba(255,255,255,0.08)',
+                        color: '#a1a1aa',
+                        '&:hover': { background: 'rgba(255,255,255,0.08)', color: '#fafafa' }
+                      }
+                }
+              />
+            ))}
+          </Box>
         </motion.div>
 
         {/* Infinite scroll list */}
@@ -92,7 +146,7 @@ function OnTheaters() {
               </Box>
             }
           >
-            <VerticalMovieList movies={movies} />
+            <VerticalMovieList movies={sortedMovies} />
           </InfiniteScroll>
         </motion.div>
       </Container>

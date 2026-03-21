@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import InputBase from '@mui/material/InputBase';
 import Paper from '@mui/material/Paper';
 import Skeleton from '@mui/material/Skeleton';
+import Typography from '@mui/material/Typography';
 import SearchIcon from '@mui/icons-material/Search';
 import movieService from '../../../services/movie-db.service';
 import navigationService from '../../../services/navigation.service';
@@ -79,7 +80,19 @@ function MovieSearch() {
         return option.id === value.id;
       }}
       options={displayOptions}
-      loading={false}
+      loading={loading}
+      noOptionsText={
+        query.length > 1 ? (
+          <Box sx={{ py: 2, textAlign: 'center' }}>
+            <Typography sx={{ color: '#a1a1aa', fontSize: '0.875rem' }}>
+              No results for &quot;{query}&quot;
+            </Typography>
+            <Typography sx={{ color: '#52525b', fontSize: '0.75rem', mt: 0.5 }}>
+              Try a different title or spelling
+            </Typography>
+          </Box>
+        ) : 'Type to search movies...'
+      }
       filterOptions={(x) => x}
       onChange={(event, movie) => {
         if (movie && !movie._skeleton) {

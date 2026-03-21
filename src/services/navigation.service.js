@@ -24,13 +24,33 @@ function goToUpcomingMovies() {
   history.push('/upcoming-movies');
 }
 
+function goToTrending() {
+  history.push('/trending');
+}
+
+function goToGenres() {
+  history.push('/genres');
+}
+
+function goToGenreMovies(genreId, genreName) {
+  history.push(`/genres/${genreId}?name=${encodeURIComponent(genreName)}`);
+}
+
+function goToPerson(id) {
+  history.push(`/person/${id}`);
+}
+
 const navigationService = {
   goToHome,
   goToMovieDetails,
   goToOnTheaters,
   goToPopularMovies,
   goToTopMovies,
-  goToUpcomingMovies
+  goToUpcomingMovies,
+  goToTrending,
+  goToGenres,
+  goToGenreMovies,
+  goToPerson
 };
 
 export default navigationService;

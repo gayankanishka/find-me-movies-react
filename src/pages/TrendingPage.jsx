@@ -1,11 +1,9 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Container, Typography, Chip } from '@mui/material';
-import { UpcomingRounded } from '@mui/icons-material';
+import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import { motion } from 'framer-motion';
-import InfiniteScroll from 'react-infinite-scroll-component';
 import movieService from '../services/movie-db.service';
 import VerticalMovieList from '../modules/movies/components/VerticalMovieList';
-import SkeltonLoader from '../components/SkeltonLoader';
 
 const pageVariants = {
   initial: { opacity: 0, y: 20 },
@@ -13,55 +11,32 @@ const pageVariants = {
   exit: { opacity: 0, y: -20, transition: { duration: 0.2 } }
 };
 
-const SORT_OPTIONS = [
-  { label: 'Release Date ↑', value: 'date_asc' },
-  { label: 'Release Date ↓', value: 'date_desc' },
-  { label: 'Popular', value: 'popularity' }
+const TIME_WINDOWS = [
+  { label: 'Today', value: 'day' },
+  { label: 'This Week', value: 'week' }
 ];
 
-function sortMovies(movies, sortBy) {
-  const sorted = [...movies];
-  if (sortBy === 'date_asc') {
-    return sorted.sort(
-      (a, b) => new Date(a.release_date || 0) - new Date(b.release_date || 0)
-    );
-  }
-  if (sortBy === 'date_desc') {
-    return sorted.sort(
-      (a, b) => new Date(b.release_date || 0) - new Date(a.release_date || 0)
-    );
-  }
-  if (sortBy === 'popularity') {
-    return sorted.sort((a, b) => (b.popularity || 0) - (a.popularity || 0));
-  }
-  return sorted;
-}
-
-function UpcomingMovies() {
+function TrendingPage() {
   const [movies, setMovies] = useState([]);
-  const [page, setPage] = useState(1);
-  const [sortBy, setSortBy] = useState('date_asc');
+  const [timeWindow, setTimeWindow] = useState('day');
+  const [loading, setLoading] = useState(false);
 
-  document.title = 'Upcoming Movies | FindMe Movies';
+  document.title = 'Trending | FindMe Movies';
   document.getElementById('root').style.backgroundImage = null;
 
   useEffect(() => {
-    const fetchData = async () => {
-      const data = await movieService.getUpcomingMovies();
-      setMovies(data.results);
-      setPage(data.page);
+    let cancelled = false;
+    setLoading(true);
+    movieService.getTrendingMovies(timeWindow).then((data) => {
+      if (!cancelled) {
+        setMovies(data.results || []);
+        setLoading(false);
+      }
+    });
+    return () => {
+      cancelled = true;
     };
-
-    fetchData();
-  }, []);
-
-  const fetchMovies = async () => {
-    const data = await movieService.getUpcomingMovies(page + 1);
-    setMovies((prev) => [...prev, ...data.results]);
-    setPage(data.page);
-  };
-
-  const sortedMovies = useMemo(() => sortMovies(movies, sortBy), [movies, sortBy]);
+  }, [timeWindow]);
 
   return (
     <motion.div
@@ -79,7 +54,7 @@ function UpcomingMovies() {
           transition={{ duration: 0.4, delay: 0.05 }}
         >
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 1 }}>
-            <UpcomingRounded sx={{ color: '#818cf8', fontSize: '2rem' }} />
+            <LocalFireDepartmentIcon sx={{ color: '#f59e0b', fontSize: '2rem' }} />
             <Typography
               sx={{
                 color: '#fafafa',
@@ -89,7 +64,7 @@ function UpcomingMovies() {
                 letterSpacing: '-0.01em'
               }}
             >
-              Upcoming Movies
+              Trending
             </Typography>
           </Box>
           <Typography
@@ -100,19 +75,19 @@ function UpcomingMovies() {
               ml: 0.25
             }}
           >
-            What&apos;s coming to theaters soon
+            What the world is watching right now
           </Typography>
 
-          {/* Sort chips */}
-          <Box sx={{ display: 'flex', gap: 1, mb: 4, flexWrap: 'wrap' }}>
-            {SORT_OPTIONS.map(({ label, value }) => (
+          {/* Time window toggle chips */}
+          <Box sx={{ display: 'flex', gap: 1, mb: 4 }}>
+            {TIME_WINDOWS.map(({ label, value }) => (
               <Chip
                 key={value}
                 label={label}
-                onClick={() => setSortBy(value)}
-                variant={sortBy === value ? 'filled' : 'outlined'}
+                onClick={() => setTimeWindow(value)}
+                variant={timeWindow === value ? 'filled' : 'outlined'}
                 sx={
-                  sortBy === value
+                  timeWindow === value
                     ? {
                         background: 'rgba(129,140,248,0.2)',
                         border: '1px solid #818cf8',
@@ -132,28 +107,18 @@ function UpcomingMovies() {
           </Box>
         </motion.div>
 
-        {/* Infinite scroll list */}
+        {/* Movie list */}
         <motion.div
+          key={timeWindow}
           initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.15 }}
+          animate={{ opacity: loading ? 0.5 : 1, y: 0 }}
+          transition={{ duration: 0.35, delay: 0.1 }}
         >
-          <InfiniteScroll
-            dataLength={movies.length}
-            next={fetchMovies}
-            hasMore={page !== 1000}
-            loader={
-              <Box sx={{ mt: 3 }}>
-                <SkeltonLoader />
-              </Box>
-            }
-          >
-            <VerticalMovieList movies={sortedMovies} />
-          </InfiniteScroll>
+          <VerticalMovieList movies={movies} />
         </motion.div>
       </Container>
     </motion.div>
   );
 }
 
-export default UpcomingMovies;
+export default TrendingPage;
