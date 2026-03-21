@@ -13,6 +13,7 @@ A cinematic movie discovery app built with React and powered by the [TMDB API](h
 ## Features
 
 ### Discovery
+
 - **Hero carousel** — auto-playing crossfade slideshow of featured movies with backdrop imagery, ratings, and quick actions
 - **Trending** — day/week toggle to see what's hot right now
 - **Popular & Top Rated** — curated grids updated in real time from TMDB
@@ -21,7 +22,12 @@ A cinematic movie discovery app built with React and powered by the [TMDB API](h
 - **Browse by Genre** — colour-coded genre cards leading to filtered, sortable movie lists with infinite scroll
 - **Recently Viewed** — locally persisted history of movies you've visited (no login required)
 
+![alt text](</docs/assets/Screenshot 2026-03-21 at 14.35.32.png>)
+
+![alt text](</docs/assets/Screenshot 2026-03-21 at 14.36.04.png>)
+
 ### Movie Detail
+
 - Full backdrop hero with poster, rating, runtime, language, and release info
 - **Watch Trailer** — plays the official YouTube trailer in an in-app dialog
 - **Where to Watch** — streaming, rental, and purchase providers powered by JustWatch data
@@ -30,36 +36,49 @@ A cinematic movie discovery app built with React and powered by the [TMDB API](h
 - Keywords and similar movie recommendations
 - **Share** button using the Web Share API with clipboard fallback
 
+![alt text](</docs/assets/Screenshot 2026-03-21 at 14.43.10.png>)
+
+![alt text](</docs/assets/Screenshot 2026-03-21 at 14.43.40.png>)
+
 ### Person Pages
+
 - Actor/director profile with photo, biography (expandable), and personal info (born, died, place of birth, also known as, popularity)
 - Full filmography grid with character or job labels, sorted by popularity
 - Direct link to IMDb and personal homepage where available
 
+![alt text](</docs/assets/Screenshot 2026-03-21 at 15.33.40.png>)
+
 ### Search
+
 - Live search with poster thumbnails in the dropdown results
 - `⌘K` / `Ctrl+K` keyboard shortcut to focus the search field from anywhere on the page
 
 ### Navigation
+
 - Animated active indicator on the top nav bar (desktop)
 - Slide-out drawer for mobile with all routes
 - Fixed bottom navigation bar on mobile (Home, Popular, Search, Trending, Genres)
+
+![alt text](</docs/assets/Screenshot 2026-03-21 at 14.44.26.png>)
+
+![alt text](<Screenshot 2026-03-21 at 14.44.08.png>)
 
 ---
 
 ## Tech Stack
 
-| Layer | Library / Tool |
-|---|---|
-| UI framework | React 18 |
-| Component library | MUI v5 (`@mui/material`) |
-| Routing | React Router v5 |
-| Animations | Framer Motion |
-| Carousel | Swiper v8 |
-| HTTP client | Axios |
-| Build tool | Vite 5 |
-| Linting | ESLint + eslint-plugin-react |
-| Package manager | pnpm |
-| Deployment | Vercel (with serverless API proxy) |
+| Layer             | Library / Tool                     |
+| ----------------- | ---------------------------------- |
+| UI framework      | React 18                           |
+| Component library | MUI v5 (`@mui/material`)           |
+| Routing           | React Router v5                    |
+| Animations        | Framer Motion                      |
+| Carousel          | Swiper v8                          |
+| HTTP client       | Axios                              |
+| Build tool        | Vite 5                             |
+| Linting           | ESLint + eslint-plugin-react       |
+| Package manager   | pnpm                               |
+| Deployment        | Vercel (with serverless API proxy) |
 
 ---
 
@@ -139,12 +158,12 @@ api/
 
 ## Design System
 
-| Token | Value |
-|---|---|
-| Primary accent | `#e8b84b` — cinematic gold |
-| Background | `#0a0a0a` |
-| Surface | `#141414` |
-| Muted text | `#999999` |
+| Token          | Value                         |
+| -------------- | ----------------------------- |
+| Primary accent | `#e8b84b` — cinematic gold    |
+| Background     | `#0a0a0a`                     |
+| Surface        | `#141414`                     |
+| Muted text     | `#999999`                     |
 | Glass morphism | `backdrop-filter: blur(20px)` |
 
 ---
