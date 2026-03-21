@@ -1,116 +1,160 @@
-# Find me Movies
+# FindMe Movies
 
 ![CI][ci-url]
 [![MIT License][license-shield]][license-url]
 ![Vercel](http://therealsujitk-vercel-badge.vercel.app/?app=find-me-movies)
 
-The `Find me Movies` is a React based web application built on top of the The Movie DB API. The application will easily help you to find Trending and Upcoming Movies.
+A cinematic movie discovery app built with React and powered by the [TMDB API](https://www.themoviedb.org/documentation/api). Browse trending films, explore genres, watch trailers, and dive into full cast and crew details — all wrapped in a sleek dark UI with a gold accent design system.
 
-[`Live site here`](https://find-me-movies.vercel.app/)
+[**Live site →**](https://find-me-movies.vercel.app/)
 
-## Main application screens
+---
 
-### Home page
+## Features
 
-![Capture1](https://user-images.githubusercontent.com/32380979/118840265-dde8ae00-b8e4-11eb-8754-287ea9fbf004.PNG)
+### Discovery
+- **Hero carousel** — auto-playing crossfade slideshow of featured movies with backdrop imagery, ratings, and quick actions
+- **Trending** — day/week toggle to see what's hot right now
+- **Popular & Top Rated** — curated grids updated in real time from TMDB
+- **Upcoming** — movies releasing soon
+- **In Theaters** — what's currently showing near you
+- **Browse by Genre** — colour-coded genre cards leading to filtered, sortable movie lists with infinite scroll
+- **Recently Viewed** — locally persisted history of movies you've visited (no login required)
 
-![Capture2](https://user-images.githubusercontent.com/32380979/118348902-eb133f00-b56a-11eb-8ffc-5e9b2e047525.PNG)
+### Movie Detail
+- Full backdrop hero with poster, rating, runtime, language, and release info
+- **Watch Trailer** — plays the official YouTube trailer in an in-app dialog
+- **Where to Watch** — streaming, rental, and purchase providers powered by JustWatch data
+- Cast & crew cards with clickable actor/director profiles
+- User reviews with expandable content
+- Keywords and similar movie recommendations
+- **Share** button using the Web Share API with clipboard fallback
 
-### Popular movies, Top rated movies, Upcoming movies and currently screening movies will have a similar view as below
+### Person Pages
+- Actor/director profile with photo, biography (expandable), and personal info (born, died, place of birth, also known as, popularity)
+- Full filmography grid with character or job labels, sorted by popularity
+- Direct link to IMDb and personal homepage where available
 
-![Capture3](https://user-images.githubusercontent.com/32380979/118348939-27469f80-b56b-11eb-8088-6718edb0e71a.PNG)
+### Search
+- Live search with poster thumbnails in the dropdown results
+- `⌘K` / `Ctrl+K` keyboard shortcut to focus the search field from anywhere on the page
 
-### Movie detail view
+### Navigation
+- Animated active indicator on the top nav bar (desktop)
+- Slide-out drawer for mobile with all routes
+- Fixed bottom navigation bar on mobile (Home, Popular, Search, Trending, Genres)
 
-![Capture4](https://user-images.githubusercontent.com/32380979/118348951-3d546000-b56b-11eb-9a60-2067ba5705d1.PNG)
+---
 
-What's included:
+## Tech Stack
 
-- Uses [`React`](https://reactjs.org/) as the web application framework
-- Uses [`TMDB API`](https://developers.themoviedb.org/3/getting-started/introduction) to retrieve movie information
-- Uses [`Material UI`](https://material-ui.com/) to style the components
-- Uses [`Axios`](https://www.npmjs.com/package/axios) as the HTTP client
-- Hosted with [`Vercel`](https://vercel.com/)
+| Layer | Library / Tool |
+|---|---|
+| UI framework | React 18 |
+| Component library | MUI v5 (`@mui/material`) |
+| Routing | React Router v5 |
+| Animations | Framer Motion |
+| Carousel | Swiper v8 |
+| HTTP client | Axios |
+| Build tool | Vite 5 |
+| Linting | ESLint + eslint-plugin-react |
+| Package manager | pnpm |
+| Deployment | Vercel (with serverless API proxy) |
 
-## Table of Content
+---
 
-- [Quick Start](#quick-start)
-  - [Prerequisites](#prerequisites)
-  - [Build and run](#build-and-run-from-source)
-  - [Available scripts](#available-scripts)
-- [License](#license)
-
-## Quick Start
-
-After setting up your local DEV environment, you can clone this repository and run the solution using `yarn start` command. Make sure to create and configure the `.env` file with the provided setting value.
-
-```
-REACT_APP_TMDB_PROXY_BASE_URL=https://find-me-movies.vercel.app/api/
-REACT_APP_TMDB_POSTER_BASE_URL=https://image.tmdb.org/t/p/w220_and_h330_face/
-REACT_APP_TMDB_BACKDROP_BASE_URL=https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/
-```
+## Getting Started
 
 ### Prerequisites
 
-You'll need the following tools:
+- Node.js 18+
+- pnpm — `npm install -g pnpm`
+- A free [TMDB API key](https://www.themoviedb.org/settings/api)
 
-- [Yarn package manager](https://yarnpkg.com/getting-started/install)
-- [Node.js](https://nodejs.org/en/), version `>=14`
-- [VS Code](https://code.visualstudio.com/)
-- [TMDB developer account](https://www.themoviedb.org/signup)
+### Installation
 
-### Build and run from source
+```bash
+git clone https://github.com/gayankanishka/find-me-movies-react.git
+cd find-me-movies-react
+pnpm install
+```
 
-First clone this repository locally.
+### Environment variables
 
-- Run `yarn` command from the repository root
-- Add `.env` file with the configs mentioned above
-- Run `yarn start`
-- Local site will be available in [http://localhost:3000](http://localhost:3000)
+Create a `.env` file in the project root:
 
-## Available Scripts
+```env
+VITE_TMDB_API_KEY=your_tmdb_api_key_here
+```
 
-In the project directory, you can run:
+> In production the key is kept server-side via a Vercel serverless proxy (`api/[...path].js`). For local development it is read from `VITE_TMDB_API_KEY`.
 
-### `yarn start`
+### Run locally
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```bash
+pnpm start
+```
 
-### `yarn build`
+Open [http://localhost:5173](http://localhost:5173) in your browser.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Build for production
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+```bash
+pnpm build
+pnpm preview   # preview the built output locally
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `yarn eject`
+## Deployment
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+The app is deployed on [Vercel](https://vercel.com/). To deploy your own instance:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. Import the repository in Vercel
+2. Add the environment variable `TMDB_API_KEY` in the Vercel project settings
+3. Deploy — Vercel automatically handles the `api/` directory as serverless functions
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+---
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Project Structure
+
+```
+src/
+├── components/          # Shared layout components (Header, Footer, BottomNav, Layout)
+├── modules/
+│   └── movies/
+│       └── components/  # Movie-specific components (MovieCard, MovieCarousel, MovieSearch, …)
+├── pages/               # Route-level page components
+├── services/            # API service layer (movie-db.service, navigation.service)
+├── utils/               # Helpers (recently-viewed.utils)
+├── theme.js             # MUI dark theme with gold accent design tokens
+├── routeConfig.js       # Lazy-loaded route definitions
+└── App.jsx              # Root with Router, ThemeProvider, AnimatePresence
+
+api/
+└── [...path].js         # Vercel serverless proxy for TMDB API
+```
+
+---
+
+## Design System
+
+| Token | Value |
+|---|---|
+| Primary accent | `#e8b84b` — cinematic gold |
+| Background | `#0a0a0a` |
+| Surface | `#141414` |
+| Muted text | `#999999` |
+| Glass morphism | `backdrop-filter: blur(20px)` |
+
+---
 
 ## License
 
 Licensed under the [MIT](LICENSE) license.
 
+Movie data provided by [TMDB](https://www.themoviedb.org/). This product uses the TMDB API but is not endorsed or certified by TMDB.
+
 [ci-url]: https://github.com/gayankanishka/find-me-movies/workflows/CI/badge.svg
-[contributors-shield]: https://img.shields.io/badge/CONTRIBUTORS-green.svg
-[contributors-url]: https://github.com/gayankanishka/find-me-movies/graphs/contributors
-[forks-shield]: https://img.shields.io/badge/FORKS-blue.svg
-[forks-url]: https://github.com/gayankanishka/find-me-movies/network/members
-[stars-shield]: https://img.shields.io/badge/STARS-blue.svg
-[stars-url]: https://github.com/gayankanishka/find-me-movies/stargazers
-[issues-shield]: https://img.shields.io/badge/ISSUES-orange.svg
-[issues-url]: https://github.com/gayankanishka/find-me-movies/issues
 [license-shield]: https://img.shields.io/badge/License-MIT-blue.svg
 [license-url]: https://github.com/gayankanishka/find-me-movies/blob/master/LICENSE
-
-<!-- [product-screenshot]: images/screenshot.png -->
