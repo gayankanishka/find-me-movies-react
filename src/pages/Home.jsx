@@ -109,9 +109,11 @@ function Home() {
       animate="animate"
       exit="exit"
     >
-      {/* Hero carousel — full width, no container padding */}
-      <Box sx={{ width: '100%' }}>
-        <DiscoverMovies />
+      {/* Hero carousel — inset with small gap from edges */}
+      <Box sx={{ px: { xs: 1.5, sm: 2.5, md: 4 }, pt: { xs: 1, sm: 1.5 } }}>
+        <Box sx={{ borderRadius: { xs: '12px', md: '16px' }, overflow: 'hidden' }}>
+          <DiscoverMovies />
+        </Box>
       </Box>
 
       <Container maxWidth="xl" sx={{ px: { xs: 2, md: 4 } }}>
